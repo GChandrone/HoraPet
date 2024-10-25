@@ -31,4 +31,3 @@
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- CSS Novo -->  
   <link rel="stylesheet" href="dist/css/style.css">
-  

@@ -68,16 +68,16 @@
                   <thead>
                   <tr>
                       <th>ID</th>
-                      <th>Raça</th>
-                      <th>Animal</th>
-                      <th>Foto</th>
-                      <th>Ativo</th>                
+                      <th>Nome</th>
+                      <th>Tipo do Pet</th>
+                      <!-- <th>Foto</th> -->
+                      <!-- <th>Ativo</th> -->
                       <th>Ações</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  <?php echo listaUsuario(); ?>
+                  <?php echo listaRaca(); ?>
                   
                   </tbody>
                   
@@ -110,25 +110,26 @@
                   <div class="col-8">
                     <div class="form-group">
                       <label for="iNome">Nome:</label>
-                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50">
+                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="100">
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
-                      <label for="iNome">Tipo de Usuário:</label>
-                      <select name="nTipoUsuario" class="form-control" required>
+                      <label for="iNome">Tipo do Pet:</label>
+                      <select name="nTipoPet" class="form-control" required>
                         <option value="">Selecione...</option>
-                        <?php echo optionTipoUsuario();?>
+                        <?php echo optionTipoPet();?>
                       </select>
                     </div>
                   </div>
                 
                   <div class="col-12">
                     <div class="form-group">
+                      <label for="iFoto">Foto:</label>
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="iFoto" name="Foto" accept="image/*">
-                        <label class="custom-file-label" for="customFile">Escolher imagem</label>
+                        <input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">
+                        <label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>
                       </div>
                     </div>
                   </div>
@@ -177,6 +178,10 @@
       "autoWidth": false,
       "responsive": true,
     });
+  });
+
+  $(function () {
+    bsCustomFileInput.init();
   });
 </script>
 
