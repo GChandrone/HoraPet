@@ -1,5 +1,5 @@
 <?php
-//Função para listar todos os usuários
+//Função para listar todos os Raças
  function listaRaca(){
      include("conexao.php");
      $sql = "SELECT * FROM raca ORDER BY id_raca;";
@@ -18,17 +18,17 @@
              //***Verificar os dados da consulta SQL
              $lista .= 
              '<tr>'
-                 .'<td align="center">'.$coluna["id_raca"].'</td>'
+                 .'<td>'.$coluna["id_raca"].'</td>'
                  .'<td>'.$coluna["nome"].'</td>'
-                 .'<td align="center">'.descrTipoPet($coluna["tipo_pet"]).'</td>'
+                 .'<td>'.descrTipoPet($coluna["tipo_pet"]).'</td>'
                  .'<td>'
                      .'<div class="row" align="center">'
-                         .'<div class="col-4">'
+                         .'<div class="col-6">'
                              .'<a href="#modalEditRaca'.$coluna["id_raca"].'" data-toggle="modal">'
                                  .'<h6><i class="fas fa-edit text-info" data-toggle="tooltip" title="Alterar Raça"></i></h6>'
                              .'</a>'
                          .'</div>'
-                         .'<div class="col-4">'
+                         .'<div class="col-6">'
                              .'<a href="#modalDeleteRaca'.$coluna["id_raca"].'" data-toggle="modal">'
                                  .'<h6><i class="fas fa-trash text-danger" data-toggle="tooltip" title="Alterar Raça"></i></h6>'
                              .'</a>'
@@ -63,20 +63,20 @@
                                         .'<label for="iNome">Tipo do Pet:</label>'
                                         .'<select name="nTipoPet" class="form-control" required>'
                                             .'<option value="'.$coluna["tipo_pet"].'">'.descrTipoPet($coluna["tipo_pet"]).'</option>'
-                                            .optionTipoPet()
+                                            .optionTipoPet($coluna["tipo_pet"])
                                         .'</select>'
                                     .'</div>'
                                 .'</div>'
                             
-                                .'<div class="col-12">'
-                                    .'<div class="form-group">'
-                                        .'<label for="iFoto">Foto:</label>'
-                                        .'<div class="custom-file">'
-                                            .'<input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">'
-                                            .'<label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>'
-                                        .'</div>'
-                                    .'</div>'
-                                .'</div>'
+                                // .'<div class="col-12">' UTILIZAR NO CADASTRO DO PET
+                                //     .'<div class="form-group">'
+                                //         .'<label for="iFoto">Foto:</label>'
+                                //         .'<div class="custom-file">'
+                                //             .'<input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">'
+                                //             .'<label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>'
+                                //         .'</div>'
+                                //     .'</div>'
+                                // .'</div>'
                                 
                                 .'</div>'
               
@@ -92,20 +92,20 @@
                  .'</div>'
              .'</div>'
           
-             .'<div class="modal fade" id="modalDeleteUsuario'.$coluna["idUsuario"].'">'
+             .'<div class="modal fade" id="modalDeleteRaca'.$coluna["id_raca"].'">'
                  .'<div class="modal-dialog">'
                      .'<div class="modal-content">'
                          .'<div class="modal-header bg-danger">'
-                             .'<h4 class="modal-title">Excluir Usuário: '.$coluna["idUsuario"].'</h4>'
+                             .'<h4 class="modal-title">Excluir Raça: '.$coluna["nome"].'</h4>'
                              .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
                                  .'<span aria-hidden="true">&times;</span>'
                              .'</button>'
                          .'</div>'
                          .'<div class="modal-body">'
-                             .'<form method="POST" action="php/salvarUsuario.php?funcao=D&codigo='.$coluna["idUsuario"].'" enctype="multipart/form-data">'              
+                             .'<form method="POST" action="php/salvarRaca.php?funcao=D&codigo='.$coluna["id_raca"].'" enctype="multipart/form-data">'              
                                  .'<div class="row">'
                                      .'<div class="col-12">'
-                                         .'<h5>Deseja EXCLUIR o usuário '.$coluna["Nome"].'?</h5>'
+                                         .'<h5>Tem certeza de que deseja excluir o registro?</h5>'
                                      .'</div>'
                                  .'</div>'
                               
@@ -125,34 +125,6 @@
   
      return $lista;
  }
-
-//Próximo ID do usuário
-function proxIdRaca(){
-
-    $id = "";
-
-    include("conexao.php");
-    $sql = "SELECT MAX(id_raca) AS Maior FROM raca;";        
-    $result = mysqli_query($conn,$sql);
-    mysqli_close($conn);
-
-    //Validar se tem retorno do BD
-    if (mysqli_num_rows($result) > 0) {
-                
-        $array = array();
-        
-        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            array_push($array,$linha);
-        }
-        
-        foreach ($array as $coluna) {            
-            //***Verificar os dados da consulta SQL
-            $id = $coluna["Maior"] + 1;
-        }        
-    } 
-
-    return $id;
-}
 
 // //Função para buscar o tipo de acesso do usuário
 // function tipoAcessoUsuario($id){

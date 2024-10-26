@@ -3,7 +3,7 @@
 //Função para buscar a descrição do tipo de usuário
 function descrTipoPet($id){
 
-    if ($id = 1) {
+    if ($id == 1) {
         $descricao = "Cachorro";
     }else{
         $descricao = "Gato";
@@ -13,11 +13,19 @@ function descrTipoPet($id){
 }
 
 //Função para montar o select/option
-function optionTipoPet(){
+function optionTipoPet($p){
 
-    $option = '<option value=1>Cachorro</option>'
-             .'<option value=2>Gato</option>';
-   
+    if ($p == "I") {
+        $option = '<option value=1>Cachorro</option>'
+                 .'<option value=2>Gato</option>';
+    }else{
+        if ($p == 1) {
+            $option = '<option value=2>Gato</option>';
+        }elseif ($p == 2){
+            $option = '<option value=1>Cachorro</option>';
+        }
+    }
+    
     return $option;
 }
 

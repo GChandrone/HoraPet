@@ -110,7 +110,7 @@
                   <div class="col-8">
                     <div class="form-group">
                       <label for="iNome">Nome:</label>
-                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="100">
+                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
                     </div>
                   </div>
 
@@ -119,12 +119,12 @@
                       <label for="iNome">Tipo do Pet:</label>
                       <select name="nTipoPet" class="form-control" required>
                         <option value="">Selecione...</option>
-                        <?php echo optionTipoPet();?>
+                        <?php echo optionTipoPet("I");?>
                       </select>
                     </div>
                   </div>
                 
-                  <div class="col-12">
+                  <!-- <div class="col-12">  UTILIZAR NO CADASTRO DO PET
                     <div class="form-group">
                       <label for="iFoto">Foto:</label>
                       <div class="custom-file">
@@ -132,7 +132,7 @@
                         <label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="modal-footer">
