@@ -16,6 +16,7 @@ function montaMenu($n1,$n2){
     $opcUsuarios      = '';
     $opcProdutos      = '';
     $opcRacas         = '';
+    $opcServicos      = '';
     $opcPerfil        = '';
     
     //Primeiro nível do menu
@@ -60,6 +61,10 @@ function montaMenu($n1,$n2){
         case 'racas':
             $opcRacas = 'active';
             break; 
+
+        case 'servicos':
+            $opcServicos = 'active';
+            break;
 
         case 'perfil':
             $opcPerfil = 'active';
@@ -134,6 +139,15 @@ function montaMenu($n1,$n2){
                         <a href="./racas.php" class="nav-link '.$opcRacas.'">
                         <i class="fas fa-paw nav-icon"></i>
                         <p>Raças</p>
+                        </a>
+                    </li>              
+                </ul>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="./servicos.php" class="nav-link '.$opcServicos.'">
+                        <i class="ion ion-scissors nav-icon"></i>
+                        <p>Serviços</p>
                         </a>
                     </li>              
                 </ul>
