@@ -117,36 +117,36 @@
                   <div class="col-3">
                     <div class="form-group">
                       <label for="iNome">Valor:</label>
-                      <input type="text" class="form-control" id="iTitulo" name="nTitulo" maxlength="50" required>
+                      <input type="text" class="form-control" id="iValor" name="nValor" maxlength="50" required>
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label for="iNome">Duração:</label>
-                      <input type="time" class="form-control" id="iTitulo" name="nTitulo" maxlength="50" required>
+                      <input type="time" class="form-control" id="iDuracao" name="nDuracao" maxlength="50" required>
                     </div>
                   </div>
-                
-                  <!-- <div class="col-12">  UTILIZAR NO CADASTRO DO PET 
-                    <div class="form-group">
-                      <label for="iFoto">Foto:</label>
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">
-                        <label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>
-                      </div>
-                    </div>
-                  </div> -->
                   
                 </div>
 
                 <div class="row">
                   <div class="col-12">
                     <div class="form-group">
-                      <label for="iNome">Duração:</label>
-                      <textarea name="nDescricao" id="iDescricao" required></textarea>
+                      <label>Descrição</label>
+                      <textarea name="nDescricao" class="form-control" rows="3" placeholder="Escreva..." maxlength="255"></textarea>
                     </div>
                   </div>
+                </div>
+
+                <!-- <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input custom-control-input-success custom-control-input-outline" type="checkbox" id="customCheckbox5" checked>
+                  <label for="customCheckbox5" class="custom-control-label">Serviço Ativo</label>
+                </div> -->
+
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivo" name="nAtivo" checked>
+                  <label for="iAtivo" class="custom-control-label">Serviço Ativo</label>
                 </div>
 
                 <div class="modal-footer">
