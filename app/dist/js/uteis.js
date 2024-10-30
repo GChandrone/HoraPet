@@ -36,6 +36,35 @@ var readURL = function(input) {
     }
   };
   
+   /********************************************************
+   ** Impedir que sejam digitados letras em campos de valor*
+   *********************************************************/
+   document.querySelectorAll('.valor-real').forEach(function(input) {
+    // Impede que letras sejam digitadas
+    input.addEventListener('keypress', function(e) {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+    
+   /*******************************************************
+   ** Formatar input no padrão de moeda Real (R$ 1.000,00)*
+   ********************************************************/
+    input.addEventListener('input', function() {
+      // Remove tudo que não é número
+      let value = this.value.replace(/\D/g, '');
+      
+      // Converte para moeda, adiciona vírgula para os centavos
+      value = (value / 100).toFixed(2).replace('.', ',');
+      
+      // Adiciona os pontos de milhar
+      value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      
+      // Adiciona o símbolo "R$"
+      this.value = 'R$ ' + value;
+    });
+  });
+
   /**************************
   ****** jQuery Mask JS *****
   ***************************/

@@ -62,4 +62,15 @@ function enviarEmail($email,$msg,$assunto,$nome){
     }
 }
 
+function desformatarMoeda($valorFormatado) {
+    // Remove o "R$", pontos e espaços extras do valor
+    $valorSemSimbolo = str_replace(['R$', '.', ' '], '', $valorFormatado);
+    
+    // Substitui a vírgula decimal por um ponto decimal
+    $valorDecimal = str_replace(',', '.', $valorSemSimbolo);
+
+    // Converte para float para garantir o formato decimal
+    return number_format((float)$valorDecimal, 2, '.', '');
+}
+
 ?>

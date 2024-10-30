@@ -104,7 +104,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form method="POST" action="php/salvarRaca.php?funcao=I" enctype="multipart/form-data">              
+              <form method="POST" action="php/salvarServico.php?funcao=I" enctype="multipart/form-data">              
                 
                 <div class="row">
                   <div class="col-6">
@@ -116,8 +116,8 @@
 
                   <div class="col-3">
                     <div class="form-group">
-                      <label for="iNome">Valor:</label>
-                      <input type="text" class="form-control" id="iValor" name="nValor" maxlength="50" required>
+                      <label for="iValor">Valor:</label>
+                      <input type="text" class="form-control valor-real" id="iValor" name="nValor" maxlength="11" placeholder="R$ 0,00" required>
                     </div>
                   </div>
 
@@ -145,8 +145,8 @@
                 </div> -->
 
                 <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivo" name="nAtivo" checked>
-                  <label for="iAtivo" class="custom-control-label">Serviço Ativo</label>
+                  <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoServico" name="nAtivoServico" checked>
+                  <label for="iAtivoServico" class="custom-control-label">Serviço Ativo</label>
                 </div>
 
                 <div class="modal-footer">
