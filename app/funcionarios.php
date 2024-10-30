@@ -25,7 +25,7 @@
   <!-- Sidebar -->
   <?php 
     $_SESSION['menu-n1'] = 'administrador';
-    $_SESSION['menu-n2'] = 'usuarios';
+    $_SESSION['menu-n2'] = 'funcionarios';
     include('partes/sidebar.php'); 
   ?>
   <!-- Fim Sidebar -->
@@ -104,7 +104,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form method="POST" action="php/salvarUsuario.php?funcao=I" enctype="multipart/form-data">              
+              <form method="POST" action="php/salvarFuncionario.php?funcao=I" enctype="multipart/form-data">              
                 
                 <div class="row">
                   <div class="col-4">
@@ -131,8 +131,8 @@
 
                   <div class="col-8">
                     <div class="form-group">
-                      <label for="iLogin">Login:</label>
-                      <input type="email" class="form-control" id="iLogin" name="nLogin" maxlength="50">
+                      <label for="iLogin">E-mail:</label>
+                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50">
                     </div>
                   </div>
 
@@ -143,19 +143,13 @@
                     </div>
                   </div>
                 
-                
-                
-                  <div class="col-12">
-                    <div class="form-group">
-                      <input type="checkbox" id="iAtivo" name="nAtivo">
-                      <label for="iAtivo">Funcionário Ativo</label>
-                    </div>
-                  </div>
-
-                  
-
                 </div>
-
+                
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario" name="nAtivoFuncionario" checked>
+                  <label for="iAtivoFuncionario" class="custom-control-label">Funcionário Ativo</label>
+                </div>
+                
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                   <button type="submit" class="btn btn-success">Salvar</button>

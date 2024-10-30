@@ -2,32 +2,29 @@
 
     include('funcoes.php');
 
-    $tipoUsuario = $_POST["nTipoUsuario"];
-    $nome        = $_POST["nNome"];
-    $login       = $_POST["nLogin"];
-    $senha       = $_POST["nSenha"];
-    $funcao      = $_GET["funcao"];
-    $idUsuario   = $_GET["codigo"];
+    
+    $nome           = $_POST["nNome"    ];
+    $email          = $_POST["nEmail"   ];
+    $senha          = $_POST["nSenha"   ];
+    $telefone       = $_POST["nTelefone"];
+    $dataNascimento = $_POST["ndata"    ];
+    $funcao         = $_GET ["funcao"   ];
+    $idFuncionario  = $_GET ["codigo"   ];
 
-    if($_POST["nAtivo"] == "on") $ativo = "S"; else $ativo = "N";
+
+    if($_POST["nAtivo"] == "on") $ativo = "1"; else $ativo = "0";
 
     include("conexao.php");
 
     //Validar se é Inclusão ou Alteração
     if($funcao == "I"){
 
-        //Busca o próximo ID na tabela
-        $idUsuario = proxIdUsuario();
-
         //INSERT
-        $sql = "INSERT INTO usuarios (idUsuario,idTipoUsuario,Nome,Login,Senha,FlgAtivo) "
-                ." VALUES (".$idUsuario.","
-                .$tipoUsuario.","
-                ."'$nome',"
-                ."'$login',"
-                ."md5('$senha'),"
-                ."'$ativo');";
-
+        
+        $sql = "INSERT INTO funcionario (id_funcionario,nome,email,senha,data,ativo) "
+        ." VALUES ("."'$idFuncionario',$nome'$email','$md5('$senha')'$idFuncionario','$ativo' );"; 
+    
+    
     }elseif($funcao == "A"){
         //UPDATE
         if($senha == ''){ 
@@ -36,18 +33,18 @@
             $setSenha = " Senha = md5('".$senha."'), ";
         }
 
-        $sql = "UPDATE usuarios "
-                ." SET idTipoUsuario = $tipoUsuario, "
-                    ." Nome = '$nome', "
-                    ." Login = '$login', "
+        $sql = "UPDATE funcionario "
+                ." SET idFuncionario = $idFuncionario, "
+                    ." nome = '$nome', "
+                    ." email = '$email', "
                     .$setSenha 
-                    ." FlgAtivo = '$ativo' "
-                ." WHERE idUsuario = $idUsuario;";
+                    ." ativo = '$ativo' "
+                ." WHERE idFuncionario = $idFuncionario;";
 
     }elseif($funcao == "D"){
         //DELETE
         $sql = "DELETE FROM usuarios "
-                ." WHERE idUsuario = $idUsuario;";
+                ." WHERE idFuncionario = $idFuncionario;";
     }
 
     $result = mysqli_query($conn,$sql);
@@ -84,11 +81,11 @@
         //UPDATE
         $sql = "UPDATE usuarios "
                 ." SET Foto = '$dirImagem' "
-                ." WHERE idUsuario = $idUsuario;";
+                ." WHERE idFuncionario = $idFuncionario;";
         $result = mysqli_query($conn,$sql);
         mysqli_close($conn);
     }
 
-    header("location: ../usuarios.php");
+    header("location: ../funcionarios.php");
 
 ?>
