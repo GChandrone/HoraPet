@@ -69,15 +69,16 @@
                   <tr>
                       <th>ID</th>
                       <th>Nome</th>
-                      <th>Tipo do Pet</th>
-                      <!-- <th>Foto</th> -->
-                      <!-- <th>Ativo</th> -->
+                      <th>Valor</th>
+                      <th>Duração</th>
+                      <th>Descrição</th>
+                      <th>Ativo</th>                
                       <th>Ações</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  <?php echo listaRaca(); ?>
+                  <?php echo listaServico(); ?>
                   
                   </tbody>
                   
@@ -138,11 +139,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input custom-control-input-success custom-control-input-outline" type="checkbox" id="customCheckbox5" checked>
-                  <label for="customCheckbox5" class="custom-control-label">Serviço Ativo</label>
-                </div> -->
 
                 <div class="custom-control custom-checkbox">
                   <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoServico" name="nAtivoServico" checked>
