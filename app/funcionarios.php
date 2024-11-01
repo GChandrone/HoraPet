@@ -68,16 +68,17 @@
                   <thead>
                   <tr>
                       <th>ID</th>
-                      <th>Tipo de Funcionário</th>
                       <th>Nome</th>
-                      <th>Login</th>
+                      <th>Email</th>
+                      <th>Data de Nascimento</th>
+                      <th>Telefone</th> 
                       <th>Ativo</th>                
                       <th>Ações</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  <?php echo listaUsuario(); ?>
+                  <?php echo listaFuncionario(); ?>
                   
                   </tbody>
                   
@@ -139,7 +140,7 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iSenha">Senha:</label>
-                      <input type="text" class="form-control" id="iSenha" name="nSenha" maxlength="6">
+                      <input type="password" class="form-control" id="iSenha" name="nSenha">
                     </div>
                   </div>
                 

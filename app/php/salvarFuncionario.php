@@ -21,8 +21,8 @@
 
         //INSERT
         
-        $sql = "INSERT INTO funcionario (id_funcionario,nome,email,senha,data,ativo) "
-        ." VALUES ("."'$idFuncionario',$nome'$email','$md5('$senha')'$idFuncionario','$ativo' );"; 
+        $sql = "INSERT INTO funcionario (id_funcionario,nome,email,senha,data) "
+        ." VALUES ("."'$idFuncionario',$nome'$email','$md5('$senha')'$idFuncionario' );"; 
     
     
     }elseif($funcao == "A"){
@@ -43,48 +43,13 @@
 
     }elseif($funcao == "D"){
         //DELETE
-        $sql = "DELETE FROM usuarios "
+        $sql = "DELETE FROM funcionario "
                 ." WHERE idFuncionario = $idFuncionario;";
     }
 
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
 
-
-    //VERIFICA SE TEM IMAGEM NO INPUT
-    if($_FILES['Foto']['tmp_name'] != ""){
-
-        //Usar o mesmo nome do arquivo original
-        //$nomeArq = $_FILES['Foto']['name'];
-        //...
-        //OU
-        //Pega a extensão do arquivo e cria um novo nome pra ele (MD5 do nome original)
-        $extensao = pathinfo($_FILES['Foto']['name'], PATHINFO_EXTENSION);
-        $novoNome = md5($_FILES['Foto']['name']).'.'.$extensao;        
-        
-        //Verificar se o diretório existe, ou criar a pasta
-        if(is_dir('../dist/img/')){
-            //Existe
-            $diretorio = '../dist/img/';
-        }else{
-            //Criar pq não existe
-            $diretorio = mkdir('../dist/img/');
-        }
-
-        //Cria uma cópia do arquivo local na pasta do projeto
-        move_uploaded_file($_FILES['Foto']['tmp_name'], $diretorio.$novoNome);
-
-        //Caminho que será salvo no banco de dados
-        $dirImagem = 'dist/img/'.$novoNome;
-
-        include("conexao.php");
-        //UPDATE
-        $sql = "UPDATE usuarios "
-                ." SET Foto = '$dirImagem' "
-                ." WHERE idFuncionario = $idFuncionario;";
-        $result = mysqli_query($conn,$sql);
-        mysqli_close($conn);
-    }
 
     header("location: ../funcionarios.php");
 

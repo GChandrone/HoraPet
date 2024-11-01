@@ -30,7 +30,7 @@
                          .'</div>'
                          .'<div class="col-6">'
                              .'<a href="#modalDeleteRaca'.$coluna["id_raca"].'" data-toggle="modal">'
-                                 .'<h6><i class="fas fa-trash text-danger" data-toggle="tooltip" title="Alterar Raça"></i></h6>'
+                                 .'<h6><i class="fas fa-trash text-danger" data-toggle="tooltip" title="Excluir Raça"></i></h6>'
                              .'</a>'
                          .'</div>'
                      .'</div>'

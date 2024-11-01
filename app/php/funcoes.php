@@ -7,6 +7,7 @@ include("funcaoTipoUsuario.php");
 include("funcaoUsuario.php");
 include("funcaoTipoPet.php");
 include("funcaoRaca.php");
+include("funcaoFuncionario.php");
 
     
 use PHPMailer\PHPMailer\PHPMailer;
@@ -72,5 +73,7 @@ function desformatarMoeda($valorFormatado) {
     // Converte para float para garantir o formato decimal
     return number_format((float)$valorDecimal, 2, '.', '');
 }
+
+
 
 ?>
