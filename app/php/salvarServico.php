@@ -23,25 +23,19 @@
              ." VALUES ("."'$nome',$valor,'$duracao','$descricao',$ativo);";
 
     }elseif($funcao == "A"){
-        //UPDATE
-        if($senha == ''){ 
-            $setSenha = ''; 
-        }else{ 
-            $setSenha = " Senha = md5('".$senha."'), ";
-        }
-
-        $sql = "UPDATE usuarios "
-                ." SET idTipoUsuario = $tipoUsuario, "
-                    ." Nome = '$nome', "
-                    ." Login = '$login', "
-                    .$setSenha 
-                    ." FlgAtivo = '$ativo' "
-                ." WHERE idServico = $idServico;";
+        
+        $sql = "UPDATE servico "
+                ." SET nome         = '$nome', "
+                    ." valor        = $valor, "
+                    ." duracao      = '$duracao', "
+                    ." descricao    = '$descricao', "
+                    ." ativo        = $ativo "
+                ." WHERE id_servico = $idServico;";
 
     }elseif($funcao == "D"){
         //DELETE
-        $sql = "DELETE FROM usuarios "
-                ." WHERE idServico = $idServico;";
+        $sql = "DELETE FROM servico "
+                ." WHERE id_servico = $idServico;";
     }
 
     $result = mysqli_query($conn,$sql);

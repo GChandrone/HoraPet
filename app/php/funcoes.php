@@ -7,6 +7,7 @@ include("funcaoTipoUsuario.php");
 include("funcaoUsuario.php");
 include("funcaoTipoPet.php");
 include("funcaoRaca.php");
+include("funcaoServico.php");
 include("funcaoFuncionario.php");
 
     
@@ -76,4 +77,8 @@ function desformatarMoeda($valorFormatado) {
 
 
 
+function formatarMoeda($valorDesformatado) {
+    // Formata o valor como moeda brasileira (R$)
+    return 'R$ ' . number_format($valorDesformatado, 2, ',', '.');
+}
 ?>
