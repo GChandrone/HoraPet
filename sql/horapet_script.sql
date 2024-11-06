@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS horapet.pet (
   nome 		 VARCHAR(100) NOT NULL 				  COMMENT 'Nome do pet',
   altura 	 DECIMAL(5,2) NOT NULL 				  COMMENT 'Altura do pet, armazenada em centímetros (Ex: 50 cm)',
   peso 		 DECIMAL(5,2) NOT NULL 				  COMMENT 'Peso do pet, armazenado em quilos (Ex: 12.50 kg)',
-  porte      INT 		  NOT NULL 				  COMMENT 'Porte do pet: | 1 - Mini | 2 - Pequeno | 3 - Médio | 4 - Grande | 5 - Gigante |',
+  porte      INT 		  NOT NULL 				  COMMENT 'Porte do pet: | 1 - Pequeno | 2 - Médio | 3 - Grande |',
   foto       VARCHAR(255) NOT NULL 				  COMMENT 'Caminho do arquivo da foto do pet',
   id_cliente INT 		  NOT NULL 				  COMMENT 'Chave estrangeira que faz referência ao cliente (dono do pet)',
   id_raca    INT 		  NOT NULL 				  COMMENT 'Chave estrangeira que faz referência à raça do pet',
@@ -111,8 +111,12 @@ CREATE TABLE IF NOT EXISTS horapet.servico (
   id_servico INT 		  NOT NULL AUTO_INCREMENT COMMENT 'Chave primária que identifica de forma única o serviço',
   nome 		 VARCHAR(100) NOT NULL 				  COMMENT 'Nome do serviço oferecido',
   descricao  VARCHAR(255) 	  NULL                COMMENT 'Descrição detalhada do serviço',
-  valor 	 DECIMAL(6,2) NOT NULL                COMMENT 'Valor do serviço, armazenado no formato decimal (Ex: 150.00)',
-  duracao 	 TIME 		  NOT NULL                COMMENT 'Duração prevista para o serviço, armazenada no formato de hora',
+  valor_pequeno  DECIMAL(6,2) NOT NULL                COMMENT 'Valor do serviço, armazenado no formato decimal (Ex: 150.00)',
+  valor_medio 	 DECIMAL(6,2) NOT NULL                COMMENT 'Valor do serviço, armazenado no formato decimal (Ex: 150.00)',
+  valor_grande 	 DECIMAL(6,2) NOT NULL                COMMENT 'Valor do serviço, armazenado no formato decimal (Ex: 150.00)',
+  duracao_pequeno  TIME 		  NOT NULL                COMMENT 'Duração prevista para o serviço, armazenada no formato de hora',
+  duracao_medio 	 TIME 		  NOT NULL                COMMENT 'Duração prevista para o serviço, armazenada no formato de hora',
+  duracao_grande 	 TIME 		  NOT NULL                COMMENT 'Duração prevista para o serviço, armazenada no formato de hora',
   PRIMARY KEY (id_servico))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
