@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-success elevation-4">
+<aside class="main-sidebar sidebar-light-success elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="dist/img/Logo.jpg" alt="HoraPet Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
