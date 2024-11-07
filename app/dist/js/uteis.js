@@ -130,11 +130,11 @@ var readURL = function(input) {
   /**************************
   *** CEP Autopreenchido ****
   ***************************/
-  cep    = $('input[name="CEP"');
-  rua    = $('input[name="Endereco"]');
-  bairro = $('input[name="Bairro"]');
-  cidade = $('input[name="Cidade"');
-  uf     = $('input[name="UF"]');
+  cep    = $('input[name="nCEP"');
+  rua    = $('input[name="nEndereco"]');
+  bairro = $('input[name="nBairro"]');
+  cidade = $('input[name="nCidade"');
+  uf     = $('input[name="nUF"]');
   function limpa_formulário_cep() {
     // Limpa valores do formulário de cep.
     cep.val("");
