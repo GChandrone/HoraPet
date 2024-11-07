@@ -19,6 +19,7 @@ function montaMenu($n1,$n2){
     $opcServicos      = '';
     $opcPerfil        = '';
     $opcFuncionarios  = '';
+    $opcClientes      = '';
     
     //Primeiro nível do menu
     switch ($n1) {
@@ -74,6 +75,10 @@ function montaMenu($n1,$n2){
         case 'funcionarios':
             $opcFuncionarios = 'active';
             break;  
+        
+        case 'clientes':
+            $opcClientes = 'active';
+            break; 
         
         default:
             # code...
@@ -162,6 +167,15 @@ function montaMenu($n1,$n2){
                         <a href="./funcionarios.php" class="nav-link '.$opcFuncionarios.'">
                         <i class="ion ion-person-stalker nav-icon"></i>
                         <p>Funcionários</p>
+                        </a>
+                    </li>              
+                </ul>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="./clientes.php" class="nav-link '.$opcClientes.'">
+                        <i class="ion ion-person-stalker nav-icon"></i>
+                        <p>Clientes</p>
                         </a>
                     </li>              
                 </ul>

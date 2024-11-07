@@ -64,6 +64,37 @@ var readURL = function(input) {
       this.value = 'R$ ' + value;
     });
   });
+   
+  /*******************************************************
+  ** Função para mostrar os campos conforme opção de porte*
+  ********************************************************/
+  // Função para mostrar e esconder os campos com base no porte selecionado
+  function mostrarCampos(porte) {
+    // Esconder todos os campos
+    document.getElementById('camposPequeno').style.display = 'none';
+    document.getElementById('camposPequenoAlterar').style.display = 'none';
+    document.getElementById('camposMedio').style.display = 'none';
+    document.getElementById('camposMedioAlterar').style.display = 'none';
+    document.getElementById('camposGrande').style.display = 'none';
+    document.getElementById('camposGrandeAlterar').style.display = 'none';
+    
+    // Mostrar os campos do porte selecionado
+    if (porte === 'pequeno') {
+      document.getElementById('camposPequeno').style.display = 'block';
+      document.getElementById('camposPequenoAlterar').style.display = 'block';
+    } else if (porte === 'medio') {
+      document.getElementById('camposMedio').style.display = 'block';
+      document.getElementById('camposMedioAlterar').style.display = 'block';
+    } else if (porte === 'grande') {
+      document.getElementById('camposGrande').style.display = 'block';
+      document.getElementById('camposGrandeAlterar').style.display = 'block';
+    }
+  }
+
+  // Ativa o porte "Pequeno" como padrão ao abrir a modal
+  document.addEventListener("DOMContentLoaded", function() {
+    mostrarCampos('pequeno');
+  });
 
   /**************************
   ****** jQuery Mask JS *****
@@ -99,11 +130,11 @@ var readURL = function(input) {
   /**************************
   *** CEP Autopreenchido ****
   ***************************/
-  cep    = $('input[name="CEP"');
-  rua    = $('input[name="Endereco"]');
-  bairro = $('input[name="Bairro"]');
-  cidade = $('input[name="Cidade"');
-  uf     = $('input[name="UF"]');
+  cep    = $('input[name="nCEP"');
+  rua    = $('input[name="nEndereco"]');
+  bairro = $('input[name="nBairro"]');
+  cidade = $('input[name="nCidade"');
+  uf     = $('input[name="nUF"]');
   function limpa_formulário_cep() {
     // Limpa valores do formulário de cep.
     cep.val("");
