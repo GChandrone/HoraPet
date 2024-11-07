@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Nov-2024 às 01:45
+-- Tempo de geração: 07-Nov-2024 às 03:26
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -71,9 +71,19 @@ CREATE TABLE `cliente` (
   `estado` varchar(2) NOT NULL COMMENT 'Sigla do estado onde o cliente reside (Ex: SP, RJ)',
   `cidade` varchar(100) NOT NULL COMMENT 'Nome da cidade onde o cliente reside',
   `bairro` varchar(100) NOT NULL COMMENT 'Nome do bairro onde o cliente reside',
-  `rua` varchar(150) NOT NULL COMMENT 'Nome da rua onde o cliente reside',
-  `numero` int(11) DEFAULT NULL COMMENT 'Número da residência do cliente'
+  `endereco` varchar(150) NOT NULL COMMENT 'Nome do endereço onde o cliente reside',
+  `numero` int(11) DEFAULT NULL COMMENT 'Número da residência do cliente',
+  `complemento` varchar(100) DEFAULT NULL COMMENT 'Complemento do endereço do cliente',
+  `ativo` int(1) NOT NULL COMMENT 'Define o status do registro | 0 - Inativo | 1 - Ativo |'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `cliente`
+--
+
+INSERT INTO `cliente` (`id_cliente`, `nome`, `telefone`, `email`, `estado`, `cidade`, `bairro`, `endereco`, `numero`, `complemento`, `ativo`) VALUES
+(1, 'Gabriel Da Cunha', '4324234323', 'gabriel@gmail.com', 'SC', 'Joinville', 'Vila Nova', 'Rua Francisco Moser', 730, 'Topo do morro', 1),
+(2, 'Gabriel Da Cunha', '4324234323', 'gabriel@gmail.com', 'SC', 'Joinville', 'Vila Nova', 'Rua Francisco Moser', 730, 'Topo do morro', 1);
 
 -- --------------------------------------------------------
 
@@ -202,6 +212,13 @@ CREATE TABLE `servico` (
   `duracao_grande` time NOT NULL COMMENT 'Duração prevista para o serviço para o porte grande, armazenada no formato de hora',
   `ativo` int(1) NOT NULL COMMENT 'Define o status do registro | 0 - Inativo | 1 - Ativo |'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `servico`
+--
+
+INSERT INTO `servico` (`id_servico`, `nome`, `descricao`, `valor_pequeno`, `valor_medio`, `valor_grande`, `duracao_pequeno`, `duracao_medio`, `duracao_grande`, `ativo`) VALUES
+(1, 'Banho', '', 50.00, 60.00, 80.00, '01:00:00', '01:10:00', '01:30:00', 1);
 
 -- --------------------------------------------------------
 
@@ -369,7 +386,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chave primária que identifica de forma única o cliente';
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chave primária que identifica de forma única o cliente', AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `execucao`
@@ -405,7 +422,7 @@ ALTER TABLE `raca`
 -- AUTO_INCREMENT de tabela `servico`
 --
 ALTER TABLE `servico`
-  MODIFY `id_servico` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chave primária que identifica de forma única o serviço';
+  MODIFY `id_servico` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chave primária que identifica de forma única o serviço', AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `tipousuario`
