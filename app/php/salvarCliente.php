@@ -7,6 +7,7 @@
     $telefone       = $_POST["nTelefone"   ];
     $email          = $_POST["nEmail"      ];
     $senha          = $_POST["nSenha"      ];
+    $cep            = $_POST["nCEP"        ];
     $estado         = $_POST["nUF"         ];
     $cidade         = $_POST["nCidade"     ];
     $bairro         = $_POST["nBairro"     ];
@@ -26,8 +27,8 @@
 
         //INSERT
         
-        $sql = "INSERT INTO cliente (nome,telefone,email,estado,cidade,bairro,endereco,numero,complemento,ativo) "
-        ." VALUES ('$nome','$telefone','$email','$estado','$cidade','$bairro','$endereco',$numero,'$complemento',$ativo);"; 
+        $sql = "INSERT INTO cliente (nome,telefone,email,cep,estado,cidade,bairro,endereco,numero,complemento,ativo) "
+        ." VALUES ('$nome','$telefone','$email','$cep','$estado','$cidade','$bairro','$endereco',$numero,'$complemento',$ativo);"; 
     
     }elseif($funcao == "A"){
         //UPDATE
@@ -38,9 +39,10 @@
         // }
 
         $sql = "UPDATE cliente "
-                ." SET nome = $idFuncionario, "
+                ." SET nome        = '$nome', "
                     ." telefone    = '$telefone', "
                     ." email       = '$email', "
+                    ." cep         = '$cep', "
                     ." estado      = '$estado', "
                     ." cidade      = '$cidade', "
                     ." bairro      = '$bairro', "

@@ -9,8 +9,8 @@ include("funcaoTipoPet.php");
 include("funcaoRaca.php");
 include("funcaoServico.php");
 include("funcaoFuncionario.php");
+include("funcaoCliente.php");
 
-    
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;

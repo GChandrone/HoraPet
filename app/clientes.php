@@ -69,16 +69,20 @@
                   <tr>
                       <th>ID</th>
                       <th>Nome</th>
+                      <th>Telefone</th>
                       <th>Email</th>
-                      <th>Data de Nascimento</th>
-                      <th>Telefone</th> 
-                      <th>Ativo</th>                
+                      <th>UF</th>
+                      <th>Cidade</th> 
+                      <th>Bairro</th>                
+                      <th>Endereço</th>
+                      <th>Número</th>
+                      <th>Ativo</th>
                       <th>Ações</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  <?php echo listaFuncionario(); ?>
+                  <?php echo listaCliente(); ?>
                   
                   </tbody>
                   

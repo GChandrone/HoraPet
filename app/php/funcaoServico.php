@@ -39,7 +39,7 @@ function listaServico(){
                 .'<td>'.$coluna["duracao_pequeno"].'</td>'
                 .'<td>'.$coluna["duracao_medio"].'</td>'
                 .'<td>'.$coluna["duracao_grande"].'</td>'
-                .'<td>'.$coluna["descricao"].'</td>'
+                // .'<td>'.$coluna["descricao"].'</td>'
                 .'<td align="center">'.$icone.'</td>'
                 .'<td>'
                     .'<div class="row" align="center">'
