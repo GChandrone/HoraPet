@@ -16,8 +16,16 @@
       
         foreach ($result as $coluna) {
              
-             //***Verificar os dados da consulta SQL
+            //Ativo: 1 -> Sim ou 2 -> Não
+            if($coluna["ativo"] == 1){  
+                $ativo = 'checked';
+                $icone = '<h6><i class="fas fa-check-circle text-success"></i></h6>'; 
+            }else{
+                $ativo = '';
+                $icone = '<h6><i class="fas fa-times-circle text-danger"></i></h6>';
+            } 
             
+            //***Verificar os dados da consulta SQL
             $lista .= 
             '<tr>'
                  .'<td>'.$coluna["id_cliente"].'</td>'
@@ -30,7 +38,7 @@
                  .'<td>'.$coluna["endereco"].'</td>'
                  .'<td>'.$coluna["numero"].'</td>'
                 //  .'<td>'.$coluna["complemento"].'</td>'
-                 .'<td>'.$coluna["ativo"].'</td>'
+                 .'<td align="center">'.$icone.'</td>'
 
                  .'<td>'
                      .'<div class="row" align="center">'
@@ -86,7 +94,7 @@
                                     .'<div class="col-4">'
                                         .'<div class="form-group">'
                                             .'<label for="iSenha">Senha:</label>'
-                                            .'<input type="password" value="'.$coluna["senha"].'" class="form-control" id="iSenha" name="nSenha">'
+                                            // .'<input type="password" value="'.$coluna["senha"].'" class="form-control" id="iSenha" name="nSenha">'
                                         .'</div>'
                                     .'</div>'
 
