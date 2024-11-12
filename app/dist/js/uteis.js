@@ -36,6 +36,59 @@ var readURL = function(input) {
     }
   };
   
+  /*********************************************************
+  ** Formatar input de telefone no formato (XX) X XXXX-XXXX *
+  ***********************************************************/
+  document.querySelectorAll('.telefone-formatado').forEach(function(input) {
+
+    // Impede que letras e outros caracteres não numéricos sejam digitados
+    input.addEventListener('keypress', function(e) {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+  
+    // Formatar o input do telefone
+    input.addEventListener('input', function() {
+      // Remove tudo que não é número
+      let value = this.value.replace(/\D/g, '');
+  
+      // Limita a 11 dígitos no máximo (DDD + 9 dígitos)
+      if (value.length > 11) value = value.slice(0, 11);
+  
+      // Aplica a formatação conforme a quantidade de dígitos digitados
+      if (value.length > 6) {
+        value = `(${value.slice(0, 2)}) ${value.slice(2, 3)} ${value.slice(3, 7)}-${value.slice(7)}`;
+      } else if (value.length > 2) {
+        value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+      } else if (value.length > 0) {
+        value = `(${value}`;
+      }
+  
+      this.value = value; // Atualiza o campo com o valor formatado
+    });
+  
+    // Permite apagar hífen, espaço e parênteses
+    input.addEventListener('keydown', function(e) {
+      if (e.key === "Backspace") {
+        const value = this.value;
+  
+        // Verifica se o valor contém o hífen ou outros caracteres de formatação
+        if (value.endsWith('-')) {
+          this.value = value.slice(0, -1); // Remove o hífen
+        } else if (value.endsWith(' ')) {
+          this.value = value.slice(0, -1); // Remove o espaço
+        } else if (value.endsWith(')')) {
+          this.value = value.slice(0, -1); // Remove o parêntese final
+        } else if (value.endsWith('(')) {
+          this.value = value.slice(0, -1); // Remove o parêntese inicial
+        }
+      }
+    });
+  });
+  
+
+
    /********************************************************
    ** Impedir que sejam digitados letras em campos de valor*
    *********************************************************/

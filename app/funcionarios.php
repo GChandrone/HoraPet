@@ -125,7 +125,7 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iSenha">Telefone:</label>
-                      <input type="text" class="form-control" id="iTelefone" name="nTelefone" maxlength="6">
+                      <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16">
                     </div>
                   </div>
 

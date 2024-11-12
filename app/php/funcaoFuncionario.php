@@ -9,24 +9,32 @@
      mysqli_close($conn);
 
      $lista = '';
+     $ativo = '';
+     $icone = '';
 
      //Validar se tem retorno do BD
      if (mysqli_num_rows($result) > 0) {
       
       
         foreach ($result as $coluna) {
-             
-             //***Verificar os dados da consulta SQL
+            //Ativo: 1 -> Sim ou 2 -> Não
+            if($coluna["ativo"] == 1){  
+                $ativo = 'checked';
+                $icone = '<h6><i class="fas fa-check-circle text-success"></i></h6>'; 
+            }else{
+                $ativo = '';
+                $icone = '<h6><i class="fas fa-times-circle text-danger"></i></h6>';
+            } 
             
-           
+            //***Verificar os dados da consulta SQL
             $lista .= 
             '<tr>'
                  .'<td>'.$coluna["id_funcionario"].'</td>'
                  .'<td>'.$coluna["nome"].'</td>'
                  .'<td>'.$coluna["email"].'</td>'
-                 .'<td>'.$coluna["data"].'</td>'
+                 .'<td>'.$coluna["data_nascimento"].'</td>'
                  .'<td>'.$coluna["telefone"].'</td>'
-                 .'<td>'.$coluna["ativo"].'</td>'
+                 .'<td align="center">'.$icone.'</td>'
 
                  
                  .'<td>'
@@ -58,45 +66,56 @@
                             .'<form method="POST" action="php/salvarFuncionario.php?funcao=A&codigo='.$coluna["id_funcionario"].'" enctype="multipart/form-data">'              
               
 
-                            .'<div class="row">'
-                                .'<div class="col-4">'
-                                    .'<div class="form-group">'
-                                        .'<label for="iNome">Nome:</label>'
-                                        .'<input type="text" value="'.$coluna["nome"].'" class="form-control" id="iNome" name="nNome" maxlength="100">'
+                                .'<div class="row">'
+                                    .'<div class="col-4">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iNome">Nome:</label>'
+                                            .'<input type="text" value="'.$coluna["nome"].'" class="form-control" id="iNome" name="nNome" maxlength="50">'
+                                        .'</div>'
                                     .'</div>'
-                                .'</div>'
+
+                                    .'<div class="col-4">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iLogin">Data de Nascimento:</label>'
+                                            .'<input type="date" value="'.$coluna["data_nascimento"].'" class="form-control" id="iData" name="nData">'
+                                        .'</div>'
+                                    .'</div>'
+
+                                    .'<div class="col-4">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iSenha">Telefone:</label>'
+                                            .'<input type="text" value="'.$coluna["telefone"].'" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16">'
+                                        .'</div>'
+                                    .'</div>'
 
 
-                                
-                                .'<div class="col-4">'
-                                    .'<div class="form-group">'
-                                        .'<label for="iNome">Nome:</label>'
-                                        .'<input type="text" value="'.$coluna["data"].'" class="form-control" id="iData" name="nData" >'
+                                    .'<div class="col-8">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iLogin">E-mail:</label>'
+                                            .'<input type="email" value="'.$coluna["email"].'" class="form-control" id="iEmail" name="nEmail" maxlength="50">'
+                                        .'</div>'
                                     .'</div>'
-                                .'</div>'
-            
-                                .'<div class="col-4">'
-                                    .'<div class="form-group">'
-                                        .'<label for="iNome">Nome:</label>'
-                                        .'<input type="text" value="'.$coluna["telefone"].'" class="form-control" id="iTelefone" name="nTelefone" >'
+
+                                    .'<div class="col-4">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iSenha">Senha:</label>'
+                                            .'<input type="password" value="'.$coluna["data_nascimento"].'" class="form-control" id="iSenha" name="nSenha">'
+                                        .'</div>'
                                     .'</div>'
+                                    
                                 .'</div>'
-            
-                                .'<div class="col-8">'
-                                    .'<div class="form-group">'
-                                        .'<label for="iNome">Nome:</label>'
-                                        .'<input type="text" value="'.$coluna["email"].'" class="form-control" id="iEmail" name="nEmail" >'
-                                    .'</div>'
+                                    
+                                .'<div class="custom-control custom-checkbox">'
+                                    .'<input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario" name="nAtivoFuncionario" checked>'
+                                    .'<label for="iAtivoFuncionario" class="custom-control-label">Funcionário Ativo</label>'
                                 .'</div>'
-                               
-                            .'</div>'
-              
-                                 .'<div class="modal-footer">'
-                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
-                                     .'<button type="submit" class="btn btn-success">Salvar</button>'
-                                 .'</div>'
+                
+                                .'<div class="modal-footer">'
+                                    .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
+                                    .'<button type="submit" class="btn btn-success">Salvar</button>'
+                                .'</div>'
                               
-                             .'</form>'
+                            .'</form>'
                           
                          .'</div>'
                      .'</div>'

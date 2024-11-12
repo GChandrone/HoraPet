@@ -19,7 +19,6 @@ function listaUsuario(){
         foreach ($result as $coluna) {
 
             //Ativo: S ou N
-            //if($coluna["FlgAtivo"] == 'S')  $ativo = 'checked'; else $ativo = '';
             if($coluna["FlgAtivo"] == 'S'){  
                 $ativo = 'checked';
                 $icone = '<h6><i class="fas fa-check-circle text-success"></i></h6>'; 

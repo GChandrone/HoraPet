@@ -20,31 +20,29 @@
     if($funcao == "I"){
 
         //INSERT
-        
-        $sql = "INSERT INTO funcionario (id_funcionario,nome,email,senha,data) "
-        ." VALUES ("."'$idFuncionario',$nome'$email','$md5('$senha')'$idFuncionario' );"; 
+        $sql = "INSERT INTO funcionario (nome,data_nascimento,telefone,email,ativo) "
+        ." VALUES ('$nome','$dataNascimento','$telefone','$email','$ativo');"; 
     
     
     }elseif($funcao == "A"){
         //UPDATE
-        if($senha == ''){ 
-            $setSenha = ''; 
-        }else{ 
-            $setSenha = " Senha = md5('".$senha."'), ";
-        }
+        // if($senha == ''){ 
+        //     $setSenha = ''; 
+        // }else{ 
+        //     $setSenha = " Senha = md5('".$senha."'), ";
+        // }
 
         $sql = "UPDATE funcionario "
-                ." SET idFuncionario = $idFuncionario, "
-                    ." nome = '$nome', "
-                    ." email = '$email', "
-                    .$setSenha 
-                    ." ativo = '$ativo' "
+                ." SET nome            = $nome, "
+                    ." data_nascimento = '$dataNascimento', "
+                    ." telefone        = '$telefone', "
+                    ." email           = '$email', " 
+                    ." ativo           = '$ativo' "
                 ." WHERE idFuncionario = $idFuncionario;";
 
     }elseif($funcao == "D"){
         //DELETE
-        $sql = "DELETE FROM funcionario "
-                ." WHERE idFuncionario = $idFuncionario;";
+        $sql = "DELETE FROM funcionario WHERE idFuncionario = $idFuncionario;";
     }
 
     $result = mysqli_query($conn,$sql);

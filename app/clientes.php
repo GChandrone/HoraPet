@@ -115,50 +115,50 @@
                   <div class="col-8">
                     <div class="form-group">
                       <label for="iNome">Nome:</label>
-                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50">
+                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
-                      <label for="iSenha">Telefone:</label>
-                      <input type="text" class="form-control" id="iTelefone" name="nTelefone">
+                      <label for="iTelefone">Telefone:</label>
+                      <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" required>
                     </div>
                   </div>
 
 
                   <div class="col-8">
                     <div class="form-group">
-                      <label for="iLogin">E-mail:</label>
-                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50">
+                      <label for="iEmail">E-mail:</label>
+                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50" required>
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iSenha">Senha:</label>
-                      <input type="password" class="form-control" id="iSenha" name="nSenha">
+                      <input type="password" class="form-control" id="iSenha" name="nSenha" required>
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label>CEP</label>
-                      <input required name="nCEP" id="iCEP" type="text" class="form-control cep">
+                      <input name="nCEP" id="iCEP" type="text" class="form-control cep" required>
                     </div>
                   </div>
                   
                   <div class="col-9">
                     <div class="form-group">
                       <label>Endereço</label>
-                      <input required name="nEndereco" id="iEndereco" type="text" class="form-control">
+                      <input name="nEndereco" id="iEndereco" type="text" class="form-control" required>
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label>Número</label>
-                      <input required name="nNumero" id="iNumero" type="text" maxlength="8" class="form-control">
+                      <input name="nNumero" id="iNumero" type="text" maxlength="8" class="form-control">
                     </div>
                   </div>
 
@@ -172,21 +172,21 @@
                   <div class="col-5">
                     <div class="form-group">
                       <label>Bairro</label>
-                      <input required name="nBairro" id="iBairro" type="text" class="form-control">
+                      <input name="nBairro" id="iBairro" type="text" class="form-control" required>
                     </div>
                   </div>
                   
                   <div class="col-5">
                     <div class="form-group">
                       <label>Cidade</label>
-                      <input required name="nCidade" id="iCidade" type="text" class="form-control">
+                      <input name="nCidade" id="iCidade" type="text" class="form-control" required>
                     </div>
                   </div>
 
                   <div class="col-2">
                     <div class="form-group">
                       <label>UF</label>
-                      <input required name="nUF" id="iUF" type="text" class="form-control">
+                      <input name="nUF" id="iUF" type="text" class="form-control" required>
                     </div>
                   </div>
                 
