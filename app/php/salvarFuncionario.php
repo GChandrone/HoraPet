@@ -2,17 +2,16 @@
 
     include('funcoes.php');
 
-    
     $nome           = $_POST["nNome"    ];
     $email          = $_POST["nEmail"   ];
     $senha          = $_POST["nSenha"   ];
     $telefone       = $_POST["nTelefone"];
-    $dataNascimento = $_POST["ndata"    ];
+    $dataNascimento = $_POST["nData"    ];
     $funcao         = $_GET ["funcao"   ];
     $idFuncionario  = $_GET ["codigo"   ];
 
 
-    if($_POST["nAtivo"] == "on") $ativo = "1"; else $ativo = "0";
+    if($_POST["nAtivoFuncionario"] == "on") $ativo = "1"; else $ativo = "0";
 
     include("conexao.php");
 
@@ -33,16 +32,16 @@
         // }
 
         $sql = "UPDATE funcionario "
-                ." SET nome            = $nome, "
+                ." SET nome            = '$nome', "
                     ." data_nascimento = '$dataNascimento', "
                     ." telefone        = '$telefone', "
                     ." email           = '$email', " 
-                    ." ativo           = '$ativo' "
-                ." WHERE idFuncionario = $idFuncionario;";
+                    ." ativo           =  $ativo "
+                ." WHERE id_funcionario = $idFuncionario;";
 
     }elseif($funcao == "D"){
         //DELETE
-        $sql = "DELETE FROM funcionario WHERE idFuncionario = $idFuncionario;";
+        $sql = "DELETE FROM funcionario WHERE id_funcionario = $idFuncionario;";
     }
 
     $result = mysqli_query($conn,$sql);

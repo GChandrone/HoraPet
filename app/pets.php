@@ -109,92 +109,77 @@
               </button>
             </div>
             <div class="modal-body">
-              <form method="POST" action="php/salvar ç;Cliente.php?funcao=I" enctype="multipart/form-data">              
+              <form method="POST" action="php/salvarPet.php?funcao=I" enctype="multipart/form-data">              
                 
                 <div class="row">
-                  <div class="col-8">
+                  <div class="col-6">
                     <div class="form-group">
                       <label for="iNome">Nome:</label>
                       <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50">
                     </div>
                   </div>
 
-                  <div class="col-4">
+                  <div class="col-6">
                     <div class="form-group">
-                      <label for="iSenha">Telefone:</label>
-                      <input type="text" class="form-control" id="iTelefone" name="nTelefone">
+                      <label for="iDono">Dono:</label>
+                      <input type="text" class="form-control" id="iDono" name="nDono">
                     </div>
                   </div>
 
 
-                  <div class="col-8">
+                  <div class="col-6">
                     <div class="form-group">
-                      <label for="iLogin">E-mail:</label>
-                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50">
+                      <label>Tipo do Pet:</label>
+                      <select name="nTipoPet" class="form-control" required>
+                        <option value="">Selecione...</option>
+                        <?php echo optionTipoPet("I");?>
+                      </select>
                     </div>
                   </div>
 
-                  <div class="col-4">
+                  <div class="col-6">
                     <div class="form-group">
-                      <label for="iSenha">Senha:</label>
-                      <input type="password" class="form-control" id="iSenha" name="nSenha">
-                    </div>
-                  </div>
-
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label>CEP</label>
-                      <input required name="nCEP" id="iCEP" type="text" class="form-control cep">
-                    </div>
-                  </div>
-                  
-                  <div class="col-9">
-                    <div class="form-group">
-                      <label>Endereço</label>
-                      <input required name="nEndereco" id="iEndereco" type="text" class="form-control">
+                      <label for="iRaca">Raça:</label>
+                      <input type="text" class="form-control" id="iRaca" name="nRaca">
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
-                      <label>Número</label>
-                      <input required name="nNumero" id="iNumero" type="text" maxlength="8" class="form-control">
+                      <label for="iAltura">Altura (cm):</label>
+                      <input type="number" class="form-control" id="iAltura" name="nAltura">
                     </div>
                   </div>
 
-                  <div class="col-9">
+                  <div class="col-3">
                     <div class="form-group">
-                      <label>Complemento</label>
-                      <input name="nComplemento" id="iComplemento" type="text" maxlength="50" class="form-control">
+                      <label for="iPeso">Peso (kg):</label>
+                      <input type="number" class="form-control" id="iPeso" name="nPeso">
                     </div>
                   </div>
 
-                  <div class="col-5">
+                  <div class="col-6">
                     <div class="form-group">
-                      <label>Bairro</label>
-                      <input required name="nBairro" id="iBairro" type="text" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <div class="col-5">
-                    <div class="form-group">
-                      <label>Cidade</label>
-                      <input required name="nCidade" id="iCidade" type="text" class="form-control">
+                      <label for="iPorte">Porte:</label>
+                      <input type="text" class="form-control" id="iPorte" name="nPorte">
                     </div>
                   </div>
 
-                  <div class="col-2">
+                  <div class="col-12"> 
                     <div class="form-group">
-                      <label>UF</label>
-                      <input required name="nUF" id="iUF" type="text" class="form-control">
+                      <label for="iFoto">Foto:</label>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">
+                        <label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>
+                      </div>
                     </div>
-                  </div>
+                  </div> 
                 
                 </div>
                 
                 <div class="custom-control custom-checkbox">
                   <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoCliente" name="nAtivoCliente" checked>
-                  <label for="iAtivoCliente" class="custom-control-label">Cliente Ativo</label>
+                  <label for="iAtivoCliente" class="custom-control-label">Pet Ativo</label>
                 </div>
                 
                 <div class="modal-footer">

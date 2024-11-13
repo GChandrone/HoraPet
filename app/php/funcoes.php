@@ -75,10 +75,13 @@ function desformatarMoeda($valorFormatado) {
     return number_format((float)$valorDecimal, 2, '.', '');
 }
 
-
-
 function formatarMoeda($valorDesformatado) {
     // Formata o valor como moeda brasileira (R$)
     return 'R$ ' . number_format($valorDesformatado, 2, ',', '.');
+}
+
+function formatarData($data) {
+    // Converte a data para o formato desejado
+    return date("d/m/Y", strtotime($data));
 }
 ?>

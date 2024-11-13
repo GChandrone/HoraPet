@@ -151,8 +151,8 @@
                                 .'</div>'
                                 
                                 .'<div class="custom-control custom-checkbox">'
-                                    .'<input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoCliente" name="nAtivoCliente" checked>'
-                                    .'<label for="iAtivoCliente" class="custom-control-label">Cliente Ativo</label>'
+                                    .'<input class="custom-control-input custom-control-input-info" type="checkbox" id="iAtivoCliente'.$coluna["id_cliente"].'" name="nAtivoCliente" '.$ativo.'>'
+                                    .'<label for="iAtivoCliente'.$coluna["id_cliente"].'" class="custom-control-label">Cliente Ativo</label>'
                                 .'</div>'
                             
 

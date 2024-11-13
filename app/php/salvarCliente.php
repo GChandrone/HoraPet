@@ -26,7 +26,6 @@
     if($funcao == "I"){
 
         //INSERT
-        
         $sql = "INSERT INTO cliente (nome,telefone,email,cep,estado,cidade,bairro,endereco,numero,complemento,ativo) "
         ." VALUES ('$nome','$telefone','$email','$cep','$estado','$cidade','$bairro','$endereco',$numero,'$complemento',$ativo);"; 
     

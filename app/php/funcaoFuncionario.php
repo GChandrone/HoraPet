@@ -32,7 +32,7 @@
                  .'<td>'.$coluna["id_funcionario"].'</td>'
                  .'<td>'.$coluna["nome"].'</td>'
                  .'<td>'.$coluna["email"].'</td>'
-                 .'<td>'.$coluna["data_nascimento"].'</td>'
+                 .'<td>'.formatarData($coluna["data_nascimento"]).'</td>'
                  .'<td>'.$coluna["telefone"].'</td>'
                  .'<td align="center">'.$icone.'</td>'
 
@@ -77,7 +77,7 @@
                                     .'<div class="col-4">'
                                         .'<div class="form-group">'
                                             .'<label for="iLogin">Data de Nascimento:</label>'
-                                            .'<input type="date" value="'.$coluna["data_nascimento"].'" class="form-control" id="iData" name="nData">'
+                                            .'<input type="date" value="'.$coluna["data_nascimento"].'" class="form-control" id="iData" name="nData" required>'
                                         .'</div>'
                                     .'</div>'
 
@@ -106,8 +106,8 @@
                                 .'</div>'
                                     
                                 .'<div class="custom-control custom-checkbox">'
-                                    .'<input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario" name="nAtivoFuncionario" checked>'
-                                    .'<label for="iAtivoFuncionario" class="custom-control-label">Funcionário Ativo</label>'
+                                    .'<input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario'.$coluna["id_funcionario"].'" name="nAtivoFuncionario" '.$ativo.'>'
+                                    .'<label for="iAtivoFuncionario'.$coluna["id_funcionario"].'" class="custom-control-label">Funcionário Ativo</label>'
                                 .'</div>'
                 
                                 .'<div class="modal-footer">'

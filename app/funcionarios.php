@@ -117,14 +117,14 @@
 
                   <div class="col-4">
                     <div class="form-group">
-                      <label for="iLogin">Data de Nascimento:</label>
-                      <input type="date" class="form-control" id="iData" name="nData">
+                      <label for="iData">Data de Nascimento:</label>
+                      <input type="date" class="form-control" id="iData" name="nData" required>
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
-                      <label for="iSenha">Telefone:</label>
+                      <label for="iTelefone">Telefone:</label>
                       <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16">
                     </div>
                   </div>
@@ -132,7 +132,7 @@
 
                   <div class="col-8">
                     <div class="form-group">
-                      <label for="iLogin">E-mail:</label>
+                      <label for="iEmail">E-mail:</label>
                       <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50">
                     </div>
                   </div>
