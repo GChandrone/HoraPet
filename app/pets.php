@@ -68,21 +68,19 @@
                   <thead>
                   <tr>
                       <th>ID</th>
+                      <th>Foto</th>
                       <th>Nome</th>
-                      <th>Telefone</th>
-                      <th>Email</th>
-                      <th>UF</th>
-                      <th>Cidade</th> 
-                      <th>Bairro</th>                
-                      <th>Endereço</th>
-                      <th>Número</th>
+                      <th>Tipo</th>
+                      <th>Raça</th>
+                      <th>Porte</th>
+                      <th>Dono</th>
                       <th>Ativo</th>
                       <th>Ações</th>
                   </tr>
                   </thead>
                   <tbody>
 
-                  <?php echo listaCliente(); ?>
+                  <?php echo listaPet(); ?>
                   
                   </tbody>
                   
@@ -183,8 +181,8 @@
                 </div>
                 
                 <div class="custom-control custom-checkbox">
-                  <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoCliente" name="nAtivoCliente" checked>
-                  <label for="iAtivoCliente" class="custom-control-label">Pet Ativo</label>
+                  <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoPet" name="nAtivoPet" checked>
+                  <label for="iAtivoPet" class="custom-control-label">Pet Ativo</label>
                 </div>
                 
                 <div class="modal-footer">
@@ -298,6 +296,10 @@
       "autoWidth": false,
       "responsive": true,
     });
+  });
+
+  $(function () {
+    bsCustomFileInput.init();
   });
 </script>
 

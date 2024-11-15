@@ -204,5 +204,26 @@
         return $lista;
 }
 
+function optionCliente(){
+
+    $lista = "";
+
+    include("conexao.php");
+    $sql = "SELECT id_cliente, nome FROM cliente ORDER BY id_cliente;";        
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+        
+        foreach ($result as $coluna) {            
+            //***Verificar os dados da consulta SQL
+            $lista .= '<option value="'.$coluna['id_cliente'].'">'.$coluna['nome'].'</option>';
+        }        
+    } 
+
+    return $lista;
+
+}
 
  ?>

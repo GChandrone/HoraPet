@@ -11,6 +11,7 @@ include("funcaoServico.php");
 include("funcaoFuncionario.php");
 include("funcaoCliente.php");
 include("funcaoDonoPet.php");
+include("funcaoPet.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
