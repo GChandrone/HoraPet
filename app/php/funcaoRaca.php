@@ -67,17 +67,7 @@
                                         .'</select>'
                                     .'</div>'
                                 .'</div>'
-                            
-                                // .'<div class="col-12">' UTILIZAR NO CADASTRO DO PET
-                                //     .'<div class="form-group">'
-                                //         .'<label for="iFoto">Foto:</label>'
-                                //         .'<div class="custom-file">'
-                                //             .'<input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">'
-                                //             .'<label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>'
-                                //         .'</div>'
-                                //     .'</div>'
-                                // .'</div>'
-                                
+                                                            
                                 .'</div>'
               
                                  .'<div class="modal-footer">'
@@ -125,4 +115,33 @@
   
      return $lista;
  }
+
+ //Função para buscar o nome do dono do pet
+ function descrRaca($id){
+
+    $nome = "";
+
+    include("conexao.php");
+    $sql = "SELECT nome FROM raca WHERE id_raca = $id;";        
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+                
+        $array = array();
+        
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array,$linha);
+        }
+        
+        foreach ($array as $coluna) {            
+            //***Verificar os dados da consulta SQL
+            $nome = $coluna["nome"];
+        }        
+    } 
+
+    return $nome;
+ }
+
 ?>

@@ -87,8 +87,6 @@ var readURL = function(input) {
     });
   });
   
-
-
    /********************************************************
    ** Impedir que sejam digitados letras em campos de valor*
    *********************************************************/
@@ -147,6 +145,116 @@ var readURL = function(input) {
   // Ativa o porte "Pequeno" como padrão ao abrir a modal
   document.addEventListener("DOMContentLoaded", function() {
     mostrarCampos('pequeno');
+  });
+
+  /**************************************************************************
+  ** Função atulizar o campo Porte automaticamente, conforme o peso e altura*
+  ***************************************************************************/
+
+  // Código de porte dinâmico
+  function atualizarPorte() {
+    // Seleciona todos os campos de altura e peso (tanto de inclusão quanto de edição)
+    const alturas = document.querySelectorAll('[id^="iAltura"]');
+    const pesos = document.querySelectorAll('[id^="iPeso"]');
+    
+    let porte = '';
+
+    // Itera sobre todos os campos de altura e peso
+    for (let i = 0; i < alturas.length; i++) {
+      const altura = parseFloat(alturas[i].value) || 0;  // Pega o valor de altura
+      const peso = parseFloat(pesos[i].value) || 0;      // Pega o valor de peso
+      
+      // Calcula a pontuação com ponderação entre peso e altura
+      const pontuacao = (peso * 1.5) + (altura * 1);
+
+      // Classificação com base na pontuação
+      if (pontuacao <= 55) {
+        porte = 'Pequeno';
+      } else if (pontuacao > 55 && pontuacao <= 87) {
+        porte = 'Médio';
+      } else {
+        porte = 'Grande';
+      }
+
+      // Aplica o valor de 'porte' em todos os campos de porte (inclusão e edição)
+      const portes = document.querySelectorAll('[id^="iPorte"]');
+      portes.forEach(function(porteField) {
+        porteField.value = porte;  // Atualiza todos os campos de porte
+      });
+    }
+  }
+
+  // Eventos de mudança para os campos de altura e peso em todas as modais (inclusão e edição)
+  document.querySelectorAll('[id^="iAltura"]').forEach(function(alturaField) {
+    alturaField.addEventListener('input', atualizarPorte);
+  });
+
+  document.querySelectorAll('[id^="iPeso"]').forEach(function(pesoField) {
+    pesoField.addEventListener('input', atualizarPorte);
+  });
+
+
+  /***************************************************************
+  ** Lista dinâmica com Ajax para carregar as Raça conforme o pet*
+  ****************************************************************/
+  $(document).on('change', '.tipoPetAjax', function () {
+    carregarRacas($(this));
+  });
+
+  // Função para carregar raças dinamicamente
+  function carregarRacas(tipoPetElement) {
+      // Identifica a modal atual onde o evento foi disparado
+      const modal = tipoPetElement.closest('.modal');
+
+      // Pega o valor selecionado na lista 1
+      const tipoPet = tipoPetElement.val();
+
+      // Prepara a lista 2 filtrada
+      let optionRaca = '';
+
+      // Valida se teve seleção na lista 1
+      if (tipoPet !== "" && tipoPet !== "0") {
+          // Vai no PHP consultar dados para a lista 2
+          $.getJSON('php/carregaRaca.php?tipo=' + tipoPet, function (dados) {
+              // Carrega a primeira option
+              optionRaca = '<option value="">Selecione...</option>';
+
+              // Obtém o valor atual da raça no campo diretamente
+              const racaAtual = modal.find('.racaAjax').val();
+
+              // Valida o retorno do PHP para montar a lista 2
+              if (dados.length > 0) {
+                  // Se tem dados, monta a lista 2
+                  $.each(dados, function (i, obj) {
+                      // Verifica se a raça atual corresponde ao ID da raça
+                      const selected = obj.id_raca == racaAtual ? 'selected' : '';
+                      optionRaca += '<option value="' + obj.id_raca + '" ' + selected + '>' + obj.nome + '</option>';
+                  });
+
+                  // Preenche o campo de raças com as opções
+                  modal.find('.racaAjax').attr('required', 'required').html(optionRaca).show();
+              } else {
+                  // Não encontrou itens para a lista 2
+                  optionRaca += '<option value="">Selecione...</option>';
+                  modal.find('.racaAjax').html(optionRaca).show();
+              }
+          });
+      } else {
+          // Sem seleção na lista 1, reseta a lista 2
+          optionRaca += '<option value="">Selecione...</option>';
+          modal.find('.racaAjax').html(optionRaca).show();
+      }
+  }
+
+  // Ao abrir a modal de edição, carregar automaticamente as raças se o Tipo Pet estiver preenchido
+  $(document).on('show.bs.modal', '.modal', function () {
+      const modal = $(this);
+      const tipoPetElement = modal.find('.tipoPetAjax');
+
+      // Se o Tipo Pet está preenchido, carrega as raças
+      if (tipoPetElement.val() !== "" && tipoPetElement.val() !== "0") {
+          carregarRacas(tipoPetElement);
+      }
   });
 
   /**************************

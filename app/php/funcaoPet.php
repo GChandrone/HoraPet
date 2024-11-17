@@ -9,6 +9,7 @@ function listaPet(){
                ."pet.nome             as nome_pet, "
                ."pet.tipo_pet, "
                ."raca.nome            as nome_raca, "
+               ."raca.id_raca,"
                ."pet.porte, "
                ."cliente.id_cliente, "
                ."cliente.telefone     as telefone_cliente, "
@@ -30,6 +31,9 @@ function listaPet(){
     $ativo = '';
     $icone = '';
 
+    // Adicionando o estilo CSS para centralizar verticalmente
+   
+
     //Validar se tem retorno do BD
     if (mysqli_num_rows($result) > 0) {
         
@@ -45,11 +49,22 @@ function listaPet(){
                 $icone = '<h6><i class="fas fa-times-circle text-danger"></i></h6>';
             } 
             
+            // Verifica se há foto
+            if (!empty($coluna["foto"])) {
+                $fotoPet = $coluna["foto"];
+            } else {;
+                $fotoPet = 'dist/img/default-pet.png';
+            } 
+
             //***Verificar os dados da consulta SQL
             $lista .= 
             '<tr>'
                 .'<td>'.$coluna["id_pet"].'</td>'
-                .'<td align="center">'.'Foto'.'</td>'
+                .'<td align="center">'
+                    .'<a href="#modalFotoPet'.$coluna["id_pet"].'" data-toggle="modal">'
+                        .'<img src="'.$fotoPet.'" alt="Foto do Pet" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">'
+                    .'</a>'
+                .'</td>'
                 .'<td>'.$coluna["nome_pet"].'</td>'
                 .'<td>'.descrTipoPet($coluna["tipo_pet"]).'</td>'
                 .'<td>'.$coluna["nome_raca"].'</td>'
@@ -104,11 +119,10 @@ function listaPet(){
                                         .'</div>'
                                     .'</div>'
             
-            
                                     .'<div class="col-6">'
                                         .'<div class="form-group">'
                                             .'<label>Tipo do Pet:</label>'
-                                            .'<select id="iTipoPetAjax" name="nTipoPet" class="form-control" required>'
+                                            .'<select id="iTipoPetAjax" name="nTipoPet" class="form-control tipoPetAjax" required>'
                                                 .'<option value="'.$coluna["tipo_pet"].'">'.descrTipoPet($coluna["tipo_pet"]).'</option>'
                                                 .optionTipoPet($coluna["tipo_pet"])
                                             .'</select>'
@@ -118,32 +132,32 @@ function listaPet(){
                                     .'<div class="col-6">'
                                         .'<div class="form-group">'
                                             .'<label for="iRacaAjax">Raça:</label>'
-                                                .'<select name="nRacaAjax" id="iRacaAjax" class="form-control" required>'
-                                                .'<option value="">Selecione...</option>'
+                                            .'<select name="nRacaAjax" id="iRacaAjax" class="form-control racaAjax" required>'
+                                                .'<option value="'.$coluna["id_raca"].'">'.descrRaca($coluna["id_raca"]).'</option>'
                                             .'</select>'
                                         .'</div>'
                                     .'</div>'
             
-                                    .'<div class="col-3">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iAltura">Altura (cm):</label>'
-                                            .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAltura" name="nAltura">'
-                                        .'</div>'
-                                    .'</div>'
+                                     .'<div class="col-3">'
+                                         .'<div class="form-group">'
+                                             .'<label for="iAlturaAlterar">Altura (cm):</label>'
+                                             .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAlturaAlterar" name="nAltura">'
+                                         .'</div>'
+                                     .'</div>'
             
-                                    .'<div class="col-3">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iPeso">Peso (kg):</label>'
-                                            .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPeso" name="nPeso">'
-                                        .'</div>'
-                                    .'</div>'
+                                     .'<div class="col-3">'
+                                         .'<div class="form-group">'
+                                             .'<label for="iPesoAlterar">Peso (kg):</label>'
+                                             .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPesoAlterar" name="nPeso">'
+                                         .'</div>'
+                                     .'</div>'
             
-                                    .'<div class="col-6">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iPorte">Porte:</label>'
-                                            .'<input type="text" value="'.descrPorte($coluna["porte"]).'" class="form-control" id="iPorte" name="nPorte" readonly>'
-                                        .'</div>'
-                                    .'</div>'
+                                     .'<div class="col-6">'
+                                         .'<div class="form-group">'
+                                             .'<label for="iPorteAlterar">Porte:</label>'
+                                             .'<input type="text" value="'.descrPorte($coluna["porte"]).'" class="form-control" id="iPorteAlterar" name="nPorte" readonly>'
+                                         .'</div>'
+                                     .'</div>'
             
                                     .'<div class="col-12">'
                                         .'<div class="form-group">'
@@ -189,7 +203,7 @@ function listaPet(){
 
                                 .'<div class="row">'
                                     .'<div class="col-12">'
-                                        .'<h5>Tem certeza de que deseja excluir este pet??</h5>'
+                                        .'<h5>Tem certeza de que deseja excluir este pet?</h5>'
                                     .'</div>'
                                 .'</div>'
                                 
@@ -203,7 +217,23 @@ function listaPet(){
                         .'</div>'
                     .'</div>'
                 .'</div>'
-            .'</div>';            
+            .'</div>'  
+            
+            .'<div class="modal fade" id="modalFotoPet'.$coluna["id_pet"].'">'
+                .'<div class="modal-dialog modal-dialog-centered">'
+                    .'<div class="modal-content">'
+                        .'<div class="modal-header bg-success">'
+                            .'<h5 class="modal-title">'.$coluna["nome_pet"].'</h5>'
+                            .'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+                                .'<span aria-hidden="true">&times;</span>'
+                            .'</button>'
+                        .'</div>'
+                        .'<div class="modal-body text-center">'
+                            .'<img src="'.$fotoPet.'" alt="Foto do Pet" class="img-fluid rounded" style="max-width: 100%; height: auto;">'
+                        .'</div>'
+                    .'</div>'
+                .'</div>'
+            .'</div>';
         }    
     }
     
@@ -295,74 +325,3 @@ function descrPorte($id){
 }
 
 ?>
-
-<script>
-
-  // Código de porte dinâmico
-  function atualizarPorte() {
-    const altura = parseFloat(document.getElementById('iAltura').value) || 0;
-    const peso = parseFloat(document.getElementById('iPeso').value) || 0;
-    let porte = '';
-
-  // Calcula uma pontuação com ponderação entre peso e altura
-  const pontuacao = (peso * 1.5) + (altura * 1);
-
-  // Classificação com base na pontuação
-  if (pontuacao <= 55) {
-    porte = 'Pequeno';
-  } else if (pontuacao > 55 && pontuacao <= 87) {
-    porte = 'Médio';
-  } else {
-    porte = 'Grande';
-  }
-
-    document.getElementById('iPorte').value = porte;
-  }
-
-  // Eventos de mudança
-  document.getElementById('iAltura').addEventListener('input', atualizarPorte);
-  document.getElementById('iPeso').addEventListener('input', atualizarPorte);
-
-  //Lista dinâmica com Ajax
-  $('#iTipoPetAjax').on('change',function(){
-		//Pega o valor selecionado na lista 1
-    var tipoPet  = $('#iTipoPetAjax').val();
-    
-    //Prepara a lista 2 filtrada
-    var optionRaca = '';
-              
-    //Valida se teve seleção na lista 1
-    if(tipoPet != "" && tipoPet != "0"){
-      
-      //Vai no PHP consultar dados para a lista 2
-      $.getJSON('php/carregaRaca.php?tipo='+tipoPet,
-      function (dados){  
-        
-        //Carrega a primeira option
-        optionRaca = '<option value="">Selecione...</option>';                  
-        
-        //Valida o retorno do PHP para montar a lista 2
-        if (dados.length > 0){                        
-          
-          //Se tem dados, monta a lista 2
-          $.each(dados, function(i, obj){
-            optionRaca += '<option value="'+obj.id_raca+'">'+obj.nome+'</option>';	                            
-          })
-          //Marca a lista 2 como required e mostra os dados filtrados
-          $('#iRacaAjax').attr("required", "req");						
-          $('#iRacaAjax').html(optionRaca).show();
-        }else{
-          
-          //Não encontrou itens para a lista 2
-          optionRaca += '<option value="">Selecione...</option>';
-          $('#iRacaAjax').html(optionRaca).show();
-        }
-      })                
-    }else{
-      //Sem seleção na lista 1 não consulta
-      optionRaca += '<option value="">Selecione...</option>';
-      $('#iTipoPetAjax').html(optionRaca).show();
-    }			
-	});
-
-    </script>

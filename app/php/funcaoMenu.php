@@ -179,7 +179,7 @@ function montaMenu($n1,$n2){
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="./clientes.php" class="nav-link '.$opcClientes.'">
-                        <i class="ion ion-person-stalker nav-icon"></i>
+                        <i class="ion ion-ios-people nav-icon"></i>
                         <p>Clientes</p>
                         </a>
                     </li>              
@@ -188,7 +188,7 @@ function montaMenu($n1,$n2){
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="./pets.php" class="nav-link '.$opcPets.'">
-                        <i class="ion ion-person-stalker nav-icon"></i>
+                        <i class="fas fa-dog nav-icon"></i>
                         <p>Pets</p>
                         </a>
                     </li>              

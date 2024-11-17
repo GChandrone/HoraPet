@@ -64,7 +64,7 @@
 
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="tabela" class="table table-bordered table-hover">
+                <table id="tabela" class="table table-bordered table-hover tabela">
                   <thead>
                   <tr>
                       <th>ID</th>
@@ -131,7 +131,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label>Tipo do Pet:</label>
-                      <select id="iTipoPetAjax" name="nTipoPet" class="form-control" required>
+                      <select id="iTipoPetAjaxIncluir" name="nTipoPet" class="form-control tipoPetAjax" required>
                         <option value="">Selecione...</option>
                         <?php echo optionTipoPet("I");?>
                       </select>
@@ -141,7 +141,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label for="iRacaAjax">Raça:</label>
-                      <select name="nRacaAjax" id="iRacaAjax" class="form-control" required>
+                      <select name="nRacaAjax" id="iRacaAjax" class="form-control racaAjax" required>
                         <option value="">Selecione...</option>
                       </select>
                     </div>
@@ -218,74 +218,6 @@
 <!-- Fim JS -->
 
 <script>
-
-  // Código de porte dinâmico
-  function atualizarPorte() {
-    const altura = parseFloat(document.getElementById('iAltura').value) || 0;
-    const peso = parseFloat(document.getElementById('iPeso').value) || 0;
-    let porte = '';
-
-  // Calcula uma pontuação com ponderação entre peso e altura
-  const pontuacao = (peso * 1.5) + (altura * 1);
-
-  // Classificação com base na pontuação
-  if (pontuacao <= 55) {
-    porte = 'Pequeno';
-  } else if (pontuacao > 55 && pontuacao <= 87) {
-    porte = 'Médio';
-  } else {
-    porte = 'Grande';
-  }
-
-    document.getElementById('iPorte').value = porte;
-  }
-
-  // Eventos de mudança
-  document.getElementById('iAltura').addEventListener('input', atualizarPorte);
-  document.getElementById('iPeso').addEventListener('input', atualizarPorte);
-
-  //Lista dinâmica com Ajax
-  $('#iTipoPetAjax').on('change',function(){
-		//Pega o valor selecionado na lista 1
-    var tipoPet  = $('#iTipoPetAjax').val();
-    
-    //Prepara a lista 2 filtrada
-    var optionRaca = '';
-              
-    //Valida se teve seleção na lista 1
-    if(tipoPet != "" && tipoPet != "0"){
-      
-      //Vai no PHP consultar dados para a lista 2
-      $.getJSON('php/carregaRaca.php?tipo='+tipoPet,
-      function (dados){  
-        
-        //Carrega a primeira option
-        optionRaca = '<option value="">Selecione...</option>';                  
-        
-        //Valida o retorno do PHP para montar a lista 2
-        if (dados.length > 0){                        
-          
-          //Se tem dados, monta a lista 2
-          $.each(dados, function(i, obj){
-            optionRaca += '<option value="'+obj.id_raca+'">'+obj.nome+'</option>';	                            
-          })
-          //Marca a lista 2 como required e mostra os dados filtrados
-          $('#iRacaAjax').attr("required", "req");						
-          $('#iRacaAjax').html(optionRaca).show();
-        }else{
-          
-          //Não encontrou itens para a lista 2
-          optionRaca += '<option value="">Selecione...</option>';
-          $('#iRacaAjax').html(optionRaca).show();
-        }
-      })                
-    }else{
-      //Sem seleção na lista 1 não consulta
-      optionRaca += '<option value="">Selecione...</option>';
-      $('#iTipoPetAjax').html(optionRaca).show();
-    }			
-	});
-
   $(function () {
     $('#tabela').DataTable({
       "paging": true,
