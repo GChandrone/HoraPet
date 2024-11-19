@@ -147,50 +147,64 @@ var readURL = function(input) {
     mostrarCampos('pequeno');
   });
 
-  /**************************************************************************
-  ** Função atulizar o campo Porte automaticamente, conforme o peso e altura*
-  ***************************************************************************/
-
-  // Código de porte dinâmico
+  /**********************************************************************************************
+  ** Função para atulizar o campo Porte automaticamente, conforme o peso, altura e o tipo do pet*
+  ***********************************************************************************************/
   function atualizarPorte() {
-    // Seleciona todos os campos de altura e peso (tanto de inclusão quanto de edição)
+    // Seleciona todos os campos de altura, peso e tipo do pet
     const alturas = document.querySelectorAll('[id^="iAltura"]');
     const pesos = document.querySelectorAll('[id^="iPeso"]');
+    const tipos = document.querySelectorAll('[id^="iTipoPet"]'); // Campo de seleção do tipo do pet
     
-    let porte = '';
-
-    // Itera sobre todos os campos de altura e peso
+    // Itera sobre todos os campos de altura, peso e tipo do pet
     for (let i = 0; i < alturas.length; i++) {
-      const altura = parseFloat(alturas[i].value) || 0;  // Pega o valor de altura
-      const peso = parseFloat(pesos[i].value) || 0;      // Pega o valor de peso
+      const altura  = parseFloat(alturas[i].value) || 0; // Pega o valor de altura
+      const peso    = parseFloat(pesos[i].value) || 0;     // Pega o valor de peso
+      const tipoPet = parseInt(tipos[i].value) || 1;    // Pega o valor do tipo do pet (1 = Cachorro, 2 = Gato)
       
-      // Calcula a pontuação com ponderação entre peso e altura
-      const pontuacao = (peso * 1.5) + (altura * 1);
+      let porte = ''; // Inicializa o porte como vazio
+      const pontuacao = (peso * 1.5) + (altura * 1); // Pontuação ponderada entre peso e altura
 
-      // Classificação com base na pontuação
-      if (pontuacao <= 55) {
-        porte = 'Pequeno';
-      } else if (pontuacao > 55 && pontuacao <= 87) {
-        porte = 'Médio';
-      } else {
-        porte = 'Grande';
+      // Lógica de classificação baseada no tipo do pet
+      if (tipoPet == 1) { 
+        // Classificação para Cachorros
+        if (pontuacao <= 55) {
+          porte = 'Pequeno';
+        } else if (pontuacao > 55 && pontuacao <= 87) {
+          porte = 'Médio';
+        } else {
+          porte = 'Grande';
+        }
+      } else if (tipoPet == 2) {
+        // Classificação para Gatos
+        if (pontuacao <= 37) {
+          porte = 'Pequeno';
+        } else if (pontuacao > 37 && pontuacao <= 55) {
+          porte = 'Médio';
+        } else {
+          porte = 'Grande';
+        }
       }
 
-      // Aplica o valor de 'porte' em todos os campos de porte (inclusão e edição)
+      // Atualiza todos os campos de porte (inclusão e edição)
       const portes = document.querySelectorAll('[id^="iPorte"]');
-      portes.forEach(function(porteField) {
-        porteField.value = porte;  // Atualiza todos os campos de porte
-      });
+      if (portes[i]) {
+        portes[i].value = porte; // Define o porte no campo correspondente
+      }
     }
   }
 
-  // Eventos de mudança para os campos de altura e peso em todas as modais (inclusão e edição)
+  // Adiciona eventos de mudança para os campos de altura, peso e tipo do pet
   document.querySelectorAll('[id^="iAltura"]').forEach(function(alturaField) {
     alturaField.addEventListener('input', atualizarPorte);
   });
 
   document.querySelectorAll('[id^="iPeso"]').forEach(function(pesoField) {
     pesoField.addEventListener('input', atualizarPorte);
+  });
+
+  document.querySelectorAll('[id^="iTipoPet"]').forEach(function(tipoField) {
+    tipoField.addEventListener('change', atualizarPorte);
   });
 
 

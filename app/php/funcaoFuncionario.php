@@ -106,7 +106,7 @@
                                 .'</div>'
                                     
                                 .'<div class="custom-control custom-checkbox">'
-                                    .'<input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario'.$coluna["id_funcionario"].'" name="nAtivoFuncionario" '.$ativo.'>'
+                                    .'<input class="custom-control-input custom-control-input-info" type="checkbox" id="iAtivoFuncionario'.$coluna["id_funcionario"].'" name="nAtivoFuncionario" '.$ativo.'>'
                                     .'<label for="iAtivoFuncionario'.$coluna["id_funcionario"].'" class="custom-control-label">Funcionário Ativo</label>'
                                 .'</div>'
                 

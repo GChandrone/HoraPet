@@ -105,7 +105,7 @@ function listaPet(){
                                     .'<div class="col-6">'
                                         .'<div class="form-group">'
                                             .'<label for="iNome">Nome:</label>'
-                                            .'<input type="text" value="'.$coluna["nome_pet"].'" class="form-control" id="iNome" name="nNome" maxlength="50">'
+                                            .'<input type="text" value="'.$coluna["nome_pet"].'" class="form-control" id="iNome" name="nNome" maxlength="50" required>'
                                         .'</div>'
                                     .'</div>'
             
@@ -141,21 +141,21 @@ function listaPet(){
                                      .'<div class="col-3">'
                                          .'<div class="form-group">'
                                              .'<label for="iAlturaAlterar">Altura (cm):</label>'
-                                             .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAlturaAlterar" name="nAltura">'
+                                             .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAlturaAlterar" name="nAltura" required>'
                                          .'</div>'
                                      .'</div>'
             
                                      .'<div class="col-3">'
                                          .'<div class="form-group">'
                                              .'<label for="iPesoAlterar">Peso (kg):</label>'
-                                             .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPesoAlterar" name="nPeso">'
+                                             .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPesoAlterar" name="nPeso" required>'
                                          .'</div>'
                                      .'</div>'
             
                                      .'<div class="col-6">'
                                          .'<div class="form-group">'
                                              .'<label for="iPorteAlterar">Porte:</label>'
-                                             .'<input type="text" value="'.descrPorte($coluna["porte"]).'" class="form-control" id="iPorteAlterar" name="nPorte" readonly>'
+                                             .'<input type="text" value="'.descrPorte($coluna["porte"]).'" class="form-control" id="iPorteAlterar" name="nPorte" readonly required>'
                                          .'</div>'
                                      .'</div>'
             
@@ -172,7 +172,7 @@ function listaPet(){
                                 .'</div>'
                             
                                 .'<div class="custom-control custom-checkbox">'
-                                    .'<input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoPet'.$coluna["id_pet"].'" name="nAtivoPet" '.$ativo.'>'
+                                    .'<input class="custom-control-input custom-control-input-info" type="checkbox" id="iAtivoPet'.$coluna["id_pet"].'" name="nAtivoPet" '.$ativo.'>'
                                     .'<label for="iAtivoPet'.$coluna["id_pet"].'" class="custom-control-label">Pet Ativo</label>'
                                 .'</div>'
 
@@ -223,7 +223,7 @@ function listaPet(){
                 .'<div class="modal-dialog modal-dialog-centered">'
                     .'<div class="modal-content">'
                         .'<div class="modal-header bg-success">'
-                            .'<h5 class="modal-title">'.$coluna["nome_pet"].'</h5>'
+                            .'<h4 class="modal-title">'.$coluna["nome_pet"].'</h4>'
                             .'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
                                 .'<span aria-hidden="true">&times;</span>'
                             .'</button>'

@@ -54,7 +54,7 @@
                                 .'<div class="col-8">'
                                     .'<div class="form-group">'
                                         .'<label for="iNome">Nome:</label>'
-                                        .'<input type="text" value="'.$coluna["nome"].'" class="form-control" id="iNome" name="nNome" maxlength="100">'
+                                        .'<input type="text" value="'.$coluna["nome"].'" class="form-control" id="iNome" name="nNome" maxlength="100" required>'
                                     .'</div>'
                                 .'</div>'
             

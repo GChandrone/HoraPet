@@ -113,7 +113,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label for="iNome">Nome:</label>
-                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50">
+                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
                     </div>
                   </div>
 
@@ -150,21 +150,21 @@
                   <div class="col-3">
                     <div class="form-group">
                       <label for="iAltura">Altura (cm):</label>
-                      <input type="number" class="form-control" id="iAltura" name="nAltura">
+                      <input type="number" class="form-control" id="iAltura" name="nAltura" required>
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label for="iPeso">Peso (kg):</label>
-                      <input type="number" class="form-control" id="iPeso" name="nPeso">
+                      <input type="number" class="form-control" id="iPeso" name="nPeso" required>
                     </div>
                   </div>
 
                   <div class="col-6">
                     <div class="form-group">
                       <label for="iPorte">Porte:</label>
-                      <input type="text" class="form-control" id="iPorte" name="nPorte" readonly>
+                      <input type="text" class="form-control" id="iPorte" name="nPorte" readonly required>
                     </div>
                   </div>
 

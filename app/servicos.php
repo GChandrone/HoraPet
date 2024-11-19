@@ -76,7 +76,7 @@ include('php/funcoes.php');
                         <th>Valor Grande</th>
                         <th>Duração Pequeno</th>
                         <th>Duração Médio</th>
-                        <th>Duração grande</th>
+                        <th>Duração Grande</th>
                         <!-- <th>Descrição</th> -->
                         <th>Ativo</th>
                         <th>Ações</th>

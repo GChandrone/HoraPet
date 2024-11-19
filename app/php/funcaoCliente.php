@@ -31,7 +31,7 @@
                  .'<td>'.$coluna["id_cliente"].'</td>'
                  .'<td>'.$coluna["nome"].'</td>'
                  .'<td>'.$coluna["telefone"].'</td>'
-                 .'<td>'.$coluna["email"].'</td>'
+                //  .'<td>'.$coluna["email"].'</td>'
                  .'<td>'.$coluna["estado"].'</td>'
                  .'<td>'.$coluna["cidade"].'</td>'
                  .'<td>'.$coluna["bairro"].'</td>'

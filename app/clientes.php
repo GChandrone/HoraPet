@@ -70,7 +70,7 @@
                       <th>ID</th>
                       <th>Nome</th>
                       <th>Telefone</th>
-                      <th>Email</th>
+                      <!-- <th>Email</th> -->
                       <th>UF</th>
                       <th>Cidade</th> 
                       <th>Bairro</th>                
