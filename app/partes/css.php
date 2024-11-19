@@ -2,7 +2,8 @@
 
 
   <!-- fullCalendar -->
-  <link rel="stylesheet" href="../plugins/fullcalendar/main.css">
+  <link rel="stylesheet" href="dist/css/fullcalendar.css">
+  <link rel="stylesheet" href="dist/css/fullcalendar.print.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -34,3 +35,5 @@
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- CSS Novo -->  
   <link rel="stylesheet" href="dist/css/style.css">
+
+

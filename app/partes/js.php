@@ -55,7 +55,7 @@
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- fullCalendar 2.2.5 -->
-<script src="plugins/moment/moment.min.js"></script>
-<script src="plugins/fullcalendar/main.js"></script>
+<script src="dist/js/fullcalendar.js"></script>
 <!-- JS Novo -->
 <script src="dist/js/uteis.js"></script>
+
