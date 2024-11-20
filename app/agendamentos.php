@@ -83,7 +83,7 @@ include('php/funcoes.php');
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header bg-success">
-                <h4 class="modal-title">Nova Raça</h4>
+                <h4 class="modal-title">Novo Agendamento</h4>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -92,20 +92,38 @@ include('php/funcoes.php');
                 <form method="POST" action="php/salvarAgendamento.php?funcao=I" enctype="multipart/form-data">
 
                   <div class="row">
-                    <div class="col-8">
+                    <div class="col-6">
                       <div class="form-group">
-                        <label for="iNome">Nome:</label>
+                        <label for="iNome">Cliente:</label>
                         <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
                       </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-6">
                       <div class="form-group">
-                        <label for="iNome">Tipo do Pet:</label>
-                        <select name="nTipoPet" class="form-control" required>
-                          <option value="">Selecione...</option>
-                          <?php echo optionTipoPet("I"); ?>
-                        </select>
+                        <label for="iNome">Pet:</label>
+                        <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="iNome">Funcionário:</label>
+                        <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
+                      </div>
+                    </div>
+
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label for="iData">Data de Nascimento:</label>
+                        <input type="date" class="form-control" id="iData" name="nData" required>
+                      </div>
+                    </div>
+
+                    <div class="col-3">
+                      <div class="form-group">
+                        <label for="iHorarioInicio">Horário:</label>
+                        <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio" required>
                       </div>
                     </div>
 
@@ -250,7 +268,7 @@ include('php/funcoes.php');
                         // se sim, remova o elemento da lista "Draggable Events"
                         $(this).remove();
                     }
-
+                    <?php //echo carregaAgenda();?>
                 },
 
 
