@@ -83,7 +83,7 @@ include('php/funcoes.php');
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header bg-success">
-                <h4 class="modal-title">Novo Agendamento</h4>
+                <h5 class="modal-title">Novo Agendamento</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -91,61 +91,110 @@ include('php/funcoes.php');
               <div class="modal-body">
                 <form method="POST" action="php/salvarAgendamento.php?funcao=I" enctype="multipart/form-data">
 
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="iNome">Cliente:</label>
-                        <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
-                      </div>
-                    </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="iCliente">Cliente - Telefone:</label>
+                            <select id="iCliente" name="nCliente" class="form-control" required>
+                              <option value="">Selecione...</option>
+                              <?php echo optionDonoPet();?>
+                            </select>
+                          </div>
+                        </div>
 
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="iNome">Pet:</label>
-                        <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
-                      </div>
-                    </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="iNome">Pet:</label>
+                            <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
+                          </div>
+                        </div>
 
-                    <div class="col-6">
-                      <div class="form-group">
-                        <label for="iNome">Funcionário:</label>
-                        <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
-                      </div>
-                    </div>
+                        <div class="col-12">
+                          <div class="form-group">
+                            <label for="iFuncionario">Funcionário - Telefone:</label>
+                            <select id="iFuncionario" name="nFuncionario" class="form-control" required>
+                              <option value="">Selecione...</option>
+                              <?php echo optionFuncionario();?>
+                            </select>
+                          </div>
+                        </div>
 
-                    <div class="col-3">
-                      <div class="form-group">
-                        <label for="iData">Data de Nascimento:</label>
-                        <input type="date" class="form-control" id="iData" name="nData" required>
-                      </div>
-                    </div>
+                        <div class="col-4">
+                          <div class="for8m-group">
+                            <label for="iData">Data:</label>
+                            <input type="date" class="form-control" id="iData" name="nData" required>
+                          </div>
+                        </div>
 
-                    <div class="col-3">
-                      <div class="form-group">
-                        <label for="iHorarioInicio">Horário:</label>
-                        <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio" required>
-                      </div>
-                    </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="iHorarioInicio">Horário:</label>
+                            <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio" required>
+                          </div>
+                        </div>
+                  
+                        <div class="col-4">
+                          <div class="form-group">
+                            <label for="iSituacao">Situação:</label>
+                            <select id="iSituacao" name="nSituacao" class="form-control" required>
+                              <option value="1">Agendado</option>
+                              <?php echo optionSituacao('I');?>
+                            </select>
+                          </div>
+                        </div>
 
-                    <!-- <div class="col-12">  UTILIZAR NO CADASTRO DO PET
-                    <div class="form-group">
-                      <label for="iFoto">Foto:</label>
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">
-                        <label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>
+
                       </div>
                     </div>
-                  </div> -->
                   </div>
 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                     <button type="submit" class="btn btn-success">Salvar</button>
-                  </div>
+                  </div>  
 
                 </form>
 
               </div>
+              
+               <!--<div class="modal-header bg-success">
+                <h5 class="modal-title">Serviços</h5>
+              </div>
+
+              <div class="modal-body">
+                <form method="POST" action="php/salvarAgendamento.php?funcao=I" enctype="multipart/form-data">
+
+                  <div class="card">
+                    
+                    <div class="card-body">
+                      
+                      <table id="tabela" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Nome</th>
+                              <th>Tipo do Pet</th>
+                              <th>Foto</th> 
+                              <th>Ativo</th> 
+                              <th>Ações</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+
+                      <?php //echo listaRaca(); ?>
+
+                    </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                      </div>
+                  </div>
+
+                </form>
+
+              </div> -->
 
             </div>
             <!-- /.modal-content -->

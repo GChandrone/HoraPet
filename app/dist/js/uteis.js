@@ -148,7 +148,7 @@ var readURL = function(input) {
   });
 
   /**********************************************************************************************
-  ** Função para atulizar o campo Porte automaticamente, conforme o peso, altura e o tipo do pet*
+  ** Função para atualizar o campo Porte automaticamente, conforme o peso, altura e o tipo do pet*
   ***********************************************************************************************/
   function atualizarPorte() {
     // Seleciona todos os campos de altura, peso e tipo do pet

@@ -45,4 +45,46 @@ function carregaAgenda($idTipoUsuario,$idUsuario){
     }
     return $agenda;
 }
+
+// //Função para buscar a descrição do tipo de usuário
+// function descrTipoPet($id){
+
+//     if ($id == 1) {
+//         $descricao = "Cachorro";
+//     }else{
+//         $descricao = "Gato";
+//     }    
+
+//     return $descricao;
+// }
+
+//Função para montar o select/option
+function optionSituacao($p){
+
+    if ($p == "I") {
+        $option = '';
+    }else{
+        if ($p == 1) {
+            $option = '<option value=2>Em Atendimento</option>'
+                     .'<option value=3>Atendido</option>'
+                     .'<option value=4>Cancelado</option>';
+        }elseif ($p == 2){
+            $option = '<option value=1>Agendado</option>'
+                     .'<option value=3>Atendido</option>'
+                     .'<option value=4>Cancelado</option>';
+        }elseif ($p == 3){
+            $option = '<option value=1>Agendado</option>'
+                     .'<option value=2>Em Atendimento</option>'
+                     .'<option value=4>Cancelado</option>';
+        }elseif ($p == 4){
+            $option = '<option value=1>Agendado</option>'
+                     .'<option value=2>Em Atendimento</option>'
+                     .'<option value=3>Atendido</option>';
+        }
+        
+    }
+    
+    return $option;
+}
+
 ?>
