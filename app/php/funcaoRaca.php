@@ -1,5 +1,5 @@
 <?php
-//Função para listar todos os Raças
+//Função para listar todas as Raças
  function listaRaca(){
      include("conexao.php");
      $sql = "SELECT * FROM raca ORDER BY id_raca;";

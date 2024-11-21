@@ -124,15 +124,6 @@
                     </div>
                   </div>
                 
-                  <!-- <div class="col-12">  UTILIZAR NO CADASTRO DO PET
-                    <div class="form-group">
-                      <label for="iFoto">Foto:</label>
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">
-                        <label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>
-                      </div>
-                    </div>
-                  </div> -->
                 </div>
 
                 <div class="modal-footer">
@@ -179,11 +170,6 @@
       "responsive": true,
     });
   });
-
-  $(function () {
-    bsCustomFileInput.init();
-  });
-</script>
 
 </body>
 </html>
