@@ -278,56 +278,52 @@ var readURL = function(input) {
     carregarPets($(this));
   });
 
-  // Função para carregar raças dinamicamente
+  // Função para carregar pets dinamicamente
   function carregarPets(clienteElement) {
-      // Identifica a modal atual onde o evento foi disparado
-      const modal = clienteElement.closest('.modal');
-
-      // Pega o valor selecionado na lista 1
+      // Pega o valor selecionado na lista de clientes
       const cliente = clienteElement.val();
 
-      // Prepara a lista 2 filtrada
+      // Prepara a lista de pets filtrada
       let optionPet = '';
 
-      // Valida se teve seleção na lista 1
+      // Valida se teve seleção na lista de clientes
       if (cliente !== "" && cliente !== "0") {
-          // Vai no PHP consultar dados para a lista 2
+          // Vai no PHP consultar dados para a lista de pets
           $.getJSON('php/carregaPet.php?idCliente=' + cliente, function (dados) {
-              // Carrega a primeira option
+              // Carrega a primeira opção padrão
               optionPet = '<option value="">Selecione...</option>';
 
-              // Obtém o valor atual da raça no campo diretamente
-              const petAtual = modal.find('.petAjax').val();
+              // Obtém o valor atual do pet selecionado
+              const petAtual = $('#iPet').val();
 
-              // Valida o retorno do PHP para montar a lista 2
+              // Valida o retorno do PHP para montar a lista de pets
               if (dados.length > 0) {
-                  // Se tem dados, monta a lista 2
+                  // Se há dados, monta as opções
                   $.each(dados, function (i, obj) {
-                      // Verifica se a raça atual corresponde ao ID da raça
+                      // Verifica se o pet atual corresponde ao ID do pet
                       const selected = obj.id_pet == petAtual ? 'selected' : '';
                       optionPet += '<option value="' + obj.id_pet + '" ' + selected + '>' + obj.nome + '</option>';
                   });
 
-                  // Preenche o campo de raças com as opções
-                  modal.find('.petAjax').attr('required', 'required').html(optionPet).show();
+                  // Preenche o campo de pets com as opções
+                  $('#iPet').attr('required', 'required').html(optionPet).show();
               } else {
-                  // Não encontrou itens para a lista 2
-                  modal.find('.petAjax').html(optionPet).show();
+                  // Não encontrou itens para a lista de pets
+                  $('#iPet').html(optionPet).show();
               }
           });
       } else {
-          // Sem seleção na lista 1, reseta a lista 2
+          // Sem seleção na lista de clientes, reseta a lista de pets
           optionPet += '<option value="">Selecione...</option>';
-          modal.find('.petAjax').html(optionPet).show();
+          $('#iPet').html(optionPet).show();
       }
   }
 
-  // Ao abrir a modal de edição, carregar automaticamente as raças se o Tipo Pet estiver preenchido
-  $(document).on('show.bs.modal', '.modal', function () {
-      const modal = $(this);
-      const clienteElement = modal.find('.clienteAjax');
+  // Carrega automaticamente os pets quando a página é carregada, se o cliente já estiver selecionado
+  $(document).ready(function () {
+      const clienteElement = $('#iCliente');
 
-      // Se o Tipo Pet está preenchido, carrega as raças
+      // Se o cliente está preenchido, carrega os pets
       if (clienteElement.val() !== "" && clienteElement.val() !== "0") {
           carregarPets(clienteElement);
       }

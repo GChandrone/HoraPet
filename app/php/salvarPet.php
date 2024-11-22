@@ -84,6 +84,6 @@
         mysqli_close($conn);
     }
 
-    header("location: ../pets.php");
+    header("location: ../agendamento.php");
 
 ?>

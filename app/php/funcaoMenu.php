@@ -15,7 +15,8 @@ function montaMenu($n1,$n2){
     $opcPainelFiltro  = '';
     $opcUsuarios      = '';
     $opcProdutos      = '';
-    $opcAgendamentos  = '';
+    $opcAgendamentos   = '';
+    $opcCalendario    = '';
     $opcRacas         = '';
     $opcServicos      = '';
     $opcPerfil        = '';
@@ -62,8 +63,12 @@ function montaMenu($n1,$n2){
             $opcProdutos = 'active';
             break;
             
-        case 'agendamentos':
+        case 'agendamento':
             $opcAgendamentos = 'active';
+            break;
+
+        case 'calendario':
+            $opcCalendario = 'active';
             break;
         
         case 'racas':
@@ -159,6 +164,15 @@ function montaMenu($n1,$n2){
                         <a href="./agendamentos.php" class="nav-link '.$opcAgendamentos.'">
                         <i class="far fa-calendar-alt nav-icon"></i>
                         <p>Agendamentos</p>
+                        </a>
+                    </li>              
+                </ul>
+
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="./calendario.php" class="nav-link '.$opcCalendario.'">
+                        <i class="far fa-calendar-alt nav-icon"></i>
+                        <p>Calendário</p>
                         </a>
                     </li>              
                 </ul>

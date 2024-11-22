@@ -7,7 +7,7 @@
     $pet           = $_POST["nPet"           ];
     $funcionario   = $_POST["nFuncionario"   ];
     $data          = $_POST["nData"          ];
-    $horainicio    = $_POST["iHorarioInicio" ];
+    $horainicio    = $_POST["nHorarioInicio" ];
     $situacao      = $_POST["nSituacao"      ];
     $funcao        = $_GET ["funcao"         ];
     $idPet         = $_GET ["codigo"         ];
@@ -19,8 +19,8 @@
 
         //INSERT
         $sql = "INSERT INTO agendamento (horario_inicial,horario_final,data,situacao,id_pet,id_cliente) "
-        ." VALUES ('$horainicio','00:00:00',$data,$situacao,$pet,$cliente);"; 
-    
+        ." VALUES ('$horainicio','00:00:00',$data,$situacao,$pet,$cliente);";  
+
     }elseif($funcao == "A"){
 
         $sql = "UPDATE agendamento "
@@ -75,10 +75,6 @@
         mysqli_close($conn);
     }
 
-
-    if($funcao == "I"){
-        header("location: ../agendamentos.php?id=" . $idAgendamento);
-    }else{
-        header("location: ../agendamentos.php");
-    }
+    header("location: ../agendamento.php?id=" . $idAgendamento);
+  
 ?>

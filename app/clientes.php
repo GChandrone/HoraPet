@@ -59,9 +59,7 @@
 
                 </div>
               </div>
-
               
-
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="tabela" class="table table-bordered table-hover">
