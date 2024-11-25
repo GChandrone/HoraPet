@@ -2,7 +2,6 @@
 
     include('funcoes.php');
 
-    
     $cliente       = $_POST["nCliente"       ];
     $pet           = $_POST["nPet"           ];
     $funcionario   = $_POST["nFuncionario"   ];
@@ -10,7 +9,6 @@
     $horainicio    = $_POST["nHorarioInicio" ];
     $situacao      = $_POST["nSituacao"      ];
     $funcao        = $_GET ["funcao"         ];
-    $idPet         = $_GET ["codigo"         ];
 
     include("conexao.php");
 
@@ -19,7 +17,7 @@
 
         //INSERT
         $sql = "INSERT INTO agendamento (horario_inicial,horario_final,data,situacao,id_pet,id_cliente) "
-        ." VALUES ('$horainicio','00:00:00',$data,$situacao,$pet,$cliente);";  
+        ." VALUES ('$horainicio','00:00:00','$data',$situacao,$pet,$cliente);";  
 
     }elseif($funcao == "A"){
 
@@ -43,38 +41,8 @@
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
 
-    //VERIFICA SE TEM IMAGEM NO INPUT
-    if($_FILES['nFoto']['tmp_name'] != ""){
+    $idAgendamento = idAgendamentoServico($cliente,$pet,$data);
 
-        //Pega a extensão do arquivo e cria um novo nome pra ele (MD5 do nome original)
-        $extensao = pathinfo($_FILES['nFoto']['name'], PATHINFO_EXTENSION);
-        $novoNome = md5($_FILES['nFoto']['name']).'.'.$extensao;        
-        
-        //Verificar se o diretório existe, ou criar a pasta
-        if(is_dir('../dist/img/')){
-            //Existe
-            $diretorio = '../dist/img/';
-        }else{
-            //Criar pq não existe
-            $diretorio = mkdir('../dist/img/');
-        }
+    header("location: ../agendamento.php?id=".$idAgendamento);
 
-        //Cria uma cópia do arquivo local na pasta do projeto
-        move_uploaded_file($_FILES['nFoto']['tmp_name'], $diretorio.$novoNome);
-
-        //Caminho que será salvo no banco de dados
-        $dirImagem = 'dist/img/'.$novoNome;
-
-        include("conexao.php");
-        //UPDATE
-        $sql = "UPDATE pet "
-                ." SET foto = '$dirImagem' "
-                ." WHERE id_pet = $idPet;";
-
-        $result = mysqli_query($conn,$sql);
-        mysqli_close($conn);
-    }
-
-    header("location: ../agendamento.php?id=" . $idAgendamento);
-  
 ?>

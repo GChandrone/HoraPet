@@ -128,7 +128,7 @@ include('php/funcoes.php');
 
                 <!-- Incio Servicos -->
 
-                <!-- <div class="card card-success collapsed-card">
+                <div class="card card-success collapsed-card">
                   <div class="card-header pointer" data-card-widget="collapse">
                     <h3 class="card-title">Serviços</h3>
                     <div class="card-tools">
@@ -155,7 +155,7 @@ include('php/funcoes.php');
                       </thead>
                       <tbody>
 
-                        <?php //echo listaRaca();
+                        <?php echo listaRaca();
                         ?>
 
                       </tbody>
@@ -197,16 +197,16 @@ include('php/funcoes.php');
                           </div>
 
                         </div>
-                         /.modal-content 
+                         <!-- /.modal-content  -->
                       </div>
-                       /.modal-dialog 
+                       <!-- /.modal-dialog  -->
                     </div>
-                     /.modal 
+                     <!-- /.modal  -->
 
                   </div>
-                   /.card-body 
+                   <!-- /.card-body  -->
                 </div>
-                Fim Servicos -->
+              <!-- Fim Servicos -->
 
                 <!-- /.card-body -->
               </div>

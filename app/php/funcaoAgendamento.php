@@ -195,4 +195,38 @@ function optionSituacao($p){
     return $option;
 }
 
+function idAgendamentoServico($cliente,$pet,$data){
+
+    $camposConcatenados = $cliente.$pet.$data;
+
+    $keyAgendamento = md5($camposConcatenados);
+    
+    include("conexao.php");
+
+    $sql = "SELECT " 
+              ."MAX(id_agendamento) as id_agendamento "
+          ."FROM agendamento "
+          ."WHERE MD5(CONCAT(id_cliente,id_pet,data)) = '".$keyAgendamento."'; ";
+
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);    
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+                
+        $array = array();
+        
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array,$linha);
+        }
+        
+        foreach ($array as $coluna) {            
+            //***Verificar os dados da consulta SQL
+            $id = $coluna["id_agendamento"];
+        }        
+    } 
+
+    return $id;
+}
+
 ?>
