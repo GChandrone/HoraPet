@@ -13,6 +13,7 @@ include("funcaoCliente.php");
 include("funcaoDonoPet.php");
 include("funcaoPet.php");
 include("funcaoAgendamento.php");
+include("funcaoExecucao.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

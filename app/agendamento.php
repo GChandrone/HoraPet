@@ -27,7 +27,7 @@ include('php/funcoes.php');
     <!-- Sidebar -->
     <?php
     $_SESSION['menu-n1'] = 'administrador';
-    $_SESSION['menu-n2'] = 'calendario';
+    $_SESSION['menu-n2'] = 'agendamento';
     include('partes/sidebar.php');
     ?>
     <!-- Fim Sidebar -->
@@ -138,6 +138,7 @@ include('php/funcoes.php');
                     </div>
                   </div>
                   <div class="card-body">
+
                     <table id="tabela" class="table table-bordered table-hover">
                       <thead>
                         <tr>
@@ -155,7 +156,7 @@ include('php/funcoes.php');
                       </thead>
                       <tbody>
 
-                        <?php echo listaRaca();
+                        <?php echo listaExecucao();
                         ?>
 
                       </tbody>
@@ -163,50 +164,48 @@ include('php/funcoes.php');
                     </table>
 
                     <div class="modal fade" id="novaExecucaoModal">
-                      <div class="modal-dialog modal-lg">
+                      <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-success">
-                            <h4 class="modal-title">Nova Serviço</h4>
+                            <h4 class="modal-title">Novo Serviço</h4>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
 
-                            <div class="row">
-                              <div class="col-8">
-                                <div class="form-group">
-                                  <label for="iNome">Nome:</label>
-                                  <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50"
-                                    required>
+                            <form method="POST" action="php/salvarExecucao.php?funcao=I" enctype="multipart/form-data">
+
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="form-group">
+                                    <!-- <label for="iNome">Nome:</label> -->
+                                    <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50"
+                                      required>
+                                  </div>
                                 </div>
                               </div>
 
-                              <div class="col-4">
-                                <div class="form-group">
-                                  <label for="iNome">Tipo do Pet:</label>
-                                  <select name="nTipoPet" class="form-control" required>
-                                    <option value="">Selecione...</option>
-                                    <?php echo optionTipoPet("I"); ?>
-                                  </select>
-                                </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-success">Salvar</button>
                               </div>
 
-                            </div>
+                            </form>
 
                           </div>
 
                         </div>
-                         <!-- /.modal-content  -->
+                        <!-- /.modal-content  -->
                       </div>
-                       <!-- /.modal-dialog  -->
+                      <!-- /.modal-dialog  -->
                     </div>
-                     <!-- /.modal  -->
+                    <!-- /.modal  -->
 
                   </div>
-                   <!-- /.card-body  -->
+                  <!-- /.card-body  -->
                 </div>
-              <!-- Fim Servicos -->
+                <!-- Fim Servicos -->
 
                 <!-- /.card-body -->
               </div>

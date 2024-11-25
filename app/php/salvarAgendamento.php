@@ -16,21 +16,12 @@
     if($funcao == "I"){
 
         //INSERT
-        $sql = "INSERT INTO agendamento (horario_inicial,horario_final,data,situacao,id_pet,id_cliente) "
-        ." VALUES ('$horainicio','00:00:00','$data',$situacao,$pet,$cliente);";  
+        $sql = "INSERT INTO agendamento (horario_inicial,horario_final,data,situacao,id_pet,id_cliente,id_funcionario) "
+        ." VALUES ('$horainicio','00:00:00','$data',$situacao,$pet,$cliente,$funcionario);";  
 
     }elseif($funcao == "A"){
 
-        $sql = "UPDATE agendamento "
-                ." SET nome       = '$nome', "
-                    ." id_cliente =  $dono, "
-                    ." tipo_pet   =  $tipoPet, "
-                    ." id_raca    =  $raca, "
-                    ." altura     =  $altura, "
-                    ." peso       =  $peso, "
-                    ." porte      =  $porte, "
-                    ." ativo      =  $ativo "
-                ." WHERE id_pet   =  $idPet;";
+       //NÃO VAI TER OPÇÃO DE EDITAR O AGENDAMENTO
 
     }elseif($funcao == "D"){
         //DELETE
