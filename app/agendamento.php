@@ -1,6 +1,9 @@
 <?php
 session_start();
 include('php/funcoes.php');
+
+$id = $_GET ["id"];
+
 ?>
 
 <!DOCTYPE html>
@@ -118,15 +121,28 @@ include('php/funcoes.php');
                     </div>
                   </div>
 
+                  <?php if(isset($id) > 0){?>
+
+                  <div class="modal-footer">
+                    <a href="agendamentos.php" class="btn btn-success">
+                      Voltar
+                    </a>
+                  </div>
+
+                  <?php }else{?>
+
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                     <button type="submit" class="btn btn-success">Salvar</button>
                   </div>
 
+                  <?php }?>
+
                 </form>
                 <!-- Fim Agendamento -->
 
                 <!-- Incio Servicos -->
+                <?php if(isset($id) > 0){?>
 
                 <div class="card card-success collapsed-card">
                   <div class="card-header pointer" data-card-widget="collapse">
@@ -156,8 +172,7 @@ include('php/funcoes.php');
                       </thead>
                       <tbody>
 
-                        <?php echo listaExecucao();
-                        ?>
+                        <?php echo listaExecucao($id);?>
 
                       </tbody>
 
@@ -179,9 +194,10 @@ include('php/funcoes.php');
                               <div class="row">
                                 <div class="col-12">
                                   <div class="form-group">
-                                    <!-- <label for="iNome">Nome:</label> -->
-                                    <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50"
-                                      required>
+                                    <select id="iFuncionario" name="nFuncionario" class="form-control" required>
+                                      <option value="">Selecione...</option>
+                                      <?php echo optionServico(); ?>
+                                    </select>
                                   </div>
                                 </div>
                               </div>
@@ -206,6 +222,7 @@ include('php/funcoes.php');
                   <!-- /.card-body  -->
                 </div>
                 <!-- Fim Servicos -->
+                <?php }?>    
 
                 <!-- /.card-body -->
               </div>

@@ -1,6 +1,6 @@
 <?php
 //Função para listar todas as Raças
-function listaExecucao(){
+function listaExecucao($id){
     include("conexao.php");
 
     $sql = "SELECT "
@@ -13,6 +13,7 @@ function listaExecucao(){
           ."FROM execucao "
           ."INNER JOIN servico "
           ."   ON servico.id_servico = execucao.id_servico "
+          ."WHERE execucao.id_agendamento = $id "
           ."ORDER BY id_execucao; ";
          
     $result = mysqli_query($conn,$sql);

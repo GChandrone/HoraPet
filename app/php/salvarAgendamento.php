@@ -1,5 +1,4 @@
 <?php
-
     include('funcoes.php');
 
     $cliente       = $_POST["nCliente"       ];

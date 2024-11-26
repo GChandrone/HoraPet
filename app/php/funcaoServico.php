@@ -209,4 +209,32 @@ function listaServico(){
     return $lista;
 }
 
+//Função para montar o select/option
+function optionServico(){
+
+    $option = "";
+
+    include("conexao.php");
+    $sql = "SELECT id_servico, nome, valor_pequeno FROM servico ORDER BY nome;";        
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+                
+        $array = array();
+        
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array,$linha);
+        }
+        
+        foreach ($array as $coluna) {            
+            //***Verificar os dados da consulta SQL            
+            $option .= '<option value="'.$coluna['id_servico'].'">'.$coluna['nome'].' - '.formatarMoeda($coluna['valor_pequeno']).'</option>';
+        }        
+    } 
+
+    return $option;
+}
+
 ?>
