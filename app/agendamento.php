@@ -2,7 +2,29 @@
 session_start();
 include('php/funcoes.php');
 
-$id = $_GET ["id"];
+$id      = $_GET ["id"];
+// $idPorte = $_GET ["idPorte"];
+
+// if(isset($id) > 0){
+
+//   include("conexao.php");
+
+//   $sql = "SELECT * FROM agendamento WHERE id_agendamento = $id;";
+         
+//   $result = mysqli_query($conn,$sql);
+//   mysqli_close($conn);
+
+//   $lista = '';
+
+//   //Validar se tem retorno do BD
+//   if (mysqli_num_rows($result) > 0) {
+//       foreach ($result as $coluna) {
+//         $cliente     = $coluna["id_cliente"];
+//         $funcionario = $coluna["id_cliente"];
+//       }
+//   }
+
+// }
 
 ?>
 
@@ -196,7 +218,7 @@ $id = $_GET ["id"];
                                   <div class="form-group">
                                     <select id="iFuncionario" name="nFuncionario" class="form-control" required>
                                       <option value="">Selecione...</option>
-                                      <?php echo optionServico(); ?>
+                                      <?php //echo optionServico($idPorte); ?>
                                     </select>
                                   </div>
                                 </div>

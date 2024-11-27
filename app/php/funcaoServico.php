@@ -210,12 +210,26 @@ function listaServico(){
 }
 
 //Função para montar o select/option
-function optionServico(){
+function optionServico($idPorte){
 
     $option = "";
 
     include("conexao.php");
-    $sql = "SELECT id_servico, nome, valor_pequeno FROM servico ORDER BY nome;";        
+    $sql  = "SELECT ";
+    $sql .= "  id_servico, ";
+    $sql .= "  nome, ";
+    if ($idPorte == 1) {
+        $sql .=  " valor_pequeno as valor";
+    }elseif($idPorte == 2){
+        $sql .=  " valor_medio   as valor";
+    }else{
+        $sql .=  " valor_grande  as valor";
+    }
+    $sql .= "FROM servico ORDER BY nome;";    
+
+    var_dump($sql);
+    die();
+
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
 
@@ -230,7 +244,7 @@ function optionServico(){
         
         foreach ($array as $coluna) {            
             //***Verificar os dados da consulta SQL            
-            $option .= '<option value="'.$coluna['id_servico'].'">'.$coluna['nome'].' - '.formatarMoeda($coluna['valor_pequeno']).'</option>';
+            $option .= '<option value="'.$coluna['id_servico'].'">'.$coluna['nome'].' - '.formatarMoeda($coluna['valor']).'</option>';
         }        
     } 
 

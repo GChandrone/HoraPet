@@ -268,7 +268,7 @@ function proxIdPet(){
     return $id;
 }
 
-//Função para buscar a foto do usuário
+//Função para buscar a foto do pet
 function fotoPet($id){
 
     $resp = "";
@@ -322,6 +322,34 @@ function descrPorte($id){
     }    
 
     return $descricao;
+}
+
+//Função para buscar o porte do pet
+function portePet($id){
+
+    $resp = "";
+
+    include("conexao.php");
+    $sql = "SELECT porte FROM pet WHERE id_pet = $id;";        
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+                
+        $array = array();
+        
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array,$linha);
+        }
+        
+        foreach ($array as $coluna) {            
+            //***Verificar os dados da consulta SQL
+            $resp = $coluna["porte"];
+        }        
+    } 
+
+    return $resp;
 }
 
 ?>

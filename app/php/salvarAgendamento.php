@@ -33,6 +33,8 @@
 
     $idAgendamento = idAgendamentoServico($cliente,$pet,$data);
 
-    header("location: ../agendamento.php?id=".$idAgendamento);
+    $idPorte = portePet($pet);
+
+    header("location: ../agendamento.php?id=".$idAgendamento."?idPorte=".$idPorte);
 
 ?>
