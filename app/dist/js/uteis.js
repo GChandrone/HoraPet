@@ -271,7 +271,7 @@ var readURL = function(input) {
   });
 
 
-  /******************************************************************
+/******************************************************************
   ** Lista dinâmica com Ajax para carregar somente os pets dos donos*
   *******************************************************************/
   $(document).on('change', '.clienteAjax', function () {
@@ -280,56 +280,41 @@ var readURL = function(input) {
 
   // Função para carregar pets dinamicamente
   function carregarPets(clienteElement) {
-    // Pega o valor selecionado na lista de clientes
-    const cliente = clienteElement.val();
+    const cliente = clienteElement.val(); // Valor do cliente selecionado
+    const petAtual = $('#iPet').val(); // Valor do pet selecionado
 
-    // Prepara a lista de pets filtrada
-    let optionPet = '';
-
-    // Obtém o valor atual do pet selecionado
-    const petAtual = $('#iPet').val();
-
-    // Valida se teve seleção na lista de clientes
+    // Apenas atualiza os pets se o cliente for válido
     if (cliente !== "" && cliente !== "0") {
-        // Vai no PHP consultar dados para a lista de pets
-        $.getJSON('php/carregaPet.php?idCliente=' + cliente, function (dados) {
-            // Carrega a primeira opção padrão
-            optionPet = '<option value="">Selecione...</option>';
+      $.getJSON('php/carregaPet.php?idCliente=' + cliente, function (dados) {
+        let optionPet = '<option value="">Selecione...</option>'; // Primeira opção padrão
 
-            // Valida o retorno do PHP para montar a lista de pets
-            if (dados.length > 0) {
-                // Se há dados, monta as opções
-                $.each(dados, function (i, obj) {
-                    // Verifica se o pet atual corresponde ao ID do pet
-                    const selected = obj.id_pet == petAtual ? 'selected' : '';
-                    optionPet += '<option value="' + obj.id_pet + '" ' + selected + '>' + obj.nome + '</option>';
-                });
-
-                // Atualiza a lista de opções apenas se não houver pet selecionado
-                if (!petAtual) {
-                    $('#iPet').html(optionPet).attr('required', 'required').show();
-                }
-            } else {
-                // Não encontrou itens para a lista de pets
-                $('#iPet').html(optionPet).show();
-            }
-        });
-    } else {
-        // Sem seleção na lista de clientes, reseta a lista de pets apenas se não houver pet selecionado
-        if (!petAtual) {
-            optionPet = '<option value="">Selecione...</option>';
-            $('#iPet').html(optionPet).show();
+        // Verifica se há pets retornados pelo PHP
+        if (dados.length > 0) {
+          $.each(dados, function (i, obj) {
+            const selected = obj.id_pet == petAtual ? 'selected' : '';
+            optionPet += `<option value="${obj.id_pet}" ${selected}>${obj.nome}</option>`;
+          });
         }
+
+        // Atualiza o campo de pets apenas se não houver um pet já definido
+        if (!petAtual || !dados.some(obj => obj.id_pet == petAtual)) {
+          $('#iPet').html(optionPet).attr('required', 'required').show();
+        }
+      });
+    } else {
+      // Se não há cliente selecionado e o pet não está definido, reseta a lista
+      if (!petAtual) {
+        $('#iPet').html('<option value="">Selecione...</option>').show();
+      }
     }
   }
 
-  // Carrega automaticamente os pets quando a página é carregada, se o cliente já estiver selecionado
+  // No carregamento da página, garante que o pet atual não seja sobrescrito
   $(document).ready(function () {
     const clienteElement = $('#iCliente');
 
-    // Se o cliente está preenchido, carrega os pets
     if (clienteElement.val() !== "" && clienteElement.val() !== "0") {
-        carregarPets(clienteElement);
+      carregarPets(clienteElement);
     }
   });
 
