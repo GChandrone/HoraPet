@@ -7,7 +7,7 @@
     <title>PHP</title>
 
     <!-- CSS -->
-    <?php include('partes/css.php'); ?>
+    <?php include('partes/csslogin.php'); ?>
     <!-- Fim CSS -->
 
 
