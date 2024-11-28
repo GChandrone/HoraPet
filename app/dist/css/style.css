@@ -83,19 +83,5 @@
     opacity: 0;
     filter: alpha(opacity=0);
 }
-
-.tela-login {
-    background-image: url('../img/photo1.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    bottom: 0;
-    color: black;
-    left: 0;
-    overflow: auto;
-    padding: 3em;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    background-size: cover;
-}
+ 
+  
