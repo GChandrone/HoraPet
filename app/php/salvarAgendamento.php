@@ -35,6 +35,6 @@
 
     $idPorte = portePet($pet);
 
-    header("location: ../agendamento.php?id=".$idAgendamento."?idPorte=".$idPorte);
+    header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte);
 
 ?>

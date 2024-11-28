@@ -280,53 +280,57 @@ var readURL = function(input) {
 
   // Função para carregar pets dinamicamente
   function carregarPets(clienteElement) {
-      // Pega o valor selecionado na lista de clientes
-      const cliente = clienteElement.val();
+    // Pega o valor selecionado na lista de clientes
+    const cliente = clienteElement.val();
 
-      // Prepara a lista de pets filtrada
-      let optionPet = '';
+    // Prepara a lista de pets filtrada
+    let optionPet = '';
 
-      // Valida se teve seleção na lista de clientes
-      if (cliente !== "" && cliente !== "0") {
-          // Vai no PHP consultar dados para a lista de pets
-          $.getJSON('php/carregaPet.php?idCliente=' + cliente, function (dados) {
-              // Carrega a primeira opção padrão
-              optionPet = '<option value="">Selecione...</option>';
+    // Obtém o valor atual do pet selecionado
+    const petAtual = $('#iPet').val();
 
-              // Obtém o valor atual do pet selecionado
-              const petAtual = $('#iPet').val();
+    // Valida se teve seleção na lista de clientes
+    if (cliente !== "" && cliente !== "0") {
+        // Vai no PHP consultar dados para a lista de pets
+        $.getJSON('php/carregaPet.php?idCliente=' + cliente, function (dados) {
+            // Carrega a primeira opção padrão
+            optionPet = '<option value="">Selecione...</option>';
 
-              // Valida o retorno do PHP para montar a lista de pets
-              if (dados.length > 0) {
-                  // Se há dados, monta as opções
-                  $.each(dados, function (i, obj) {
-                      // Verifica se o pet atual corresponde ao ID do pet
-                      const selected = obj.id_pet == petAtual ? 'selected' : '';
-                      optionPet += '<option value="' + obj.id_pet + '" ' + selected + '>' + obj.nome + '</option>';
-                  });
+            // Valida o retorno do PHP para montar a lista de pets
+            if (dados.length > 0) {
+                // Se há dados, monta as opções
+                $.each(dados, function (i, obj) {
+                    // Verifica se o pet atual corresponde ao ID do pet
+                    const selected = obj.id_pet == petAtual ? 'selected' : '';
+                    optionPet += '<option value="' + obj.id_pet + '" ' + selected + '>' + obj.nome + '</option>';
+                });
 
-                  // Preenche o campo de pets com as opções
-                  $('#iPet').attr('required', 'required').html(optionPet).show();
-              } else {
-                  // Não encontrou itens para a lista de pets
-                  $('#iPet').html(optionPet).show();
-              }
-          });
-      } else {
-          // Sem seleção na lista de clientes, reseta a lista de pets
-          optionPet += '<option value="">Selecione...</option>';
-          $('#iPet').html(optionPet).show();
-      }
+                // Atualiza a lista de opções apenas se não houver pet selecionado
+                if (!petAtual) {
+                    $('#iPet').html(optionPet).attr('required', 'required').show();
+                }
+            } else {
+                // Não encontrou itens para a lista de pets
+                $('#iPet').html(optionPet).show();
+            }
+        });
+    } else {
+        // Sem seleção na lista de clientes, reseta a lista de pets apenas se não houver pet selecionado
+        if (!petAtual) {
+            optionPet = '<option value="">Selecione...</option>';
+            $('#iPet').html(optionPet).show();
+        }
+    }
   }
 
   // Carrega automaticamente os pets quando a página é carregada, se o cliente já estiver selecionado
   $(document).ready(function () {
-      const clienteElement = $('#iCliente');
+    const clienteElement = $('#iCliente');
 
-      // Se o cliente está preenchido, carrega os pets
-      if (clienteElement.val() !== "" && clienteElement.val() !== "0") {
-          carregarPets(clienteElement);
-      }
+    // Se o cliente está preenchido, carrega os pets
+    if (clienteElement.val() !== "" && clienteElement.val() !== "0") {
+        carregarPets(clienteElement);
+    }
   });
 
   /**************************

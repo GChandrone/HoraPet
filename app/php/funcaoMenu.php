@@ -162,7 +162,7 @@ function montaMenu($n1,$n2){
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="./agendamentos.php" class="nav-link '.$opcAgendamentos.'">
-                        <i class="far fa-calendar-alt nav-icon"></i>
+                        <i class="far fa-calendar-plus nav-icon"></i>
                         <p>Agendamentos</p>
                         </a>
                     </li>              

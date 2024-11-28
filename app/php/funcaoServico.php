@@ -219,16 +219,13 @@ function optionServico($idPorte){
     $sql .= "  id_servico, ";
     $sql .= "  nome, ";
     if ($idPorte == 1) {
-        $sql .=  " valor_pequeno as valor";
+        $sql .=  " valor_pequeno as valor ";
     }elseif($idPorte == 2){
-        $sql .=  " valor_medio   as valor";
+        $sql .=  " valor_medio   as valor ";
     }else{
-        $sql .=  " valor_grande  as valor";
+        $sql .=  " valor_grande  as valor ";
     }
     $sql .= "FROM servico ORDER BY nome;";    
-
-    var_dump($sql);
-    die();
 
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);

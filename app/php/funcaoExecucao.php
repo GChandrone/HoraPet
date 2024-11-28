@@ -1,6 +1,6 @@
 <?php
 //Função para listar todas as Raças
-function listaExecucao($id){
+function listaExecucao($idAgendamento, $idPorte){
     include("conexao.php");
 
     $sql = "SELECT "
@@ -13,7 +13,7 @@ function listaExecucao($id){
           ."FROM execucao "
           ."INNER JOIN servico "
           ."   ON servico.id_servico = execucao.id_servico "
-          ."WHERE execucao.id_agendamento = $id "
+          ."WHERE execucao.id_agendamento = $idAgendamento "
           ."ORDER BY id_execucao; ";
          
     $result = mysqli_query($conn,$sql);
@@ -33,7 +33,7 @@ function listaExecucao($id){
                 .'<td>'.$coluna["nome"].'</td>'
                 .'<td>'.formatarMoeda($coluna["valor"]).'</td>'
                 .'<td>'.$coluna["duracao"].'</td>'
-                .'<td>'.$coluna["situacao"].'</td>'
+                .'<td>'.descrSituacaoExecucao($coluna["situacao"]).'</td>'
                 .'<td>'
                     .'<div class="row" align="center">'
                         .'<div class="col-6">'
@@ -95,7 +95,7 @@ function listaExecucao($id){
                             .'</button>'
                         .'</div>'
                         .'<div class="modal-body">'
-                            .'<form method="POST" action="php/salvarExecucao.php?funcao=D&codigo='.$coluna["id_execucao"].'" enctype="multipart/form-data">'              
+                            .'<form method="POST" action="php/salvarExecucao.php?funcao=D&codigo='.$coluna["id_execucao"].'&idAgendamento='.$idAgendamento.'&idPorte='.$idPorte.'" enctype="multipart/form-data">'              
                                 .'<div class="row">'
                                     .'<div class="col-12">'
                                         .'<h5>Tem certeza de que deseja excluir o registro?</h5>'
@@ -117,6 +117,22 @@ function listaExecucao($id){
     }
  
     return $lista;
+}
+
+//Função para buscar a descrição da situação da execução
+function descrSituacaoExecucao($id){
+
+    if ($id == 1) {
+        $descricao = "Planejado";
+    }else if($id == 2){
+        $descricao = "Executando";
+    }else if($id == 3){
+        $descricao = "Executado";
+    }else if($id == 4){
+        $descricao = "Cancelado";
+    }         
+
+    return $descricao;
 }
 
 ?>

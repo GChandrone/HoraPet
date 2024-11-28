@@ -2,29 +2,56 @@
 session_start();
 include('php/funcoes.php');
 
-$id      = $_GET ["id"];
-// $idPorte = $_GET ["idPorte"];
+if (isset($_GET["id"])) {
 
-// if(isset($id) > 0){
+  $idAgendamento = $_GET["id"];
+  $idPorte = $_GET["idPorte"];
 
-//   include("conexao.php");
+  include("php/conexao.php");
 
-//   $sql = "SELECT * FROM agendamento WHERE id_agendamento = $id;";
-         
-//   $result = mysqli_query($conn,$sql);
-//   mysqli_close($conn);
+  $sql = "SELECT "
+    . "  cliente.id_cliente, "
+    . "  cliente.nome 	 	            as nome_cliente, "
+    . "  cliente.telefone 	          as telefone_cliente, "
+    . "  pet.nome         	          as nome_pet, "
+    . "  funcionario.id_funcionario, "
+    . "  funcionario.nome 	          as nome_funcionario, "
+    . "  funcionario.telefone        as telefone_funcionario, "
+    . "  agendamento.data, "
+    . "  agendamento.horario_inicial "
+    . "FROM agendamento "
+    . "INNER JOIN cliente "
+    . "  ON cliente.id_cliente = agendamento.id_cliente "
+    . "INNER JOIN pet "
+    . "  ON pet.id_pet = agendamento.id_pet "
+    . "INNER JOIN funcionario "
+    . "  ON funcionario.id_funcionario = agendamento.id_funcionario "
+    . "WHERE id_agendamento = $idAgendamento;";
 
-//   $lista = '';
 
-//   //Validar se tem retorno do BD
-//   if (mysqli_num_rows($result) > 0) {
-//       foreach ($result as $coluna) {
-//         $cliente     = $coluna["id_cliente"];
-//         $funcionario = $coluna["id_cliente"];
-//       }
-//   }
+  $result = mysqli_query($conn, $sql);
+  mysqli_close($conn);
 
-// }
+  $lista = '';
+
+  //Validar se tem retorno do BD
+  if (mysqli_num_rows($result) > 0) {
+
+    foreach ($result as $coluna) {
+      $idCliente = $coluna["id_cliente"];
+      $cliente = $coluna["nome_cliente"];
+      $telefone_cliente = $coluna["telefone_cliente"];
+      $pet = $coluna["nome_pet"];
+      $idFuncionario = $coluna["id_funcionario"];
+      $funcionario = $coluna["nome_funcionario"];
+      $telefone_funcionario = $coluna["telefone_funcionario"];
+      $data = $coluna["data"];
+      $hora = $coluna["horario_inicial"];
+    }
+
+  }
+
+}
 
 ?>
 
@@ -90,9 +117,17 @@ $id      = $_GET ["id"];
                       <div class="col-6">
                         <div class="form-group">
                           <label for="iCliente">Cliente - Telefone:</label>
-                          <select id="iCliente" name="nCliente" class="form-control clienteAjax" required>
-                            <option value="">Selecione...</option>
-                            <?php echo optionDonoPet(); ?>
+                          <select id="iCliente" name="nCliente" class="form-control clienteAjax" required <?php echo isset($idAgendamento) ? 'readonly disabled' : ''; ?>>
+                            <?php if (isset($idAgendamento)) { ?>
+                              <!-- Exibe apenas a opção selecionada quando há idAgendamento -->
+                              <option value="<?php echo $idCliente; ?>" selected>
+                                <?php echo $coluna["nome_cliente"] . ' - ' . $coluna["telefone_cliente"]; ?>
+                              </option>
+                            <?php } else { ?>
+                              <!-- Exibe a opção padrão "Selecione..." quando não há idAgendamento -->
+                              <option value="">Selecione...</option>
+                              <?php echo optionDonoPet(); ?>
+                            <?php } ?>
                           </select>
                         </div>
                       </div>
@@ -100,8 +135,16 @@ $id      = $_GET ["id"];
                       <div class="col-6">
                         <div class="form-group">
                           <label for="iPet">Pet:</label>
-                          <select name="nPet" id="iPet" class="form-control petAjax" required>
-                            <option value="">Selecione...</option>
+                          <select name="nPet" id="iPet" class="form-control petAjax" required <?php echo isset($idAgendamento) ? 'readonly disabled' : ''; ?>>
+                            <?php if (isset($idAgendamento)) { ?>
+                              <!-- Exibe apenas a opção selecionada quando há idAgendamento -->
+                              <option value="<?php echo $idPet; ?>" selected>
+                                <?php echo $coluna["nome_pet"]; ?>
+                              </option>
+                            <?php } else { ?>
+                              <!-- Exibe a opção padrão "Selecione..." quando não há idAgendamento -->
+                              <option value="">Selecione...</option>
+                            <?php } ?>
                           </select>
                         </div>
                       </div>
@@ -109,9 +152,17 @@ $id      = $_GET ["id"];
                       <div class="col-12">
                         <div class="form-group">
                           <label for="iFuncionario">Funcionário - Telefone:</label>
-                          <select id="iFuncionario" name="nFuncionario" class="form-control" required>
-                            <option value="">Selecione...</option>
-                            <?php echo optionFuncionario(); ?>
+                          <select id="iFuncionario" name="nFuncionario" class="form-control" required <?php echo isset($idAgendamento) ? 'readonly disabled' : ''; ?>>
+                            <?php if (isset($idAgendamento)) { ?>
+                              <!-- Exibe apenas a opção selecionada quando há idAgendamento -->
+                              <option value="<?php echo $idFuncionario; ?>" selected>
+                                <?php echo $coluna["nome_funcionario"] . ' - ' . $coluna["telefone_funcionario"]; ?>
+                              </option>
+                            <?php } else { ?>
+                              <!-- Exibe a opção padrão "Selecione..." quando não há idAgendamento -->
+                              <option value="">Selecione...</option>
+                              <?php echo optionFuncionario(); ?>
+                            <?php } ?>
                           </select>
                         </div>
                       </div>
@@ -119,21 +170,23 @@ $id      = $_GET ["id"];
                       <div class="col-4">
                         <div class="for8m-group">
                           <label for="iData">Data:</label>
-                          <input type="date" class="form-control" id="iData" name="nData" required>
+                          <input type="date" class="form-control" id="iData" name="nData" value="<?php echo $data; ?>"
+                            required <?php echo isset($idAgendamento) ? 'readonly' : ''; ?>>
                         </div>
                       </div>
 
                       <div class="col-4">
                         <div class="form-group">
                           <label for="iHorarioInicio">Horário:</label>
-                          <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio" required>
+                          <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio"
+                            value="<?php echo $hora; ?>" required <?php echo isset($idAgendamento) ? 'readonly' : ''; ?>>
                         </div>
                       </div>
 
                       <div class="col-4">
                         <div class="form-group">
                           <label for="iSituacao">Situação:</label>
-                          <select id="iSituacao" name="nSituacao" class="form-control" required>
+                          <select id="iSituacao" name="nSituacao" class="form-control" required <?php echo isset($idAgendamento) ? 'readonly disabled' : ''; ?>>
                             <option value="1">Agendado</option>
                             <?php echo optionSituacao('I'); ?>
                           </select>
@@ -143,108 +196,109 @@ $id      = $_GET ["id"];
                     </div>
                   </div>
 
-                  <?php if(isset($id) > 0){?>
+                  <?php if (isset($idAgendamento) == 0) { ?>
 
-                  <div class="modal-footer">
-                    <a href="agendamentos.php" class="btn btn-success">
-                      Voltar
-                    </a>
-                  </div>
+                    <div class="modal-footer">
+                      <a href="agendamentos.php" class="btn btn-danger">Cancelar</a>
+                      <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
 
-                  <?php }else{?>
-
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                  </div>
-
-                  <?php }?>
+                  <?php } ?>
 
                 </form>
                 <!-- Fim Agendamento -->
 
                 <!-- Incio Servicos -->
-                <?php if(isset($id) > 0){?>
+                <?php if (isset($idAgendamento) > 0) { ?>
 
-                <div class="card card-success collapsed-card">
-                  <div class="card-header pointer" data-card-widget="collapse">
-                    <h3 class="card-title">Serviços</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-plus"></i>
-                      </button>
+                  <div
+                    class="card card-success <?php echo isset($_GET['add']) && $_GET['add'] === 'true' ? '' : 'collapsed-card'; ?>">
+                    <div class="card-header pointer" data-card-widget="collapse">
+                      <h3 class="card-title">Adicionar Serviços</h3>
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div class="card-body">
+                    <div class="card-body">
 
-                    <table id="tabela" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>Serviço</th>
-                          <th>Valor</th>
-                          <th>Duração</th>
-                          <th>Situação</th>
-                          <th class="text-center">
-                            <button type="button" class="btn btn-success" data-toggle="modal"
-                              data-target="#novaExecucaoModal">
-                              +
-                            </button>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                      <table id="tabela" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Duração</th>
+                            <th>Situação</th>
+                            <th class="text-center">
+                              <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#novaExecucaoModal">
+                                +
+                              </button>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
 
-                        <?php echo listaExecucao($id);?>
+                          <?php echo listaExecucao($idAgendamento, $idPorte); ?>
 
-                      </tbody>
+                        </tbody>
 
-                    </table>
+                      </table>
 
-                    <div class="modal fade" id="novaExecucaoModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header bg-success">
-                            <h4 class="modal-title">Novo Serviço</h4>
-                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
+                      <div class="modal fade" id="novaExecucaoModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header bg-success">
+                              <h4 class="modal-title">Novo Serviço</h4>
+                              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
 
-                            <form method="POST" action="php/salvarExecucao.php?funcao=I" enctype="multipart/form-data">
+                              <form method="POST"
+                                action="<?php echo 'php/salvarExecucao.php?funcao=I&idPorte=' . $idPorte . '&idAgendamento=' . $idAgendamento; ?>"
+                                enctype="multipart/form-data">
 
-                              <div class="row">
-                                <div class="col-12">
-                                  <div class="form-group">
-                                    <select id="iFuncionario" name="nFuncionario" class="form-control" required>
-                                      <option value="">Selecione...</option>
-                                      <?php //echo optionServico($idPorte); ?>
-                                    </select>
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div class="form-group">
+                                      <select id="iServico" name="nServico" class="form-control" required>
+                                        <option value="">Selecione...</option>
+                                        <?php echo optionServico($idPorte); ?>
+                                      </select>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
 
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-success">Salvar</button>
-                              </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
 
-                            </form>
+                              </form>
+
+                            </div>
 
                           </div>
-
+                          <!-- /.modal-content  -->
                         </div>
-                        <!-- /.modal-content  -->
+                        <!-- /.modal-dialog  -->
                       </div>
-                      <!-- /.modal-dialog  -->
-                    </div>
-                    <!-- /.modal  -->
+                      <!-- /.modal  -->
 
+                    </div>
+                    <!-- /.card-body  -->
                   </div>
-                  <!-- /.card-body  -->
-                </div>
-                <!-- Fim Servicos -->
-                <?php }?>    
+                  <!-- Fim Servicos -->
+
+                  <div class="modal-footer">
+                    <a href="agendamentos.php" class="btn btn-danger">Cancelar</a>
+                    <a href="agendamentos.php" class="btn btn-success">Salvar</a>
+                  </div>
+
+                <?php } ?>
 
                 <!-- /.card-body -->
               </div>
@@ -274,7 +328,7 @@ $id      = $_GET ["id"];
   <!-- Fim JS -->
 
   <script>
-    $(function() {
+    $(function () {
       $('#tabela').DataTable({
         "paging": true,
         "lengthChange": false,
