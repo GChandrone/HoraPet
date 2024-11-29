@@ -55,8 +55,8 @@
                                                                 </div>
 
                                                                 <!-- Botão para virar o card para cadastro -->
-                                                                <button id="flipButton"
-                                                                    class="btn btn-primary">Esqueceu a senha</button>
+                                                                <!-- <button id="flipButton"
+                                                                    class="btn btn-primary">Esqueceu a senha</button> -->
 
                                                         </div>
                                                     </div>
@@ -74,10 +74,10 @@
                 </div>
                         </section>
 
-                        <script src="js/jquery.min.js"></script>
-                        <script src="js/popper.js"></script>
-                        <script src="js/bootstrap.min.js"></script>
-                        <script src="js/main.js"></script>
+                        <script src="dist/js/jquery.min.js"></script>
+                        <script src="dist/js/popper.js"></script>
+                        <script src="dist/js/bootstrap.min.js"></script>
+                        <script src="dist/js/main.js"></script>
 
                         <script>
                             // JavaScript para controlar a rotação do card
