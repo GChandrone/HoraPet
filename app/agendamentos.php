@@ -67,8 +67,7 @@
                 <table id="tabela" class="table table-bordered table-hover tabela">
                   <thead>
                   <tr>
-                      <th>ID</th>
-                      <th>Foto Pet</th>
+                      <th>Foto</th>
                       <th>Pet</th>
                       <th>Dono</th>
                       <th>Funcionário</th>
@@ -81,7 +80,7 @@
                   </thead>
                   <tbody>
 
-                  <?php echo listaPet(); ?>
+                  <?php echo listaAgendamento(); ?>
                   
                   </tbody>
                   

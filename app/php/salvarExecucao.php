@@ -2,6 +2,15 @@
 
     include('funcoes.php');
 
+    // Campos adicionais do agendamento (se necessários)
+    $hiddenFuncionario = $_POST['nFuncionario'];
+    $hiddenData        = $_POST['nData'];
+    $hiddenHorario     = $_POST['nHorarioInicio'];
+    $hiddenSituacao    = $_POST['nSituacao'];
+
+    var_dump($hiddenFuncionario);
+    die();
+
     $idServico     = $_POST["nServico"];
     $idPorte       = $_GET ["idPorte" ];
     $idAgendamento = $_GET ["idAgendamento"];
@@ -78,6 +87,16 @@
     }
 
     $result = mysqli_query($conn,$sql);
+
+    $sqlAgendamento = "UPDATE agendamento "
+                    ." SET id_funcionario   = $hiddenFuncionario, "
+                        ." data             = '$hiddenData', " 
+                        ." horario_inicial  = '$hiddenHorario', " 
+                        ." situacao         = $hiddenSituacao "
+                    ." WHERE id_agendamento = $idAgendamento;";
+
+    mysqli_query($conn, $sqlAgendamento);
+
     mysqli_close($conn);
 
     header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true");

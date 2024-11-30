@@ -32,7 +32,7 @@ function listaExecucao($idAgendamento, $idPorte){
             '<tr>'
                 .'<td>'.$coluna["nome"].'</td>'
                 .'<td>'.formatarMoeda($coluna["valor"]).'</td>'
-                .'<td>'.$coluna["duracao"].'</td>'
+                .'<td>'.formatarHora($coluna["duracao"]).'</td>'
                 .'<td>'.descrSituacaoExecucao($coluna["situacao"]).'</td>'
                 .'<td>'
                     .'<div class="row" align="center">'
@@ -72,6 +72,12 @@ function listaExecucao($idAgendamento, $idPorte){
                                     .'</div>'
                                                             
                                 .'</div>'
+
+                                .'<!-- Adicione campos ocultos para enviar os dados alterados'
+                                .'<input type="hidden" id="hiddenFuncionarioEdit" name="nFuncionario">'
+                                .'<input type="hidden" id="hiddenDataEdit" name="nData">'
+                                .'<input type="hidden" id="hiddenHorarioEdit" name="nHorarioInicio">'
+                                .'<input type="hidden" id="hiddenSituacaoEdit" name="nSituacao"> -->'
                 
                                 .'<div class="modal-footer">'
                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
@@ -101,6 +107,12 @@ function listaExecucao($idAgendamento, $idPorte){
                                         .'<h5>Tem certeza de que deseja excluir o registro?</h5>'
                                     .'</div>'
                                 .'</div>'
+
+                                .'<!-- Adicione campos ocultos para enviar os dados alterados -->'
+                                .'<input type="hidden" id="hiddenFuncionarioDelete" name="nFuncionario">'
+                                .'<input type="hidden" id="hiddenDataDelete" name="nData">'
+                                .'<input type="hidden" id="hiddenHorarioDelete" name="nHorarioInicio">'
+                                .'<input type="hidden" id="hiddenSituacaoDelete" name="nSituacao">'
                              
                                 .'<div class="modal-footer">'
                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>'

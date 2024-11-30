@@ -6,6 +6,7 @@ function listaAgendamento(){
     include("conexao.php");
     $sql = " SELECT "
         ."agendamento.id_agendamento, "
+        ."pet.porte, "
         ."pet.foto                      AS foto_pet, "
         ."pet.nome                      AS nome_pet, "
         ."cliente.nome                  AS nome_dono, "
@@ -21,7 +22,7 @@ function listaAgendamento(){
         ."ON cliente.id_cliente = agendamento.id_cliente "
     ."INNER JOIN funcionario "
         ."ON funcionario.id_funcionario = agendamento.id_funcionario "
-    ."INNER JOIN execucao "
+    ."LEFT JOIN execucao "
         ."ON execucao.id_agendamento = agendamento.id_agendamento "
     ."GROUP BY "
         ."agendamento.id_agendamento, "
@@ -31,7 +32,8 @@ function listaAgendamento(){
         ."funcionario.nome, "
         ."agendamento.data, "
         ."agendamento.horario_inicial, "
-        ."agendamento.situacao;";
+        ."agendamento.situacao "
+    ."ORDER BY agendamento.id_agendamento DESC;";
             
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
@@ -49,154 +51,61 @@ function listaAgendamento(){
         
         foreach ($result as $coluna) {
 
+            // Verifica se há foto
+            if (!empty($coluna["foto_pet"])) {
+                $fotoPet = $coluna["foto_pet"];
+            } else {;
+                $fotoPet = 'dist/img/default-pet.png';
+            }    
+
             //***Verificar os dados da consulta SQL
             $lista .= 
             '<tr>'
-                .'<td>'.$coluna["id_pet"].'</td>'
                 .'<td align="center">'
-                    .'<a href="#modalFotoPet'.$coluna["id_pet"].'" data-toggle="modal">'
+                    .'<a href="#modalFotoPet'.$coluna["id_agendamento"].'" data-toggle="modal">'
                         .'<img src="'.$fotoPet.'" alt="Foto do Pet" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">'
                     .'</a>'
                 .'</td>'
                 .'<td>'.$coluna["nome_pet"].'</td>'
-                .'<td>'.descrTipoPet($coluna["tipo_pet"]).'</td>'
-                .'<td>'.$coluna["nome_raca"].'</td>'
-                .'<td>'.descrPorte($coluna["porte"]).'</td>'
-                .'<td>'.$coluna["nome_cliente"].'</td>'
-                .'<td align="center">'.$icone.'</td>'
+                .'<td>'.$coluna["nome_dono"].'</td>'
+                .'<td>'.$coluna["nome_funcionario"].'</td>'
+                .'<td>'.formatarData($coluna["data"]).'</td>'
+                .'<td>'.formatarHora($coluna["horario_inicial"]).'</td>'
+                .'<td>'.formatarMoeda($coluna["valor_total"]).'</td>'
+                .'<td>'.descrSituacaoAgendamento($coluna["situacao"]).'</td>'
                 .'<td>'
                     .'<div class="row" align="center">'
                         .'<div class="col-6">'
-                            .'<a href="#modalEditPet'.$coluna["id_pet"].'" data-toggle="modal">'
-                                .'<h6><i class="fas fa-edit text-info" data-toggle="tooltip" title="Alterar pet"></i></h6>'
+                            .'<a href="agendamento.php?id='.$coluna["id_agendamento"].'&idPorte='.$coluna["porte"].'&add=true">'
+                                .'<h6><i class="fas fa-edit text-info" data-toggle="tooltip" title="Alterar agendamento"></i></h6>'
                             .'</a>'
                         .'</div>'
 
                         .'<div class="col-6">'
-                            .'<a href="#modalDeletePet'.$coluna["id_pet"].'" data-toggle="modal">'
-                                .'<h6><i class="fas fa-trash text-danger" data-toggle="tooltip" title="Alterar pet"></i></h6>'
+                            .'<a href="#modalDeleteAgendamento'.$coluna["id_agendamento"].'" data-toggle="modal">'
+                                .'<h6><i class="fas fa-trash text-danger" data-toggle="tooltip" title="Excluir agendamento"></i></h6>'
                             .'</a>'
                         .'</div>'
                     .'</div>'
                 .'</td>'
             .'</tr>'
             
-            .'<div class="modal fade" id="modalEditPet'.$coluna["id_pet"].'">'
-                .'<div class="modal-dialog modal-lg">'
-                    .'<div class="modal-content">'
-                        .'<div class="modal-header bg-info">'
-                            .'<h4 class="modal-title">Alterar Pet</h4>'
-                            .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
-                                .'<span aria-hidden="true">&times;</span>'
-                            .'</button>'
-                        .'</div>'
-                        .'<div class="modal-body">'
-
-                            .'<form method="POST" action="php/salvarPet.php?funcao=A&codigo='.$coluna["id_pet"].'" enctype="multipart/form-data">'              
-                
-                                .'<div class="row">'
-                                    .'<div class="col-6">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iNome">Nome:</label>'
-                                            .'<input type="text" value="'.$coluna["nome_pet"].'" class="form-control" id="iNome" name="nNome" maxlength="50" required>'
-                                        .'</div>'
-                                    .'</div>'
-            
-                                    .'<div class="col-6">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iDono">Dono - Telefone:</label>'
-                                            .'<select id="iDono" name="nDono" class="form-control" required>'
-                                                .'<option value="'.$coluna["id_cliente"].'">'.$coluna["nome_cliente"].' - '.$coluna["telefone_cliente"].'</option>'
-                                                .optionDonoPet()
-                                            .'</select>'
-                                        .'</div>'
-                                    .'</div>'
-            
-                                    .'<div class="col-6">'
-                                        .'<div class="form-group">'
-                                            .'<label>Tipo do Pet:</label>'
-                                            .'<select id="iTipoPetAjax" name="nTipoPet" class="form-control tipoPetAjax" required>'
-                                                .'<option value="'.$coluna["tipo_pet"].'">'.descrTipoPet($coluna["tipo_pet"]).'</option>'
-                                                .optionTipoPet($coluna["tipo_pet"])
-                                            .'</select>'
-                                        .'</div>'
-                                    .'</div>'
-            
-                                    .'<div class="col-6">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iRacaAjax">Raça:</label>'
-                                            .'<select name="nRacaAjax" id="iRacaAjax" class="form-control racaAjax" required>'
-                                                .'<option value="'.$coluna["id_raca"].'">'.descrRaca($coluna["id_raca"]).'</option>'
-                                            .'</select>'
-                                        .'</div>'
-                                    .'</div>'
-            
-                                     .'<div class="col-3">'
-                                         .'<div class="form-group">'
-                                             .'<label for="iAlturaAlterar">Altura (cm):</label>'
-                                             .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAlturaAlterar" name="nAltura" required>'
-                                         .'</div>'
-                                     .'</div>'
-            
-                                     .'<div class="col-3">'
-                                         .'<div class="form-group">'
-                                             .'<label for="iPesoAlterar">Peso (kg):</label>'
-                                             .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPesoAlterar" name="nPeso" required>'
-                                         .'</div>'
-                                     .'</div>'
-            
-                                     .'<div class="col-6">'
-                                         .'<div class="form-group">'
-                                             .'<label for="iPorteAlterar">Porte:</label>'
-                                             .'<input type="text" value="'.descrPorte($coluna["porte"]).'" class="form-control" id="iPorteAlterar" name="nPorte" readonly required>'
-                                         .'</div>'
-                                     .'</div>'
-            
-                                    .'<div class="col-12">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iFoto">Foto:</label>'
-                                            .'<div class="custom-file">'
-                                                .'<input type="file" class="custom-file-input" id="iFoto" name="nFoto" accept="image/*">'
-                                                .'<label class="custom-file-label" for="customFile">Nenhum arquivo escolhido</label>'
-                                            .'</div>'
-                                        .'</div>'
-                                    .'</div>'
-                            
-                                .'</div>'
-                            
-                                .'<div class="custom-control custom-checkbox">'
-                                    .'<input class="custom-control-input custom-control-input-info" type="checkbox" id="iAtivoPet'.$coluna["id_pet"].'" name="nAtivoPet" '.$ativo.'>'
-                                    .'<label for="iAtivoPet'.$coluna["id_pet"].'" class="custom-control-label">Pet Ativo</label>'
-                                .'</div>'
-
-                                .'<div class="modal-footer">'
-                                    .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
-                                    .'<button type="submit" class="btn btn-success">Salvar</button>'
-                                .'</div>'
-                                
-                            .'</form>'
-                            
-                        .'</div>'
-                    .'</div>'
-                .'</div>'
-            .'</div>'
-            
-            .'<div class="modal fade" id="modalDeletePet'.$coluna["id_pet"].'">'
+            .'<div class="modal fade" id="modalDeleteAgendamento'.$coluna["id_agendamento"].'">'
                 .'<div class="modal-dialog">'
                     .'<div class="modal-content">'
                         .'<div class="modal-header bg-danger">'
-                            .'<h4 class="modal-title">Deseja excluir o pet: '.$coluna["nome_pet"].'</h4>'
+                            .'<h4 class="modal-title">Deseja excluir agendamento do pet: '.$coluna["nome_pet"].'</h4>'
                             .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
                                 .'<span aria-hidden="true">&times;</span>'
                             .'</button>'
                         .'</div>'
                         .'<div class="modal-body">'
 
-                            .'<form method="POST" action="php/salvarPet.php?funcao=D&codigo='.$coluna["id_pet"].'" enctype="multipart/form-data">'              
+                            .'<form method="POST" action="php/salvarAgendamento.php?funcao=D&codigo='.$coluna["id_agendamento"].'" enctype="multipart/form-data">'              
 
                                 .'<div class="row">'
                                     .'<div class="col-12">'
-                                        .'<h5>Tem certeza de que deseja excluir este pet?</h5>'
+                                        .'<h5>Tem certeza de que deseja excluir este agendamento?</h5>'
                                     .'</div>'
                                 .'</div>'
                                 
@@ -212,7 +121,7 @@ function listaAgendamento(){
                 .'</div>'
             .'</div>'  
             
-            .'<div class="modal fade" id="modalFotoPet'.$coluna["id_pet"].'">'
+            .'<div class="modal fade" id="modalFotoPet'.$coluna["id_agendamento"].'">'
                 .'<div class="modal-dialog modal-dialog-centered">'
                     .'<div class="modal-content">'
                         .'<div class="modal-header bg-success">'
@@ -341,6 +250,22 @@ function idAgendamentoServico($cliente,$pet,$data){
     } 
 
     return $id;
+}
+
+//Função para buscar a descrição da situação do agendamento
+function descrSituacaoAgendamento($id){
+
+    if ($id == 1) {
+        $descricao = "Agendado";
+    }else if($id == 2){
+        $descricao = "Em Atendimento";
+    }else if($id == 3){
+        $descricao = "Atendido";
+    }else if($id == 4){
+        $descricao = "Cancelado";
+    }         
+
+    return $descricao;
 }
 
 ?>

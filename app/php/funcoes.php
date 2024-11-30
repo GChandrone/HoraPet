@@ -88,4 +88,18 @@ function formatarData($data) {
     // Converte a data para o formato desejado
     return date("d/m/Y", strtotime($data));
 }
+
+function formatarHora($hora, $formato = 'H:i') {
+    // Valida se a hora está no formato esperado
+    if (preg_match('/^\d{2}:\d{2}:\d{2}$/', $hora)) {
+        // Converte para um objeto DateTime
+        $horaFormatada = DateTime::createFromFormat('H:i:s', $hora);
+        if ($horaFormatada) {
+            // Retorna a hora no formato solicitado
+            return $horaFormatada->format($formato);
+        }
+    }
+    // Retorna a hora original caso não esteja no formato esperado
+    return $hora;
+}
 ?>
