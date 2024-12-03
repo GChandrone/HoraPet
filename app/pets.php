@@ -218,6 +218,20 @@
 <!-- Fim JS -->
 
 <script>
+
+  <?php if (isset($_SESSION['erro_mensagem'])): ?>
+      // Exibe a mensagem de erro utilizando o Toast
+      
+      Swal.fire({
+            type: 'error',
+            title: 'Atenção',
+            text: '<?php echo $_SESSION['erro_mensagem']; ?>'
+      });
+
+      // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
+      <?php unset($_SESSION['erro_mensagem']); ?>
+  <?php endif; ?> 
+
   $(function () {
     $('#tabela').DataTable({
       "paging": true,

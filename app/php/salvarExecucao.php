@@ -2,20 +2,13 @@
 
     include('funcoes.php');
 
-    // Campos adicionais do agendamento (se necessários)
-    $hiddenFuncionario = $_POST['nFuncionario'];
-    $hiddenData        = $_POST['nData'];
-    $hiddenHorario     = $_POST['nHorarioInicio'];
-    $hiddenSituacao    = $_POST['nSituacao'];
-
-    var_dump($hiddenFuncionario);
-    die();
-
-    $idServico     = $_POST["nServico"];
-    $idPorte       = $_GET ["idPorte" ];
-    $idAgendamento = $_GET ["idAgendamento"];
-    $funcao        = $_GET ["funcao"  ];
-    $idExecucao    = $_GET ["codigo"  ];
+    $idServico          = $_POST["nServico"];
+    $idSituacaoExecucao = $_POST["nSituacaoExecucao"];
+    $descricao          = $_POST["nDescricao"];
+    $idPorte            = $_GET ["idPorte" ];
+    $idAgendamento      = $_GET ["idAgendamento"];
+    $funcao             = $_GET ["funcao"  ];
+    $idExecucao         = $_GET ["codigo"  ];
 
     if($funcao == "I" || $funcao == "A"){
 
@@ -62,23 +55,34 @@
     //Validar se é Inclusão ou Alteração
     if($funcao == "I"){
 
-        //INSERT
-        $sql = "INSERT INTO execucao (id_servico,valor,duracao,situacao,id_agendamento) "
-             ." VALUES ("."$idServico,$valor,'$duracao',1,$idAgendamento);";
+        // Verifica se o serviço já foi adicionado ao agendamento
+        $sqlCheck = "SELECT COUNT(*) as total " 
+                  . "FROM execucao "
+                  ." WHERE id_agendamento = $idAgendamento AND id_servico = $idServico;";
+
+        $resultCheck = mysqli_query($conn, $sqlCheck);
+       
+        $row = mysqli_fetch_assoc($resultCheck);
+
+        if ($row['total'] > 0) {
+            // Retorna uma resposta dizendo que o serviço já foi adicionado
+            $_SESSION['erro_mensagem'] = 'Este serviço já foi adicionado a este agendamento.';
+        } else {
+            //INSERT
+            $sql = "INSERT INTO execucao (id_servico,valor,duracao,descricao,situacao,id_agendamento) "
+                ." VALUES ("."$idServico,$valor,'$duracao','$descricao',1,$idAgendamento);";
+        }
 
     }elseif($funcao == "A"){
         
-        $sql = "UPDATE servico "
-                ." SET nome            = '$nome', "
-                    ." valor_pequeno   = $valorPequeno, " 
-                    ." valor_medio     = $valorMedio, " 
-                    ." valor_grande    = $valorGrande, " 
-                    ." duracao_pequeno = '$duracaoPequeno', "
-                    ." duracao_medio   = '$duracaoMedio', "
-                    ." duracao_grande  = '$duracaoGrande', "
-                    ." descricao       = '$descricao', "
-                    ." ativo           = $ativo "
-                ." WHERE id_servico    = $idServico;";
+        $sql = "UPDATE execucao "
+                ." SET id_servico     = $idServico, "
+                    ." valor          = $valor, " 
+                    ." duracao        = '$duracao', " 
+                    ." descricao      = '$descricao', " 
+                    ." situacao       = $idSituacaoExecucao, "
+                    ." id_agendamento = $idAgendamento "
+                ." WHERE id_execucao  = $idExecucao;";
 
     }elseif($funcao == "D"){
         //DELETE
@@ -87,15 +91,6 @@
     }
 
     $result = mysqli_query($conn,$sql);
-
-    $sqlAgendamento = "UPDATE agendamento "
-                    ." SET id_funcionario   = $hiddenFuncionario, "
-                        ." data             = '$hiddenData', " 
-                        ." horario_inicial  = '$hiddenHorario', " 
-                        ." situacao         = $hiddenSituacao "
-                    ." WHERE id_agendamento = $idAgendamento;";
-
-    mysqli_query($conn, $sqlAgendamento);
 
     mysqli_close($conn);
 

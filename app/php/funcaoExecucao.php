@@ -5,7 +5,15 @@ function listaExecucao($idAgendamento, $idPorte){
 
     $sql = "SELECT "
                ."execucao.id_execucao, "
-               ."servico.nome, "
+               ."servico.id_servico, ";
+               if ($idPorte == 1) {
+                    $sql .=  " valor_pequeno as valor_execucao, ";
+                }elseif($idPorte == 2){
+                    $sql .=  " valor_medio   as valor_execucao, ";
+                }else{
+                    $sql .=  " valor_grande  as valor_execucao, ";
+                }
+         $sql .="servico.nome, "
                ."execucao.valor, "
                ."execucao.duracao, "
                ."execucao.situacao, "
@@ -51,33 +59,48 @@ function listaExecucao($idAgendamento, $idPorte){
             .'</tr>'
          
             .'<div class="modal fade" id="modalEditExecucao'.$coluna["id_execucao"].'">'
-                .'<div class="modal-dialog modal-lg">'
-                    .'<div class="modal-content">'
-                        .'<div class="modal-header bg-info">'
-                            .'<h4 class="modal-title">Alterar Raça</h4>'
-                            .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
-                                .'<span aria-hidden="true">&times;</span>'
-                            .'</button>'
-                        .'</div>'
-                        .'<div class="modal-body">'
-                           .'<form method="POST" action="php/salvarExecucao.php?funcao=A&codigo='.$coluna["id_execucao"].'" enctype="multipart/form-data">'              
-             
+                 .'<div class="modal-dialog modal-lg">'
+                     .'<div class="modal-content">'
+                         .'<div class="modal-header bg-info">'
+                             .'<h4 class="modal-title">Alterar Serviço</h4>'
+                             .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
+                                 .'<span aria-hidden="true">&times;</span>'
+                             .'</button>'
+                         .'</div>'
+                         .'<div class="modal-body">'
+                    
+                            .'<form method="POST" action="php/salvarExecucao.php?funcao=A&codigo='.$coluna["id_execucao"].'&idPorte='.$idPorte.'&idAgendamento='.$idAgendamento.'" enctype="multipart/form-data">'              
+                                .'<div class="row">'
+                                    .'<div class="col-8">'
+                                        .'<div class="form-group">'
+                                        .'<label for="iServico">Serviço:</label>'
+                                        .'<select id="iServico" name="nServico" class="form-control" required>'
+                                            .'<option value="'.$coluna["id_servico"].'">'.$coluna["nome"].' - '.formatarMoeda($coluna["valor_execucao"]).'</option>'
+                                            .optionServico($idPorte)
+                                        .'</select>'
+                                        .'</div>'
+                                    .'</div>'
+
+                                    .'<div class="col-4">'
+                                        .'<div class="form-group">'
+                                        .'<label for="iSituacaoExecucao">Situação:</label>'
+                                        .'<select id="iSituacaoExecucao" name="nSituacaoExecucao" class="form-control" required>'
+                                            .'<option value="'.$coluna["situacao"].'">'.descrSituacaoExecucao($coluna["situacao"]).'</option>'
+                                            .optionSituacaoExecucao($coluna["situacao"])
+                                        .'</select>'
+                                        .'</div>'
+                                    .'</div>'
+                                .'</div>'
 
                                 .'<div class="row">'
                                     .'<div class="col-12">'
                                         .'<div class="form-group">'
-                                            .'<label for="iNome">Nome:</label>'
-                                            .'<input type="text" value="'.$coluna["nome"].'" class="form-control" id="iNome" name="nNome" maxlength="100" required>'
+                                        .'<label>Descrição:</label>'
+                                        .'<textarea name="nDescricao" class="form-control" rows="3" placeholder="Escreva..."'
+                                            .'maxlength="255">'.$coluna["descricao"].'</textarea>'
                                         .'</div>'
                                     .'</div>'
-                                                            
                                 .'</div>'
-
-                                .'<!-- Adicione campos ocultos para enviar os dados alterados'
-                                .'<input type="hidden" id="hiddenFuncionarioEdit" name="nFuncionario">'
-                                .'<input type="hidden" id="hiddenDataEdit" name="nData">'
-                                .'<input type="hidden" id="hiddenHorarioEdit" name="nHorarioInicio">'
-                                .'<input type="hidden" id="hiddenSituacaoEdit" name="nSituacao"> -->'
                 
                                 .'<div class="modal-footer">'
                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
@@ -107,12 +130,6 @@ function listaExecucao($idAgendamento, $idPorte){
                                         .'<h5>Tem certeza de que deseja excluir o registro?</h5>'
                                     .'</div>'
                                 .'</div>'
-
-                                .'<!-- Adicione campos ocultos para enviar os dados alterados -->'
-                                .'<input type="hidden" id="hiddenFuncionarioDelete" name="nFuncionario">'
-                                .'<input type="hidden" id="hiddenDataDelete" name="nData">'
-                                .'<input type="hidden" id="hiddenHorarioDelete" name="nHorarioInicio">'
-                                .'<input type="hidden" id="hiddenSituacaoDelete" name="nSituacao">'
                              
                                 .'<div class="modal-footer">'
                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>'
@@ -129,6 +146,35 @@ function listaExecucao($idAgendamento, $idPorte){
     }
  
     return $lista;
+}
+
+//Função para montar o select/option
+function optionSituacaoExecucao($p){
+
+    if ($p == "I") {
+        $option = '';
+    }else{
+        if ($p == 1) {
+            $option = '<option value=2>Executando</option>'
+                     .'<option value=3>Executado</option>'
+                     .'<option value=4>Cancelado</option>';
+        }elseif ($p == 2){
+            $option = '<option value=1>Planejado</option>'
+                     .'<option value=3>Executado</option>'
+                     .'<option value=4>Cancelado</option>';
+        }elseif ($p == 3){
+            $option = '<option value=1>Planejado</option>'
+                     .'<option value=2>Executando</option>'
+                     .'<option value=4>Cancelado</option>';
+        }elseif ($p == 4){
+            $option = '<option value=1>Planejado</option>'
+                     .'<option value=2>Executando</option>'
+                     .'<option value=3>Executado</option>';
+        }
+        
+    }
+    
+    return $option;
 }
 
 //Função para buscar a descrição da situação da execução

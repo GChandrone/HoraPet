@@ -48,7 +48,7 @@ if (isset($_GET["id"])) {
       $telefone_funcionario = $coluna["telefone_funcionario"];
       $data = $coluna["data"];
       $hora = $coluna["horario_inicial"];
-      $situacao = $coluna["situacao"];
+      $situacaoAgendamento = $coluna["situacao"];
     }
 
   }
@@ -196,10 +196,10 @@ if (isset($_GET["id"])) {
 
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="iSituacao">Situação:</label>
-                            <select id="iSituacao" name="nSituacao" class="form-control" required>
-                              <?php echo isset($idAgendamento) ? '<option value="' . $situacao . '">' . descrSituacaoAgendamento($situacao) . '</option>' : '<option value="1">Agendado</option>'; ?>
-                              <?php echo isset($idAgendamento) ? optionSituacao($situacao) : optionSituacao('I'); ?>
+                            <label for="iSituacaoAgendamento">Situação:</label>
+                            <select id="iSituacaoAgendamento" name="nSituacaoAgendamento" class="form-control" required>
+                              <?php echo isset($idAgendamento) ? '<option value="' . $situacaoAgendamento . '">' . descrSituacaoAgendamento($situacaoAgendamento) . '</option>' : '<option value="1">Agendado</option>'; ?>
+                              <?php echo isset($idAgendamento) ? optionSituacaoAgendamento($situacaoAgendamento) : optionSituacaoAgendamento('I'); ?>
                             </select>
                           </div>
                         </div>
@@ -265,7 +265,6 @@ if (isset($_GET["id"])) {
                     <!-- Fim Servicos -->
 
                     <div class="modal-footer">
-                      <a href="agendamentos.php" class="btn btn-danger">Cancelar</a>
                       <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
 
@@ -274,7 +273,7 @@ if (isset($_GET["id"])) {
                 <?php } ?>
 
                 <div class="modal fade" id="novaExecucaoModal">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                       <div class="modal-header bg-success">
                         <h4 class="modal-title">Novo Serviço</h4>
@@ -289,21 +288,36 @@ if (isset($_GET["id"])) {
                           enctype="multipart/form-data">
 
                           <div class="row">
-                            <div class="col-12">
+                            <div class="col-8">
                               <div class="form-group">
+                                <label for="iServico">Serviço:</label>
                                 <select id="iServico" name="nServico" class="form-control" required>
                                   <option value="">Selecione...</option>
                                   <?php echo optionServico($idPorte); ?>
                                 </select>
                               </div>
                             </div>
+
+                            <div class="col-4">
+                              <div class="form-group">
+                                <label for="iSituacaoExecucao">Situação:</label>
+                                <select id="iSituacaoExecucao" name="nSituacaoExecucao" class="form-control" required>
+                                <option value="1">Planejado</option>
+                                  <?php echo optionSituacaoExecucao("I"); ?>
+                                </select>
+                              </div>
+                            </div>
                           </div>
 
-                          <!-- Adicione campos ocultos para enviar os dados alterados -->
-                          <input type="hidden" id="hiddenFuncionario" name="nFuncionario">
-                          <input type="hidden" id="hiddenData" name="nData">
-                          <input type="hidden" id="hiddenHorario" name="nHorarioInicio">
-                          <input type="hidden" id="hiddenSituacao" name="nSituacao">
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-group">
+                                <label>Descrição:</label>
+                                <textarea name="nDescricao" class="form-control" rows="3" placeholder="Escreva..."
+                                  maxlength="255"></textarea>
+                              </div>
+                            </div>
+                          </div>
 
                           <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
@@ -349,38 +363,19 @@ if (isset($_GET["id"])) {
   <!-- Fim JS -->
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Quando o modal de serviço é aberto
-      $('#novaExecucaoModal').on('show.bs.modal', function () {
-        // Copiar os valores dos campos do agendamento para os campos ocultos
-        document.getElementById('hiddenFuncionario').value = document.getElementById('iFuncionario').value;
-        document.getElementById('hiddenData').value = document.getElementById('iData').value;
-        document.getElementById('hiddenHorario').value = document.getElementById('iHorarioInicio').value;
-        document.getElementById('hiddenSituacao').value = document.getElementById('iSituacao').value;
-      });
-    });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      // Quando o modal de serviço é aberto
-      $('#modalDeleteExecucao').on('show.bs.modal', function () {
-        // Copiar os valores dos campos do agendamento para os campos ocultos
-        document.getElementById('hiddenFuncionarioDelete').value = document.getElementById('iFuncionario').value;
-        document.getElementById('hiddenDataDelete').value = document.getElementById('iData').value;
-        document.getElementById('hiddenHorarioDelete').value = document.getElementById('iHorarioInicio').value;
-        document.getElementById('hiddenSituacaoDelete').value = document.getElementById('iSituacao').value;
-      });
-    });
+    <?php if (isset($_SESSION['erro_mensagem'])): ?>
+        // Exibe a mensagem de erro utilizando o Toast
+        
+        Swal.fire({
+              type: 'error',
+              title: 'Atenção',
+              text: '<?php echo $_SESSION['erro_mensagem']; ?>'
+        });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      // Quando o modal de serviço é aberto
-      $('#modalEditExecucao').on('show.bs.modal', function () {
-        // Copiar os valores dos campos do agendamento para os campos ocultos
-        document.getElementById('hiddenFuncionarioEdit').value = document.getElementById('iFuncionario').value;
-        document.getElementById('hiddenDataEdit').value = document.getElementById('iData').value;
-        document.getElementById('hiddenHorarioEdit').value = document.getElementById('iHorarioInicio').value;
-        document.getElementById('hiddenSituacaoEdit').value = document.getElementById('iSituacao').value;
-      });
-    });
+        // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
+        <?php unset($_SESSION['erro_mensagem']); ?>
+    <?php endif; ?>                
 
     $(function () {
       $('#tabela').DataTable({

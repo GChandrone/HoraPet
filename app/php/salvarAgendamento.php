@@ -1,14 +1,14 @@
 <?php
     include('funcoes.php');
 
-    $cliente       = $_POST["nCliente"       ];
-    $pet           = $_POST["nPet"           ];
-    $funcionario   = $_POST["nFuncionario"   ];
-    $data          = $_POST["nData"          ];
-    $horainicio    = $_POST["nHorarioInicio" ];
-    $situacao      = $_POST["nSituacao"      ];
-    $funcao        = $_GET ["funcao"         ];
-    $idAgendamento = $_GET ["codigo"         ];
+    $cliente             = $_POST["nCliente"            ];
+    $pet                 = $_POST["nPet"                ];
+    $funcionario         = $_POST["nFuncionario"        ];
+    $data                = $_POST["nData"               ];
+    $horainicio          = $_POST["nHorarioInicio"      ];
+    $situacaoAgendamento = $_POST["nSituacaoAgendamento"];
+    $funcao              = $_GET ["funcao"              ];
+    $idAgendamento       = $_GET ["codigo"              ];
 
     include("conexao.php");
 
@@ -17,7 +17,7 @@
 
         // INSERT
         $sql = "INSERT INTO agendamento (horario_inicial,horario_final,data,situacao,id_pet,id_cliente,id_funcionario) "
-        ." VALUES ('$horainicio','00:00:00','$data',$situacao,$pet,$cliente,$funcionario);";
+        ." VALUES ('$horainicio','00:00:00','$data',$situacaoAgendamento,$pet,$cliente,$funcionario);";
 
         $result = mysqli_query($conn, $sql);
 
@@ -27,7 +27,7 @@
         ." SET id_funcionario   = $funcionario, "
             ." data             = '$data', " 
             ." horario_inicial  = '$horainicio', " 
-            ." situacao         = $situacao "
+            ." situacao         = $situacaoAgendamento "
         ." WHERE id_agendamento = $idAgendamento;";
 
         $result = mysqli_query($conn, $sql);

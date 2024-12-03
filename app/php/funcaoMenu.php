@@ -268,12 +268,11 @@ function montaMenu($n1,$n2){
             </li>
 
             <li class="nav-item">
-                <a href="php/validaLogoff.php" class="nav-link text-success">
-                <i class="nav-icon fas fa-times"></i>
+                <a href="php/validaLogoff.php" class="nav-link">
+                <i class="fas fa-sign-out-alt nav-icon"></i>
                 <p>Sair</p>
                 </a>
             </li>
-        
         </ul>
     </nav>';
 

@@ -1,75 +1,63 @@
 <?php
 
-    include('funcoes.php');
+include('funcoes.php');
 
-    $nome        = $_POST["nNome"];
-    $tipoPet     = $_POST["nTipoPet"];
-    $funcao      = $_GET["funcao"];
-    $idRaca      = $_GET["codigo"];
+$nome        = $_POST["nNome"];
+$tipoPet     = $_POST["nTipoPet"];
+$funcao      = $_GET["funcao"];
+$idRaca      = $_GET["codigo"];
 
-    // if($_POST["nAtivo"] == "on") $ativo = "S"; else $ativo = "N";
+include("conexao.php");
 
-    include("conexao.php");
+if (!$conn) {
+    die("Falha na conexão: " . mysqli_connect_error());
+}
 
-    //Validar se é Inclusão ou Alteração
-    if($funcao == "I"){
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Habilitar modo de exceção
 
-        //INSERT
-        $sql = "INSERT INTO raca (nome,tipo_pet) "
-             ." VALUES ("."'$nome',$tipoPet);";   
+session_start(); // Certifique-se de que a sessão foi iniciada
 
-    }elseif($funcao == "A"){
-        //UPDATE
-        $sql = "UPDATE raca "
-                ." SET nome     = '$nome', "
-                    ." tipo_pet = '$tipoPet' "
-             ." WHERE  id_raca  = $idRaca;";
+// Validar se é Inclusão ou Alteração
+if ($funcao == "I") {
+    // INSERT
+    $sql = "INSERT INTO raca (nome, tipo_pet) VALUES ('$nome', $tipoPet)";
+} elseif ($funcao == "A") {
+    // UPDATE
+    $sql = "UPDATE raca SET nome = '$nome', tipo_pet = $tipoPet WHERE id_raca = $idRaca";
+} elseif ($funcao == "D") {
+    // DELETE
+    $sql = "DELETE FROM raca WHERE id_raca = $idRaca";
 
-    }elseif($funcao == "D"){
-        //DELETE
-        $sql = "DELETE FROM raca WHERE id_raca = $idRaca;";
+    // Tentativa de execução do DELETE
+    try {
+        $result = mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        // Tratamento para erro de chave estrangeira
+        if ($e->getCode() == 1451) {
+            $errorMessage = "Esta raça não pode ser excluída porque já está associada a um pet.";
+        } else {
+            $errorMessage = "Erro inesperado: " . $e->getMessage();
+        }
+
+        // Fecha a conexão e armazena a mensagem de erro na sessão
+        mysqli_close($conn);
+        $_SESSION['erro_mensagem'] = $errorMessage;
+
+        // Redireciona para a página de raças
+        header("location: ../racas.php");
+        exit; // Interrompe a execução do script
     }
+}
 
-    $result = mysqli_query($conn,$sql);
-    mysqli_close($conn);
+// Caso contrário, executa normalmente
+$result = mysqli_query($conn, $sql);
 
+if (!$result) {
+    die('Erro na execução do SQL: ' . mysqli_error($conn)); // Verifique erros na execução da query
+}
+mysqli_close($conn);
 
-    // //VERIFICA SE TEM IMAGEM NO INPUT
-    // if($_FILES['nFoto']['tmp_name'] != ""){
-
-    //     //Usar o mesmo nome do arquivo original
-    //     //$nomeArq = $_FILES['Foto']['name'];
-    //     //...
-    //     //OU
-    //     //Pega a extensão do arquivo e cria um novo nome pra ele (MD5 do nome original)
-    //     $extensao = pathinfo($_FILES['nFoto']['name'], PATHINFO_EXTENSION);
-    //     $novoNome = md5($_FILES['nFoto']['name']).'.'.$extensao;        
-        
-    //     //Verificar se o diretório existe, ou criar a pasta
-    //     if(is_dir('../dist/img/')){
-    //         //Existe
-    //         $diretorio = '../dist/img/';
-    //     }else{
-    //         //Criar pq não existe
-    //         $diretorio = mkdir('../dist/img/');
-    //     }
-
-    //     //Cria uma cópia do arquivo local na pasta do projeto
-    //     move_uploaded_file($_FILES['nFoto']['tmp_name'], $diretorio.$novoNome);
-
-    //     //Caminho que será salvo no banco de dados
-    //     $dirImagem = 'dist/img/'.$novoNome;
-
-    //     include("conexao.php");
-    //     //UPDATE
-    //     $sql = "UPDATE raca "
-    //             ." SET foto = '$dirImagem' "
-    //             ." WHERE id_raca = $idRaca;";
-
-    //     $result = mysqli_query($conn,$sql);
-    //     mysqli_close($conn);
-    // }
-
-    header("location: ../racas.php");
+// Redireciona para a página de raças
+header("location: ../racas.php");
 
 ?>

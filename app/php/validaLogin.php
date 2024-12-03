@@ -37,7 +37,7 @@
             $_SESSION['AtivoLogin']    = $coluna['FlgAtivo'];
 
             //Acessar a tela inicial
-            header('location: ../painel.php');
+            header('location: ../calendario.php');
             
         }        
     }else{

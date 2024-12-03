@@ -190,7 +190,7 @@ function carregaAgenda($idTipoUsuario,$idUsuario){
 }
 
 //Função para montar o select/option
-function optionSituacao($p){
+function optionSituacaoAgendamento($p){
 
     if ($p == "I") {
         $option = '';
