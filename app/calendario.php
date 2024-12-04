@@ -156,6 +156,9 @@ include('php/funcoes.php');
           }
           calendar.fullCalendar('unselect');
         },
+        
+        <?php echo carregaAgenda();?>
+
         droppable: true, // permite que os itens sejam colocados no calendário
         drop: function(date, allDay) { // essa função é chamada quando há falha
 
@@ -178,11 +181,7 @@ include('php/funcoes.php');
             // se sim, remova o elemento da lista "Draggable Events"
             $(this).remove();
           }
-          <?php //echo carregaAgenda(); 
-          ?>
-
         },
-
       });
 
     });

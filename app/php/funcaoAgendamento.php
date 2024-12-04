@@ -143,19 +143,28 @@ function listaAgendamento(){
 }
 
 //Função para preencher os agendamentos
-function carregaAgenda($idTipoUsuario,$idUsuario){
+function carregaAgenda(){
 
-    if($idTipoUsuario == 2){
-        //Parceiro 30 min
-        $minuto = 30;
-    }else{
-        //Atendimento 15 min
-        $minuto = 15;
-    }    
+    // if($idTipoUsuario == 2){
+    //     //Parceiro 30 min
+    //     $minuto = 30;
+    // }else{
+    //     //Atendimento 15 min
+    //     $minuto = 15;
+    // }    
 
-    include('banco.php');
-    $sql = "SELECT nomecliente, idCliente, DataAgendamento, HoraAgendamento ......."
-            ." ORDER BY DataAgendamento DESC, HoraAgendamento ASC;";    
+    include('conexao.php');
+    $sql = "SELECT "
+           ."  pet.nome as nome_pet, "
+           ."  agendamento.data, "
+           ."  agendamento.horario_inicial, "
+           ."  agendamento.horario_final "
+           ."FROM agendamento "
+           ."INNER JOIN pet "
+           ."   ON pet.id_pet = agendamento.id_pet "
+           ."ORDER BY "
+                ."data DESC, " 
+                ."horario_inicial ASC;"; 
 
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);    
@@ -168,10 +177,10 @@ function carregaAgenda($idTipoUsuario,$idUsuario){
 
         foreach ($result as $campo) {
             //Agendamentos
-            $id     = $campo['idCliente'];
-            $nome   = $NomeCliente;
-            $inicio = $campo['DataAgendamento']." ".$campo['HoraAgendamento'];
-            $fim    = $campo['DataAgendamento']." ".date('H:i:s',strtotime($campo['HoraAgendamento']." + ".$minuto." minutes"));
+            // $id     = $campo['idCliente'];
+            $nome   = $campo['nome_pet'];
+            $inicio = $campo['data']." ".$campo['horario_inicial'];
+            $fim    = $campo['data']." ".$campo['horario_final'];
             $classe = "success";
 
             $agenda .= 
@@ -185,6 +194,7 @@ function carregaAgenda($idTipoUsuario,$idUsuario){
             ."},";
         }        
         $agenda .= "],";    
+
     }
     return $agenda;
 }
@@ -266,6 +276,80 @@ function descrSituacaoAgendamento($id){
     }         
 
     return $descricao;
+}
+
+function atualizaDuracaoAgendamento($idAgendamento) {
+    
+    $horaInicial = horaInicioAgendamento($idAgendamento);
+    $duracao = duracaoAgendamento($idAgendamento);
+
+    // Se a duração for inválida ou vazia, use um valor padrão
+    if (empty($duracao)) {
+        $duracao = '00:00:00';
+    }
+
+    // Cria um objeto DateTime para a hora inicial
+    $dateTime = new DateTime($horaInicial);
+
+    // Adiciona a duração como um intervalo
+    $dateTime->add(new DateInterval('PT' . explode(':', $duracao)[0] . 'H' . explode(':', $duracao)[1] . 'M' . explode(':', $duracao)[2] . 'S'));
+
+    // Exibe o horário final
+    $horaFim = $dateTime->format('H:i:s');
+    
+    include("conexao.php");
+
+    $sql = "UPDATE agendamento SET horario_final = '$horaFim' WHERE id_agendamento = $idAgendamento;";
+    $result = mysqli_query($conn, $sql);
+    mysqli_close($conn);
+}
+
+function horaInicioAgendamento($idAgendamento){
+
+    $horaInicio = "";
+
+    include("conexao.php");
+
+    $sql = "SELECT horario_inicial FROM agendamento WHERE id_agendamento = ".$idAgendamento.";";
+
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);    
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+
+        foreach ($result as $coluna) {
+            $horaInicio = $coluna["horario_inicial"];
+        }
+
+    }
+
+    return $horaInicio;
+
+}
+
+function duracaoAgendamento($idAgendamento){
+    
+    $horaDuracao = "";
+
+    include("conexao.php");
+
+    $sql = "SELECT time_format( SEC_TO_TIME( SUM( TIME_TO_SEC( duracao ) ) ),'%H:%i:%s') AS duracao FROM execucao WHERE id_agendamento = ".$idAgendamento.";";
+
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);       
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+
+        foreach ($result as $coluna) {
+            $horaDuracao = $coluna["duracao"];
+        }
+
+    }
+
+    return $horaDuracao;
+
 }
 
 ?>

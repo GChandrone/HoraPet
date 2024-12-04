@@ -17,7 +17,7 @@
 
         // INSERT
         $sql = "INSERT INTO agendamento (horario_inicial,horario_final,data,situacao,id_pet,id_cliente,id_funcionario) "
-        ." VALUES ('$horainicio','00:00:00','$data',$situacaoAgendamento,$pet,$cliente,$funcionario);";
+        ." VALUES ('$horainicio','$horainicio','$data',$situacaoAgendamento,$pet,$cliente,$funcionario);";
 
         $result = mysqli_query($conn, $sql);
 

@@ -9,6 +9,8 @@
     $idAgendamento      = $_GET ["idAgendamento"];
     $funcao             = $_GET ["funcao"  ];
     $idExecucao         = $_GET ["codigo"  ];
+    $duracaoTotal       = 0;
+    $contServico        = 0;
 
     if($funcao == "I" || $funcao == "A"){
 
@@ -43,9 +45,13 @@
             
             foreach ($array as $coluna) {            
                 //***Verificar os dados da consulta SQL            
-                $nome    = $coluna['nome'];
-                $valor   = $coluna['valor'];
-                $duracao = $coluna['duracao'];
+                $nome          = $coluna['nome'];
+                $valor         = $coluna['valor'];
+                $duracao       = $coluna['duracao'];
+
+                if($contServico > 0) $duracaoTotal += date('H:i:s',strtotime($duracao)); else $duracaoTotal = date('H:i:s',strtotime($duracao));
+                
+                $contServico++;
             }        
         }
     }
@@ -71,6 +77,7 @@
             //INSERT
             $sql = "INSERT INTO execucao (id_servico,valor,duracao,descricao,situacao,id_agendamento) "
                 ." VALUES ("."$idServico,$valor,'$duracao','$descricao',1,$idAgendamento);";
+
         }
 
     }elseif($funcao == "A"){
@@ -93,6 +100,8 @@
     $result = mysqli_query($conn,$sql);
 
     mysqli_close($conn);
+
+    atualizaDuracaoAgendamento($idAgendamento);
 
     header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true");
 
