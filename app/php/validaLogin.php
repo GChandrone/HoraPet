@@ -15,7 +15,7 @@
     include("conexao.php");
 
     // Consulta ao banco de dados
-    $sql = "SELECT * FROM usuarios WHERE login = '$email' AND senha = md5('$senha');";
+    $sql = "SELECT * FROM funcionario WHERE email = '$email' AND senha = md5('$senha');";
     $resultLogin = mysqli_query($conn, $sql);
     mysqli_close($conn);
 
