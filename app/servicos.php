@@ -111,7 +111,7 @@ include('php/funcoes.php');
                 </button>
               </div>
               <div class="modal-body">
-                <form method="POST" action="php/salvarServico.php?funcao=I" enctype="multipart/form-data">
+                <form id="formNovoServico" method="POST" action="php/salvarServico.php?funcao=I" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
@@ -135,7 +135,8 @@ include('php/funcoes.php');
 
                   <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
                     <label class="btn btn-outline-success active btn-sm" onclick="mostrarCampos('pequeno')">
-                      <input type="radio" class="form-control" name="porte" id="portePequeno" autocomplete="off"checked> Pequeno
+                      <input type="radio" class="form-control" name="porte" id="portePequeno" autocomplete="off"
+                        checked> Pequeno
                     </label>
                     <label class="btn btn-outline-success btn-sm" onclick="mostrarCampos('medio')">
                       <input type="radio" class="form-control" name="porte" id="porteMedio" autocomplete="off"> Médio
@@ -151,13 +152,13 @@ include('php/funcoes.php');
                         <div class="form-group">
                           <label for="valorPequeno">Valor (Pequeno):</label>
                           <input type="text" class="form-control valor-real" id="valorPequeno" name="nValorPequeno"
-                            placeholder="R$ 0,00" required>
+                            placeholder="R$ 0,00">
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
                           <label for="duracaoPequeno">Duração (Pequeno):</label>
-                          <input type="time" class="form-control" id="duracaoPequeno" name="nDuracaoPequeno" required>
+                          <input type="time" class="form-control" id="duracaoPequeno" name="nDuracaoPequeno">
                         </div>
                       </div>
                     </div>
@@ -169,13 +170,13 @@ include('php/funcoes.php');
                         <div class="form-group">
                           <label for="valorMedio">Valor (Médio):</label>
                           <input type="text" class="form-control valor-real" id="valorMedio" name="nValorMedio"
-                            placeholder="R$ 0,00" required>
+                            placeholder="R$ 0,00">
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
                           <label for="duracaoMedio">Duração (Médio):</label>
-                          <input type="time" class="form-control" id="duracaoMedio" name="nDuracaoMedio" required>
+                          <input type="time" class="form-control" id="duracaoMedio" name="nDuracaoMedio">
                         </div>
                       </div>
                     </div>
@@ -187,13 +188,13 @@ include('php/funcoes.php');
                         <div class="form-group">
                           <label for="valorGrande">Valor (Grande):</label>
                           <input type="text" class="form-control valor-real" id="valorGrande" name="nValorGrande"
-                            placeholder="R$ 0,00" required>
+                            placeholder="R$ 0,00">
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
                           <label for="duracaoGrande">Duração (Grande):</label>
-                          <input type="time" class="form-control" id="duracaoGrande" name="nDuracaoGrande" required>
+                          <input type="time" class="form-control" id="duracaoGrande" name="nDuracaoGrande">
                         </div>
                       </div>
                     </div>
@@ -237,16 +238,16 @@ include('php/funcoes.php');
   <script>
 
     <?php if (isset($_SESSION['erro_mensagem'])): ?>
-        // Exibe a mensagem de erro utilizando o Toast
-        
-        Swal.fire({
-              type: 'error',
-              title: 'Atenção',
-              text: '<?php echo $_SESSION['erro_mensagem']; ?>'
-        });
+      // Exibe a mensagem de erro utilizando o Toast
 
-        // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
-        <?php unset($_SESSION['erro_mensagem']); ?>
+      Swal.fire({
+        type: 'error',
+        title: 'Atenção',
+        text: '<?php echo $_SESSION['erro_mensagem']; ?>'
+      });
+
+      // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
+      <?php unset($_SESSION['erro_mensagem']); ?>
     <?php endif; ?>
 
     $(function () {
@@ -261,9 +262,6 @@ include('php/funcoes.php');
       });
     });
 
-    $(function () {
-      bsCustomFileInput.init();
-    });
   </script>
 
 </body>
