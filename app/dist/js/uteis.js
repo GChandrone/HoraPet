@@ -121,7 +121,7 @@ document.querySelectorAll('.telefone-formatado').forEach(function(input) {
 ********************************************************/
 // Função para mostrar os campos conforme o porte selecionado
 function mostrarCampos(porte, modalId = null) {
-  // Determinar o escopo dos campos (modal específica ou global)
+  // Determinar o escopo dos campos
   let scope;
 
   if (modalId) {
@@ -160,13 +160,18 @@ document.querySelectorAll('.modal').forEach((modal) => {
   modal.addEventListener('shown.bs.modal', function () {
     const idModal = this.id; // Captura o ID da modal
 
-    // Exibe os campos para o porte "pequeno" ao abrir
-    mostrarCampos('pequeno', idModal); 
+    // Verifica se a modal é de edição
+    const modalEdit = this.querySelector('form').id === 'formAjusteServico';
 
-    // Garantir que o botão "pequeno" esteja marcado, sem precisar de interação
-    const radioPequeno = this.querySelector('input[name="porte"]:checked');
-    if (radioPequeno && !radioPequeno.checked) {
-      radioPequeno.checked = true; // Marca o botão "pequeno" se ainda não estiver marcado
+    // Exibe os campos para o porte "pequeno" ao abrir (se for a modal de edição ou inclusão)
+    mostrarCampos('pequeno', idModal);
+
+    // Se for a modal de edição, garante que o rádio de "pequeno" esteja selecionado
+    if (modalEdit) {
+      const radioPequeno = this.querySelector(`input[name="porte"][id="portePequeno"]`);
+      if (radioPequeno && !radioPequeno.checked) {
+        radioPequeno.checked = true; // Marca o botão "pequeno" se ainda não estiver marcado
+      }
     }
   });
 });
