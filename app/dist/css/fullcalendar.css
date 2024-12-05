@@ -35,6 +35,13 @@ html .fc,
 /* Header
 ------------------------------------------------------------------------*/
 
+.fc-header {
+    background-color: #ffffff !important; /* Cor desejada - Verde */
+    color: #ffffff; /* Cor do texto - Branco */
+    border-radius: 6px 6px 0 0; /* Mantém as bordas arredondadas */
+    padding: 10px; /* Ajuste no espaçamento interno, se necessário */
+}
+
 .fc-header td {
 	white-space: nowrap;
 	padding: 15px 10px 0px;
@@ -130,13 +137,15 @@ html .fc,
 	}
 .fc-widget-header{
     border-bottom: 1px solid #EEE; 
+	background-color: #28a745 !important; /* Cor de fundo verde */
+    color: #ffffff !important; /* Cor do texto branco */
 }	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
 	/* background: #fcf8e3; */
 }
 
 .fc-state-highlight > div > div.fc-day-number{
-    background-color: #89703C;
+    background-color: #28a745;
     color: #FFFFFF;
     border-radius: 20%;
     margin: 4px;
@@ -153,6 +162,7 @@ html .fc,
 /* Buttons
 ------------------------------------------------------------------------*/
 
+/* Correção nos estilos de botão */
 .fc-button {
 	position: relative;
 	display: inline-block;
@@ -162,103 +172,66 @@ html .fc,
 	line-height: 1.9em;
 	white-space: nowrap;
 	cursor: pointer;
-	}
-	
-.fc-state-default { /* non-theme */
-	border: 1px solid;
-	}
-
-.fc-state-default.fc-corner-left { /* non-theme */
+	border: 1px solid #28a745 !important; /* Borda verde */
+	color: #28a745 !important; /* Texto verde */
+	background-color: #fff !important; /* Fundo branco */
+	transition: all 0.3s ease; /* Suavidade nas transições */
+  }
+  
+  .fc-button:hover {
+	background-color: #28a745 !important; /* Fundo verde ao hover */
+	color: #fff !important; /* Texto branco ao hover */
+	border-color: #1e7e34 !important; /* Borda mais escura ao hover */
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
+  }
+  
+  .fc-button.fc-state-disabled {
+	cursor: default;
+	background-color: #f4f4f4 !important; /* Fundo desabilitado */
+	color: #aaa !important; /* Texto desabilitado */
+	border-color: #ddd !important; /* Borda desabilitada */
+  }
+  
+  .fc-button.fc-button-today {
+	background-color: #fff !important; /* Fundo branco */
+	border: 1px solid #28a745 !important; /* Borda verde */
+	color: #28a745 !important; /* Texto verde */
+  }
+  
+  .fc-button.fc-button-today:hover {
+	cursor: pointer;
+	background-color: #28a745 !important; /* Fundo verde ao hover */
+	color: #fff !important; /* Texto branco ao hover */
+	border-color: #1e7e34 !important; /* Borda mais escura ao hover */
+  }
+  
+  
+  /* Estilo para as setas nos botões */
+  .fc-text-arrow {
+	margin: 0 .4em;
+	font-size: 1.5em; /* Tamanho ajustado */
+	line-height: 23px;
+	vertical-align: baseline;
+	color: inherit !important; /* Herda a cor do botão */
+	transition: transform 0.3s ease;
+  }
+  
+  .fc-button-prev:hover .fc-text-arrow,
+  .fc-button-next:hover .fc-text-arrow {
+	transform: scale(1.2); /* Amplia levemente ao passar o mouse */
+  }
+  
+  /* Botões arredondados */
+  .fc-state-default.fc-corner-left {
 	border-top-left-radius: 4px;
 	border-bottom-left-radius: 4px;
-	}
-
-.fc-state-default.fc-corner-right { /* non-theme */
+  }
+  
+  .fc-state-default.fc-corner-right {
 	border-top-right-radius: 4px;
 	border-bottom-right-radius: 4px;
-	}
-
-/*
-	Our default prev/next buttons use HTML entities like &lsaquo; &rsaquo; &laquo; &raquo;
-	and we'll try to make them look good cross-browser.
-*/
-
-.fc-text-arrow {
-	margin: 0 .4em;
-	font-size: 2em;
-	line-height: 23px;
-	vertical-align: baseline; /* for IE7 */
-	}
-
-.fc-button-prev .fc-text-arrow,
-.fc-button-next .fc-text-arrow { /* for &lsaquo; &rsaquo; */
-	font-weight: bold;
-	}
-	
-/* icon (for jquery ui) */
-	
-.fc-button .fc-icon-wrap {
-	position: relative;
-	float: left;
-	top: 50%;
-	}
-	
-.fc-button .ui-icon {
-	position: relative;
-	float: left;
-	margin-top: -50%;
-	*margin-top: 0;
-	*top: -50%;
-	}
-
-
-.fc-state-default {
-	border-color: #89703C;
-	color: #89703C;	
-}
-.fc-button-month.fc-state-default, .fc-button-agendaWeek.fc-state-default, .fc-button-agendaDay.fc-state-default{
-    min-width: 67px;
-	text-align: center;
-	transition: all 0.2s;
-	-webkit-transition: all 0.2s;
-}
-.fc-state-hover,
-.fc-state-down,
-.fc-state-active,
-.fc-state-disabled {
-	color: #333333;
-	background-color: #F4F4F4;
-	}
-
-.fc-state-hover {
-	color: #89703C;
-	text-decoration: none;
-	background-position: 0 -15px;
-	-webkit-transition: background-position 0.1s linear;
-	   -moz-transition: background-position 0.1s linear;
-	     -o-transition: background-position 0.1s linear;
-	        transition: background-position 0.1s linear;
-	}
-
-.fc-state-down,
-.fc-state-active {
-	background-color: #89703C;
-	background-image: none;
-	outline: 0;
-	color: #FFFFFF;
-}
-
-.fc-state-disabled {
-	cursor: default;
-	background-image: none;
-	background-color: #F4F4F4;
-	filter: alpha(opacity=65);
-	box-shadow: none;
-	border:1px solid #F4F4F4;
-	color: #89703C;
-	}
-
-	
+  }
+  
 
 /* Global Event Styles
 ------------------------------------------------------------------------*/
@@ -443,8 +416,8 @@ table.fc-border-separate {
 	}
 	
 .fc-grid .fc-other-month .fc-day-number {
-	opacity: 0.3;
-	filter: alpha(opacity=30); /* for IE */
+	opacity: 0.8;
+	filter: alpha(opacity=50); /* for IE */
 	/* opacity with small font can sometimes look too faded
 	   might want to set the 'color' property instead
 	   making day-numbers bold also fixes the problem */
@@ -649,10 +622,11 @@ table.fc-header{
     transition: background-color 0.2s;
 }
 .fc-week .fc-day.fc-state-highlight:hover .fc-day-number{
-    background-color:  #89703C;
+    background-color:  #28a745;
 }
+/* Mudar a cor do button de 'hoje'  */
 .fc-button-today{
-    border: 1px solid rgba(255,255,255,.0);
+    border: 1px solid red;
 }
 .fc-view-agendaDay thead tr.fc-first .fc-widget-header{
     text-align: right;

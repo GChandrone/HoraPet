@@ -130,7 +130,7 @@
                   </div>
 
 
-                  <div class="col-8">
+                  <div class="col-4">
                     <div class="form-group">
                       <label for="iEmail">E-mail:</label>
                       <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50">
@@ -143,9 +143,24 @@
                       <input type="password" class="form-control" id="iSenha" name="nSenha">
                     </div>
                   </div>
+
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label>Tipo do Funcionário:</label>
+                      <select id="iTipoFuncionarioAjaxIncluir" name="nTipoFuncionario" class="form-control tipoFuncionarioAjax" required>
+                        <option value="">Selecione...</option>
+                        <?php echo optionTipoFuncionario("I");?>
+                      </select>
+                    </div>
+                  </div>
                 
                 </div>
                 
+
+                
+                
+
+
                 <div class="custom-control custom-checkbox">
                   <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario" name="nAtivoFuncionario" checked>
                   <label for="iAtivoFuncionario" class="custom-control-label">Funcionário Ativo</label>
