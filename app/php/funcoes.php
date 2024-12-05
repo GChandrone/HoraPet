@@ -102,4 +102,40 @@ function formatarHora($hora, $formato = 'H:i') {
     // Retorna a hora original caso não esteja no formato esperado
     return $hora;
 }
+
+// Função para buscar a descrição do tipo de usuário
+function descrTipoFuncionario($id){
+    if ($id == 1) {
+        return "Comum";
+    } elseif ($id == 2) {
+        return "Operador";
+    } else {
+        return "Admim";
+    }
+}
+
+// Função para montar o select/option
+function optionTipoFuncionario($p){
+    if ($p == "I") {
+        return '<option value=1>Comum</option>'
+             .'<option value=2>Operador</option>'
+             .'<option value=3>Admim</option>';
+    } else {
+        $option = ''; // Inicializa a variável $option para evitar erro de variável não definida
+
+        if ($p == 1) {
+            $option .= '<option value=2>Operador</option>';
+            $option .= '<option value=3>Admim</option>';
+        } elseif ($p == 2) {
+            $option .= '<option value=1>Comum</option>';
+            $option .= '<option value=3>Admim</option>';
+        } elseif ($p == 3) {
+            $option .= '<option value=1>Comum</option>';
+            $option .= '<option value=2>Operador</option>';
+        }
+
+        return $option;
+    }
+}
+
 ?>

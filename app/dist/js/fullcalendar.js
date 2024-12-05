@@ -21,7 +21,7 @@
 var defaults = {
 
 	// display
-	defaultView: 'month',
+	defaultView: 'Mês',
 	aspectRatio: 1.35,
 	header: {
 		left: 'title',
@@ -64,17 +64,17 @@ var defaults = {
 	// locale
 	isRTL: false,
 	firstDay: 0,
-	monthNames: ['Janeiro','Fevereiro','MarÃ§o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+	monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
 	monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-	dayNames: ['Domingo','Segunda','TerÃ§a','Quarta','Quinta','Sexta','SÃ¡bado'],
-	dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'],
+	dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+	dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
 	buttonText: {
 		prev: "<span class='fc-text-arrow'>&lsaquo;</span>",
 		next: "<span class='fc-text-arrow'>&rsaquo;</span>",
 		prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
 		nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
 		today: 'Hoje',
-		month: 'MÃªs',
+		month: 'Mês',
 		week: 'Semana',
 		day: 'Dia'
 	},
