@@ -10,6 +10,10 @@
     $funcao              = $_GET ["funcao"              ];
     $idAgendamento       = $_GET ["codigo"              ];
 
+
+    // var_dump($cliente.'-'.$pet);
+    // die();
+
     include("conexao.php");
 
     // Validar se é Inclusão ou Alteração
@@ -38,12 +42,9 @@
         $result = mysqli_query($conn, $sql);
         mysqli_close($conn);
 
-        var_dump($pet);
-        die();
-
         $idPorte = portePet($pet);
 
-        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte);
+        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true");
 
     } elseif($funcao == "D"){
 

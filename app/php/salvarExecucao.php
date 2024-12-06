@@ -12,7 +12,7 @@
     $duracaoTotal       = 0;
     $contServico        = 0;
 
-    if($funcao == "I" || $funcao == "A"){
+    if($funcao == "I"){
 
         include("conexao.php");
 
@@ -83,12 +83,8 @@
     }elseif($funcao == "A"){
         
         $sql = "UPDATE execucao "
-                ." SET id_servico     = $idServico, "
-                    ." valor          = $valor, " 
-                    ." duracao        = '$duracao', " 
-                    ." descricao      = '$descricao', " 
-                    ." situacao       = $idSituacaoExecucao, "
-                    ." id_agendamento = $idAgendamento "
+                ." SET descricao      = '$descricao', " 
+                    ." situacao       = $idSituacaoExecucao "
                 ." WHERE id_execucao  = $idExecucao;";
 
     }elseif($funcao == "D"){

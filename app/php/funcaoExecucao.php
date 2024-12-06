@@ -74,9 +74,8 @@ function listaExecucao($idAgendamento, $idPorte){
                                     .'<div class="col-8">'
                                         .'<div class="form-group">'
                                         .'<label for="iServico">Serviço:</label>'
-                                        .'<select id="iServico" name="nServico" class="form-control" required>'
+                                        .'<select id="iServico" name="nServico" class="form-control" readonly disabled>'
                                             .'<option value="'.$coluna["id_servico"].'">'.$coluna["nome"].' - '.formatarMoeda($coluna["valor_execucao"]).'</option>'
-                                            .optionServico($idPorte)
                                         .'</select>'
                                         .'</div>'
                                     .'</div>'
@@ -127,7 +126,7 @@ function listaExecucao($idAgendamento, $idPorte){
                             .'<form method="POST" action="php/salvarExecucao.php?funcao=D&codigo='.$coluna["id_execucao"].'&idAgendamento='.$idAgendamento.'&idPorte='.$idPorte.'" enctype="multipart/form-data">'              
                                 .'<div class="row">'
                                     .'<div class="col-12">'
-                                        .'<h5>Tem certeza de que deseja excluir o registro?</h5>'
+                                        .'<h5>Tem certeza de que deseja retirar o serviço?</h5>'
                                     .'</div>'
                                 .'</div>'
                              

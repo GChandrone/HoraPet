@@ -13,6 +13,7 @@ if (isset($_GET["id"])) {
     . "  cliente.id_cliente, "
     . "  cliente.nome 	 	            as nome_cliente, "
     . "  cliente.telefone 	          as telefone_cliente, "
+    . "  pet.id_pet, "
     . "  pet.nome         	          as nome_pet, "
     . "  funcionario.id_funcionario, "
     . "  funcionario.nome 	          as nome_funcionario, "
@@ -42,6 +43,7 @@ if (isset($_GET["id"])) {
       $idCliente = $coluna["id_cliente"];
       $cliente = $coluna["nome_cliente"];
       $telefone_cliente = $coluna["telefone_cliente"];
+      $idPet = $coluna["id_pet"];
       $pet = $coluna["nome_pet"];
       $idFuncionario = $coluna["id_funcionario"];
       $funcionario = $coluna["nome_funcionario"];
@@ -102,8 +104,16 @@ if (isset($_GET["id"])) {
                   <div class="row">
 
                     <div class="col-9">
-                      <h3 class="card-title">Incluir Agendamento</h3>
+                      <h3 class="card-title"><?php echo isset($idAgendamento) ? 'Alterar' : 'Incluir'; ?> Agendamento</h3>
                     </div>
+
+                    <?php if (isset($idAgendamento)) { ?>
+                      <div class="col-3" align="right">
+                        <a href="agendamentos.php" class="btn btn-secondary" title="Volta para a tela de agendamentos">
+                          Voltar
+                        </a>
+                      </div>
+                    <?php }?>        
 
                   </div>
                 </div>
@@ -144,16 +154,18 @@ if (isset($_GET["id"])) {
                         <div class="col-6">
                           <div class="form-group">
                             <label for="iPet">Pet:</label>
-                            <select name="nPet" class="form-control petAjax" required <?php echo isset($idAgendamento) ? 'id="" readonly disabled' : 'id="iPet"'; ?>>
-                              <?php if (isset($idAgendamento)) { ?>
-                                <!-- Exibe apenas a opção selecionada quando há idAgendamento -->
+                            <?php if (isset($idAgendamento)) { ?>
+                              <select name="nPet" class="form-control petAjax" id="" readonly disabled>
                                 <option value="<?php echo $idPet; ?>" selected>
                                   <?php echo $coluna["nome_pet"]; ?>
                                 </option>
-                              <?php } else { ?>
-                                <!-- Exibe a opção padrão "Selecione..." quando não há idAgendamento -->
+                              </select>
+                              <input type="hidden" name="nPet" value="<?php echo $idPet; ?>">
+                            <?php } else { ?>
+                              <select name="nPet" class="form-control petAjax" id="iPet">
                                 <option value="">Selecione...</option>
-                              <?php } ?>
+                              </select>
+                            <?php } ?>
                             </select>
                           </div>
                         </div>
@@ -208,7 +220,7 @@ if (isset($_GET["id"])) {
                     <?php if (isset($idAgendamento)) { ?>
 
                       <div class="modal-footer">
-                        <a href="#" class="btn btn-danger">Cancelar</a>
+                        <a href= <?php echo "agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true"?> class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-success">Salvar</button>
                       </div>
 
