@@ -20,6 +20,11 @@
         ." VALUES ('$horainicio','$horainicio','$data',$situacaoAgendamento,$pet,$cliente,$funcionario);";
 
         $result = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+
+        $idAgendamento = idAgendamentoServico($cliente, $pet, $data);
+        $idPorte = portePet($pet);
+        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte);
 
     } elseif($funcao == "A"){
 
@@ -31,6 +36,14 @@
         ." WHERE id_agendamento = $idAgendamento;";
 
         $result = mysqli_query($conn, $sql);
+        mysqli_close($conn);
+
+        var_dump($pet);
+        die();
+
+        $idPorte = portePet($pet);
+
+        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte);
 
     } elseif($funcao == "D"){
 
@@ -41,17 +54,8 @@
         // Depois exclui o agendamento
         $sqlAgendamento = "DELETE FROM agendamento WHERE id_agendamento = $idAgendamento;";
         mysqli_query($conn, $sqlAgendamento);
-    }
 
-    mysqli_close($conn);
-
-    if ($funcao == "I") {
-
-        $idAgendamento = idAgendamentoServico($cliente, $pet, $data);
-        $idPorte = portePet($pet);
-        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte);
-
-    } elseif ($funcao == "D" || $funcao == "A") {
+        mysqli_close($conn);
 
         header("location: ../agendamentos.php");
     }

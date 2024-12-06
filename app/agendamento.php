@@ -50,9 +50,7 @@ if (isset($_GET["id"])) {
       $hora = $coluna["horario_inicial"];
       $situacaoAgendamento = $coluna["situacao"];
     }
-
   }
-
 }
 
 ?>
@@ -207,137 +205,137 @@ if (isset($_GET["id"])) {
                       </div>
                     </div>
 
-                    <?php if (isset($idAgendamento) == 0) { ?>
+                    <?php if (isset($idAgendamento)) { ?>
 
                       <div class="modal-footer">
-                        <a href="agendamentos.php" class="btn btn-danger">Cancelar</a>
+                        <a href="#" class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-success">Salvar</button>
                       </div>
 
+                    <?php } else { ?>
+                      
+                      <div class="modal-footer">
+                        <a href="agendamentos.php" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                      </div> 
+
+                    <?php } ?>
+
                     </form>
 
-                  <?php } ?>
+                    <!-- Fim Agendamento -->
 
-                  <!-- Fim Agendamento -->
-
-                  <!-- Incio Servicos -->
-                  <?php if (isset($idAgendamento) > 0) { ?>
-
-                    <div
-                      class="card card-success <?php echo isset($_GET['add']) && $_GET['add'] === 'true' ? '' : 'collapsed-card'; ?>">
-                      <div class="card-header pointer" data-card-widget="collapse">
-                        <h3 class="card-title">Adicionar Serviços</h3>
-                        <div class="card-tools">
-                          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i <?php echo isset($_GET['add']) ? 'class="fas fa-minus"' : 'class="fas fa-plus"'; ?>></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="card-body">
-
-                        <table id="tabela" class="table table-bordered table-hover">
-                          <thead>
-                            <tr>
-                              <th>Serviço</th>
-                              <th>Valor</th>
-                              <th>Duração</th>
-                              <th>Situação</th>
-                              <th class="text-center">
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                  data-target="#novaExecucaoModal">
-                                  +
-                                </button>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-
-                            <!-- Talvez fazer por aqui essa alteração -->
-                            <?php echo listaExecucao($idAgendamento, $idPorte); ?>
-
-                          </tbody>
-
-                        </table>
-
-                      </div>
-                      <!-- /.card-body  -->
-                    </div>
-                    <!-- Fim Servicos -->
-
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-success">Salvar</button>
-                    </div>
-
-                  </form>
-
-                <?php } ?>
-
-                <div class="modal fade" id="novaExecucaoModal">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header bg-success">
-                        <h4 class="modal-title">Novo Serviço</h4>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-
-                        <form id="formServico" method="POST"
-                          action="<?php echo 'php/salvarExecucao.php?funcao=I&idPorte=' . $idPorte . '&idAgendamento=' . $idAgendamento; ?>"
-                          enctype="multipart/form-data">
-
-                          <div class="row">
-                            <div class="col-8">
-                              <div class="form-group">
-                                <label for="iServico">Serviço:</label>
-                                <select id="iServico" name="nServico" class="form-control" required>
-                                  <option value="">Selecione...</option>
-                                  <?php echo optionServico($idPorte); ?>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div class="col-4">
-                              <div class="form-group">
-                                <label for="iSituacaoExecucao">Situação:</label>
-                                <select id="iSituacaoExecucao" name="nSituacaoExecucao" class="form-control" required>
-                                <option value="1">Planejado</option>
-                                  <?php echo optionSituacaoExecucao("I"); ?>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-12">
-                              <div class="form-group">
-                                <label>Descrição:</label>
-                                <textarea name="nDescricao" class="form-control" rows="3" placeholder="Escreva..."
-                                  maxlength="255"></textarea>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-success">Salvar</button>
-                          </div>
-
-                        </form>
-
-                      </div>
-
-                    </div>
-                    <!-- /.modal-content  -->
-                  </div>
-                  <!-- /.modal-dialog  -->
-                </div>
-                <!-- /.modal  -->
-
-                <!-- /.card-body -->
+                    <!-- /.card-body -->
               </div>
               <!-- /.card -->
+              <!-- Incio Servicos -->
+              <?php if (isset($idAgendamento) > 0) { ?>
+
+                <div
+                  class="card card-success <?php echo isset($_GET['add']) && $_GET['add'] === 'true' ? '' : 'collapsed-card'; ?>">
+                  <div class="card-header pointer" data-card-widget="collapse">
+                    <h3 class="card-title">Adicionar Serviços</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i <?php echo isset($_GET['add']) ? 'class="fas fa-minus"' : 'class="fas fa-plus"'; ?>></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+
+                    <table id="tabela" class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>Serviço</th>
+                          <th>Valor</th>
+                          <th>Duração</th>
+                          <th>Situação</th>
+                          <th class="text-center">
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                              data-target="#novaExecucaoModal">
+                              +
+                            </button>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <!-- Talvez fazer por aqui essa alteração -->
+                        <?php echo listaExecucao($idAgendamento, $idPorte); ?>
+
+                      </tbody>
+
+                    </table>
+
+                  </div>
+                  <!-- /.card-body  -->
+                </div>
+                <!-- Fim Servicos -->
+
+              <?php } ?>
+
+              <div class="modal fade" id="novaExecucaoModal">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header bg-success">
+                      <h4 class="modal-title">Novo Serviço</h4>
+                      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form id="formServico" method="POST"
+                        action="<?php echo 'php/salvarExecucao.php?funcao=I&idPorte=' . $idPorte . '&idAgendamento=' . $idAgendamento; ?>"
+                        enctype="multipart/form-data">
+
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="form-group">
+                              <label for="iServico">Serviço:</label>
+                              <select id="iServico" name="nServico" class="form-control" required>
+                                <option value="">Selecione...</option>
+                                <?php echo optionServico($idPorte); ?>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label for="iSituacaoExecucao">Situação:</label>
+                              <select id="iSituacaoExecucao" name="nSituacaoExecucao" class="form-control" required>
+                                <option value="1">Planejado</option>
+                                <?php echo optionSituacaoExecucao("I"); ?>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label>Descrição:</label>
+                              <textarea name="nDescricao" class="form-control" rows="3" placeholder="Escreva..."
+                                maxlength="255"></textarea>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+
+                      </form>
+
+                    </div>
+
+                  </div>
+                  <!-- /.modal-content  -->
+                </div>
+                <!-- /.modal-dialog  -->
+              </div>
+              <!-- /.modal  -->
 
             </div>
             <!-- /.col -->
@@ -363,21 +361,20 @@ if (isset($_GET["id"])) {
   <!-- Fim JS -->
 
   <script>
-
     <?php if (isset($_SESSION['erro_mensagem'])): ?>
-        // Exibe a mensagem de erro utilizando o Toast
-        
-        Swal.fire({
-              type: 'error',
-              title: 'Atenção',
-              text: '<?php echo $_SESSION['erro_mensagem']; ?>'
-        });
+      // Exibe a mensagem de erro utilizando o Toast
 
-        // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
-        <?php unset($_SESSION['erro_mensagem']); ?>
-    <?php endif; ?>                
+      Swal.fire({
+        type: 'error',
+        title: 'Atenção',
+        text: '<?php echo $_SESSION['erro_mensagem']; ?>'
+      });
 
-    $(function () {
+      // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
+      <?php unset($_SESSION['erro_mensagem']); ?>
+    <?php endif; ?>
+
+    $(function() {
       $('#tabela').DataTable({
         "paging": true,
         "lengthChange": false,

@@ -185,13 +185,14 @@ document.querySelectorAll('.btn-group-toggle .btn').forEach((button) => {
   });
 });
 
+ // Função de validação de campos
 function validarCampos(servicoId = '') {
   let erro = false;
 
-  // Prefixo dos IDs (vazio para inclusão e com 'Alterar' para edição)
+  // Prefixo para edição (se não estiver em edição, o prefixo será vazio)
   const prefixo = servicoId ? 'Alterar' + servicoId : '';
 
-  // Obtém os valores dos campos
+  // Obtém os valores dos campos com o prefixo para edição ou sem prefixo para inclusão
   const valorPequeno = document.getElementById('valorPequeno' + prefixo)?.value.trim();
   const duracaoPequeno = document.getElementById('duracaoPequeno' + prefixo)?.value.trim();
   const valorMedio = document.getElementById('valorMedio' + prefixo)?.value.trim();
@@ -199,53 +200,47 @@ function validarCampos(servicoId = '') {
   const valorGrande = document.getElementById('valorGrande' + prefixo)?.value.trim();
   const duracaoGrande = document.getElementById('duracaoGrande' + prefixo)?.value.trim();
 
-  // Verifica se algum campo está vazio
+  // Verifica se algum dos campos necessários está vazio
   if (!valorPequeno || !duracaoPequeno || !valorMedio || !duracaoMedio || !valorGrande || !duracaoGrande) {
     erro = true;
     Swal.fire({
       type: 'warning',
       title: 'Configuração incompleta',
-      text: 'Por favor, preencha todos os campos na configuração dos portes antes de salvar o serviço.',
+      text: 'Por favor, preencha todos os campos corretamente.',
     });
   }
 
-  return !erro; // Retorna true se não houve erro
+  return !erro; // Retorna true se não houver erro
 }
 
-document.getElementById('formNovoServico').addEventListener('submit', function (event) {
-  const form = this;
 
-  // Verifica a validação padrão do formulário
-  if (!form.checkValidity()) {
-    form.reportValidity(); // Mostra mensagens nativas
-    event.preventDefault(); // Impede o envio
-    return;
-  }
-
-  // Aplica a validação personalizada para a inclusão
-  if (!validarCampos()) { // Sem passar `servicoId`
-    event.preventDefault(); // Impede o envio
+// Validação no envio do formulário para criação de novo serviço
+$(document).on('submit', '#formNovoServico', function (event) {
+  // Chama a função de validação personalizada
+  if (!validarCampos()) {
+    event.preventDefault(); // Impede o envio se a validação falhar
   }
 });
 
+
+// Validação no envio do formulário para ajuste de serviço
 document.querySelectorAll('[id^="formAjusteServico"]').forEach((form) => {
   form.addEventListener('submit', function (event) {
-    const servicoId = form.getAttribute('data-servico-id'); // Obtém o ID do serviço
+    const servicoId = form.getAttribute('data-servico-id'); // Obtém o ID do serviço para edição
 
     // Verifica a validação padrão do formulário
     if (!form.checkValidity()) {
-      form.reportValidity(); // Mostra mensagens nativas
-      event.preventDefault(); // Impede o envio
+      form.reportValidity(); // Mostra mensagens nativas do navegador
+      event.preventDefault(); // Impede o envio se a validação do HTML não passar
       return;
     }
 
     // Aplica a validação personalizada para a edição
     if (!validarCampos(servicoId)) {
-      event.preventDefault(); // Impede o envio
+      event.preventDefault(); // Impede o envio se a validação personalizada falhar
     }
   });
 });
-
 
 /**********************************************************************************************
 ** Função para atualizar o campo Porte automaticamente, conforme o peso, altura e o tipo do pet*
@@ -312,59 +307,46 @@ document.querySelectorAll('[id^="iTipoPet"]').forEach(function(tipoField) {
 ** Lista dinâmica com Ajax para carregar as Raça conforme o pet*
 ****************************************************************/
 $(document).on('change', '.tipoPetAjax', function () {
-  carregarRacas($(this));
+  carregarRacas($(this)); // Aciona a função AJAX ao mudar o valor
 });
 
 // Função para carregar raças dinamicamente
 function carregarRacas(tipoPetElement) {
-    // Identifica a modal atual onde o evento foi disparado
-    const modal = tipoPetElement.closest('.modal');
+    const modal = tipoPetElement.closest('.modal'); // Obtém o modal atual
+    const tipoPet = tipoPetElement.val(); // Pega o tipo do pet selecionado
+    let optionRaca = ''; // Inicializa a lista de raças
 
-    // Pega o valor selecionado na lista 1
-    const tipoPet = tipoPetElement.val();
-
-    // Prepara a lista 2 filtrada
-    let optionRaca = '';
-
-    // Valida se teve seleção na lista 1
+    // Verifica se o tipo de pet foi selecionado
     if (tipoPet !== "" && tipoPet !== "0") {
-        // Vai no PHP consultar dados para a lista 2
         $.getJSON('php/carregaRaca.php?tipo=' + tipoPet, function (dados) {
-            // Carrega a primeira option
-            optionRaca = '<option value="">Selecione...</option>';
+            optionRaca = '<option value="">Selecione...</option>'; // Primeira opção
 
-            // Obtém o valor atual da raça no campo diretamente
-            const racaAtual = modal.find('.racaAjax').val();
+            const racaAtual = modal.find('.racaAjax').val(); // Raça atualmente selecionada
 
-            // Valida o retorno do PHP para montar a lista 2
             if (dados.length > 0) {
-                // Se tem dados, monta a lista 2
+                // Se dados de raças forem retornados
                 $.each(dados, function (i, obj) {
-                    // Verifica se a raça atual corresponde ao ID da raça
                     const selected = obj.id_raca == racaAtual ? 'selected' : '';
                     optionRaca += '<option value="' + obj.id_raca + '" ' + selected + '>' + obj.nome + '</option>';
                 });
-
-                // Preenche o campo de raças com as opções
-                modal.find('.racaAjax').attr('required', 'required').html(optionRaca).show();
-            } else {
-                // Não encontrou itens para a lista 2
-                modal.find('.racaAjax').html(optionRaca).show();
             }
+
+            // Atualiza o campo de raças
+            modal.find('.racaAjax').attr('required', 'required').html(optionRaca).show();
         });
     } else {
-        // Sem seleção na lista 1, reseta a lista 2
+        // Se tipo de pet não for selecionado, reseta as raças
         optionRaca += '<option value="">Selecione...</option>';
         modal.find('.racaAjax').html(optionRaca).show();
     }
 }
 
-// Ao abrir a modal de edição, carregar automaticamente as raças se o Tipo Pet estiver preenchido
+// Ao abrir a modal de edição, se Tipo Pet já estiver selecionado, carrega as raças
 $(document).on('show.bs.modal', '.modal', function () {
     const modal = $(this);
     const tipoPetElement = modal.find('.tipoPetAjax');
 
-    // Se o Tipo Pet está preenchido, carrega as raças
+    // Se Tipo Pet está selecionado, carrega as raças
     if (tipoPetElement.val() !== "" && tipoPetElement.val() !== "0") {
         carregarRacas(tipoPetElement);
     }
