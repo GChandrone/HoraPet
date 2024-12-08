@@ -2,6 +2,17 @@
 session_start();
 include('php/funcoes.php');
 
+$urlVoltar = $_SESSION['origem'];
+
+if ($urlVoltar == 'agendamentos.php') {
+  $menu = "agendamento";
+  $descVoltar = "agendamentos";
+}else{
+  $menu = "calendario";
+  $descVoltar = "calendário";
+}
+
+
 if (isset($_GET["id"])) {
 
   $idAgendamento = $_GET["id"];
@@ -55,6 +66,10 @@ if (isset($_GET["id"])) {
   }
 }
 
+if ($urlVoltar == 'calendario.php') {
+  $urlVoltar = "calendario.php?data=".$data;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +96,7 @@ if (isset($_GET["id"])) {
     <!-- Sidebar -->
     <?php
     $_SESSION['menu-n1'] = 'administrador';
-    $_SESSION['menu-n2'] = 'agendamento';
+    $_SESSION['menu-n2'] = $menu;
     include('partes/sidebar.php');
     ?>
     <!-- Fim Sidebar -->
@@ -109,7 +124,7 @@ if (isset($_GET["id"])) {
 
                     <?php if (isset($idAgendamento)) { ?>
                       <div class="col-3" align="right">
-                        <a href="agendamentos.php" class="btn btn-secondary" title="Volta para a tela de agendamentos">
+                        <a href="<?php echo $urlVoltar; ?>" class="btn btn-secondary" title="Volta para a tela de <?php echo $descVoltar; ?>">
                           Voltar
                         </a>
                       </div>

@@ -145,17 +145,11 @@ function listaAgendamento(){
 //Função para preencher os agendamentos
 function carregaAgenda(){
 
-    // if($idTipoUsuario == 2){
-    //     //Parceiro 30 min
-    //     $minuto = 30;
-    // }else{
-    //     //Atendimento 15 min
-    //     $minuto = 15;
-    // }    
-
     include('conexao.php');
     $sql = "SELECT "
            ."  pet.nome as nome_pet, "
+           ."  pet.porte, "
+           ."  agendamento.id_agendamento, "
            ."  agendamento.data, "
            ."  agendamento.horario_inicial, "
            ."  agendamento.horario_final "
@@ -177,11 +171,12 @@ function carregaAgenda(){
 
         foreach ($result as $campo) {
             //Agendamentos
-            // $id     = $campo['idCliente'];
-            $nome   = $campo['nome_pet'];
-            $inicio = $campo['data']." ".$campo['horario_inicial'];
-            $fim    = $campo['data']." ".$campo['horario_final'];
-            $classe = "success";
+            $id      = $campo['id_agendamento'];
+            $idPorte = $campo['porte'];
+            $nome    = $campo['nome_pet'];
+            $inicio  = $campo['data']." ".$campo['horario_inicial'];
+            $fim     = $campo['data']." ".$campo['horario_final'];
+            $classe  = "success";
 
             $agenda .= 
             "{"
@@ -189,7 +184,7 @@ function carregaAgenda(){
                 ."start: '".$inicio."',"
                 ."end: '".$fim."',"
                 ."allDay: false,"
-                ."url: 'URL DA TELA DE ATENDIMENTO',"
+                ."url: 'agendamento.php?id=".$id."&idPorte=".$idPorte."&add=true',"
                 ."className: '".$classe."'"
             ."},";
         }        

@@ -2768,7 +2768,7 @@ setDefaults({
 		agenda: .5
 	},
 	minTime: 8,
-	maxTime: 18,
+	maxTime: 20,
 	slotEventOverlap: true
 });
 

@@ -1,6 +1,9 @@
 <?php 
   session_start();
   include('php/funcoes.php');
+
+  $_SESSION['origem'] = 'agendamentos.php';
+
 ?>
 
 <!DOCTYPE html>

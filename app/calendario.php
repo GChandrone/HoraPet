@@ -1,6 +1,9 @@
 <?php
 session_start();
 include('php/funcoes.php');
+
+$_SESSION['origem'] = 'calendario.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +49,7 @@ include('php/funcoes.php');
           <div class="row">
             <div class="col-12">
               <div class="card">
-          
+
                 <!-- THE CALENDAR -->
                 <div id="calendar"></div>
                 <!-- /.card-body -->
@@ -80,8 +83,8 @@ include('php/funcoes.php');
   <!-- Fim JS -->
 
   <script>
-  
-    $(document).ready(function() {
+
+    $(document).ready(function () {
       var date = new Date();
       var d = date.getDate();
       var m = date.getMonth();
@@ -94,7 +97,7 @@ include('php/funcoes.php');
       /* inicializar os eventos externos
       -----------------------------------------------------------------*/
 
-      $('#external-events div.external-event').each(function() {
+      $('#external-events div.external-event').each(function () {
 
         // não precisa ter começo nem fim
         var eventObject = {
@@ -118,6 +121,7 @@ include('php/funcoes.php');
       -----------------------------------------------------------------*/
 
       var calendar = $('#calendar').fullCalendar({
+
         header: {
           left: 'title',
           center: 'agendaDay,agendaWeek,month',
@@ -142,25 +146,25 @@ include('php/funcoes.php');
         },
         allDaySlot: false,
         selectHelper: true,
-        select: function(start, end, allDay) {
+        select: function (start, end, allDay) {
           var title = prompt('Event Title:');
           if (title) {
             calendar.fullCalendar('renderEvent', {
-                title: title,
-                start: start,
-                end: end,
-                allDay: allDay
-              },
+              title: title,
+              start: start,
+              end: end,
+              allDay: allDay
+            },
               true // evento "stick"
             );
           }
           calendar.fullCalendar('unselect');
         },
-        
-        <?php echo carregaAgenda();?>
+
+        <?php echo carregaAgenda(); ?>
 
         droppable: true, // permite que os itens sejam colocados no calendário
-        drop: function(date, allDay) { // essa função é chamada quando há falha
+        drop: function (date, allDay) { // essa função é chamada quando há falha
 
           // recuperar o elemento armazenado do elemento descartado Event Object
           var originalEventObject = $(this).data('eventObject');
@@ -182,11 +186,33 @@ include('php/funcoes.php');
             $(this).remove();
           }
         },
+
       });
+
+
+      <?php if (isset($_GET['data'])) { ?>
+         const data = "<?php echo $_GET['data'];?>";
+         const dateParts = data.split('-'); // Exemplo: "2024-01-01"
+         const year = parseInt(dateParts[0]);
+         const month = parseInt(dateParts[1]) - 1; // Ajuste (meses começam do índice 0)
+         const day = parseInt(dateParts[2]);
+
+         gotoDate(year, month, day);
+      <?php } ?>
+
+
+
+      /**
+       * Função para ajustar a data inicial do calendário para um mês específico
+       */
+      function gotoDate(year, month, dateOfMonth) {
+        var newDate = new Date(year, month, dateOfMonth);
+        $('#calendar').fullCalendar('gotoDate', newDate);
+      }
 
     });
 
-    $(function() {
+    $(function () {
       $('#tabela').DataTable({
         "paging": true,
         "lengthChange": false,
