@@ -140,7 +140,7 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iSenha">Senha:</label>
-                      <input type="password" class="form-control" id="iSenha" name="nSenha" required>
+                      <input type="password" class="form-control" id="iSenha" name="nSenha" maxlength="20" required>
                     </div>
                   </div>
 
