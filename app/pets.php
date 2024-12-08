@@ -150,14 +150,14 @@
                   <div class="col-3">
                     <div class="form-group">
                       <label for="iAltura">Altura (cm):</label>
-                      <input type="number" class="form-control" id="iAltura" name="nAltura" required>
+                      <input type="number" class="form-control" id="iAltura" name="nAltura" required min="10" max="150">
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label for="iPeso">Peso (kg):</label>
-                      <input type="number" class="form-control" id="iPeso" name="nPeso" required>
+                      <input type="number" class="form-control" id="iPeso" name="nPeso" required min="1" max="150">
                     </div>
                   </div>
 
@@ -247,6 +247,7 @@
   $(function () {
     bsCustomFileInput.init();
   });
+
 </script>
 
 </body>

@@ -111,21 +111,21 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iNome">Nome:</label>
-                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50">
+                      <input type="text" class="form-control" id="iNome" name="nNome" maxlength="50" required>
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iData">Data de Nascimento:</label>
-                      <input type="date" class="form-control" id="iData" name="nData" required>
+                      <input type="date" class="form-control" id="iData" name="nData" required min="1900-01-01" max="9999-12-31">
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iTelefone">Telefone:</label>
-                      <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16">
+                      <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16" required>
                     </div>
                   </div>
 
@@ -133,14 +133,14 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iEmail">E-mail:</label>
-                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50">
+                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="150" required>
                     </div>
                   </div>
 
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iSenha">Senha:</label>
-                      <input type="password" class="form-control" id="iSenha" name="nSenha">
+                      <input type="password" class="form-control" id="iSenha" name="nSenha" required>
                     </div>
                   </div>
 
@@ -156,11 +156,6 @@
                 
                 </div>
                 
-
-                
-                
-
-
                 <div class="custom-control custom-checkbox">
                   <input class="custom-control-input custom-control-input-success" type="checkbox" id="iAtivoFuncionario" name="nAtivoFuncionario" checked>
                   <label for="iAtivoFuncionario" class="custom-control-label">Funcionário Ativo</label>

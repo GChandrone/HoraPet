@@ -141,14 +141,14 @@ function listaPet(){
                                      .'<div class="col-3">'
                                          .'<div class="form-group">'
                                              .'<label for="iAlturaAlterar">Altura (cm):</label>'
-                                             .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAlturaAlterar" name="nAltura" required>'
+                                             .'<input type="number" value="'.$coluna["altura"].'" class="form-control" id="iAlturaAlterar" name="nAltura" required min="10" max="150">'
                                          .'</div>'
                                      .'</div>'
             
                                      .'<div class="col-3">'
                                          .'<div class="form-group">'
                                              .'<label for="iPesoAlterar">Peso (kg):</label>'
-                                             .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPesoAlterar" name="nPeso" required>'
+                                             .'<input type="number" value="'.$coluna["peso"].'" class="form-control" id="iPesoAlterar" name="nPeso" required min="1" max="150">'
                                          .'</div>'
                                      .'</div>'
             

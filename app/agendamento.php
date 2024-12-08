@@ -207,14 +207,14 @@ if ($urlVoltar == 'calendario.php') {
                           <div class="for8m-group">
                             <label for="iData">Data:</label>
                             <input type="date" class="form-control" id="iData" name="nData" value="<?php echo $data; ?>"
-                              required>
+                              required min="2024-01-01" max="9999-12-31">
                           </div>
                         </div>
 
                         <div class="col-4">
                           <div class="form-group">
                             <label for="iHorarioInicio">Horário:</label>
-                            <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio"
+                            <input type="time" class="form-control" id="iHorarioInicio" name="nHorarioInicio" min="08:00" max="19:00"
                               value="<?php echo $hora; ?>" required>
                           </div>
                         </div>

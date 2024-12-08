@@ -151,7 +151,7 @@ include('php/funcoes.php');
                       <div class="col-6">
                         <div class="form-group">
                           <label for="valorPequeno">Valor (Pequeno):</label>
-                          <input type="text" class="form-control valor-real" id="valorPequeno" name="nValorPequeno"
+                          <input type="text" class="form-control valor-real" id="valorPequeno" name="nValorPequeno" maxlength="9"
                             placeholder="R$ 0,00">
                         </div>
                       </div>
@@ -169,7 +169,7 @@ include('php/funcoes.php');
                       <div class="col-6">
                         <div class="form-group">
                           <label for="valorMedio">Valor (Médio):</label>
-                          <input type="text" class="form-control valor-real" id="valorMedio" name="nValorMedio"
+                          <input type="text" class="form-control valor-real" id="valorMedio" name="nValorMedio" maxlength="9"
                             placeholder="R$ 0,00">
                         </div>
                       </div>
@@ -187,7 +187,7 @@ include('php/funcoes.php');
                       <div class="col-6">
                         <div class="form-group">
                           <label for="valorGrande">Valor (Grande):</label>
-                          <input type="text" class="form-control valor-real" id="valorGrande" name="nValorGrande"
+                          <input type="text" class="form-control valor-real" id="valorGrande" name="nValorGrande" maxlength="9"
                             placeholder="R$ 0,00">
                         </div>
                       </div>

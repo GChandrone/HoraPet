@@ -120,71 +120,64 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="iTelefone">Telefone:</label>
-                      <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" required>
+                      <input type="text" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16" required>
                     </div>
                   </div>
 
 
-                  <div class="col-8">
+                  <div class="col-12">
                     <div class="form-group">
                       <label for="iEmail">E-mail:</label>
-                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="50" required>
-                    </div>
-                  </div>
-
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="iSenha">Senha:</label>
-                      <input type="password" class="form-control" id="iSenha" name="nSenha" required>
+                      <input type="email" class="form-control" id="iEmail" name="nEmail" maxlength="150" required>
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label>CEP</label>
-                      <input name="nCEP" id="iCEP" type="text" class="form-control cep" required>
+                      <input name="nCEP" id="iCEP" type="text" class="form-control cep" maxlength="9" required>
                     </div>
                   </div>
                   
                   <div class="col-9">
                     <div class="form-group">
                       <label>Endereço</label>
-                      <input name="nEndereco" id="iEndereco" type="text" class="form-control" required>
+                      <input name="nEndereco" id="iEndereco" type="text" class="form-control" maxlength="150" required>
                     </div>
                   </div>
 
                   <div class="col-3">
                     <div class="form-group">
                       <label>Número</label>
-                      <input name="nNumero" id="iNumero" type="text" maxlength="8" class="form-control">
+                      <input name="nNumero" id="iNumero" type="text" maxlength="5" class="form-control">
                     </div>
                   </div>
 
                   <div class="col-9">
                     <div class="form-group">
                       <label>Complemento</label>
-                      <input name="nComplemento" id="iComplemento" type="text" maxlength="50" class="form-control">
+                      <input name="nComplemento" id="iComplemento" type="text" maxlength="100" class="form-control">
                     </div>
                   </div>
 
                   <div class="col-5">
                     <div class="form-group">
                       <label>Bairro</label>
-                      <input name="nBairro" id="iBairro" type="text" class="form-control" required>
+                      <input name="nBairro" id="iBairro" type="text" class="form-control" maxlength="100" required>
                     </div>
                   </div>
                   
                   <div class="col-5">
                     <div class="form-group">
                       <label>Cidade</label>
-                      <input name="nCidade" id="iCidade" type="text" class="form-control" required>
+                      <input name="nCidade" id="iCidade" type="text" class="form-control" maxlength="100" required>
                     </div>
                   </div>
 
                   <div class="col-2">
                     <div class="form-group">
                       <label>UF</label>
-                      <input name="nUF" id="iUF" type="text" class="form-control" required>
+                      <input name="nUF" id="iUF" type="text" class="form-control" maxlength="2" required>
                     </div>
                   </div>
                 

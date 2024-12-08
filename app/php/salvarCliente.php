@@ -5,7 +5,6 @@
     $nome           = $_POST["nNome"       ];
     $telefone       = $_POST["nTelefone"   ];
     $email          = $_POST["nEmail"      ];
-    $senha          = $_POST["nSenha"      ];
     $cep            = $_POST["nCEP"        ];
     $estado         = $_POST["nUF"         ];
     $cidade         = $_POST["nCidade"     ];
@@ -37,12 +36,6 @@
         ." VALUES ('$nome','$telefone','$email','$cep','$estado','$cidade','$bairro','$endereco',$numero,'$complemento',$ativo);"; 
     
     }elseif($funcao == "A"){
-        //UPDATE
-        // if($senha == ''){ 
-        //     $setSenha = ''; 
-        // }else{ 
-        //     $setSenha = " Senha = md5('".$senha."'), ";
-        // }
 
         $sql = "UPDATE cliente "
                 ." SET nome        = '$nome', "
