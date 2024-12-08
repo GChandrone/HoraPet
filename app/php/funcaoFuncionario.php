@@ -34,12 +34,19 @@ function listaFuncionario(){
                 .'<td align="center">'.$icone.'</td>'
                 .'<td>'
                     .'<div class="row" align="center">'
-                        .'<div class="col-6">'
+                        .'<div class="col-4">'
                             .'<a href="#modalEditFuncionario'.$coluna["id_funcionario"].'" data-toggle="modal">'
                                 .'<h6><i class="fas fa-edit text-info" data-toggle="tooltip" title="Alterar Funcionário"></i></h6>'
                             .'</a>'
                         .'</div>'
-                        .'<div class="col-6">'
+
+                        .'<div class="col-4">'
+                            .'<a href="#modalSenhaFuncionario'.$coluna["id_funcionario"].'" data-toggle="modal">'
+                                .'<h6><i class="fas fa-key text-warning" data-toggle="tooltip" title="Alterar Senha"></i></h6>'
+                            .'</a>'
+                        .'</div>'
+
+                        .'<div class="col-4">'
                             .'<a href="#modalDeleteFuncionario'.$coluna["id_funcionario"].'" data-toggle="modal">'
                                 .'<h6><i class="fas fa-trash text-danger" data-toggle="tooltip" title="Excluir Funcionário"></i></h6>'
                             .'</a>'
@@ -79,19 +86,13 @@ function listaFuncionario(){
                                             .'<input type="text" value="'.$coluna["telefone"].'" class="form-control telefone-formatado" id="iTelefone" name="nTelefone" maxlength="16" required>'
                                         .'</div>'
                                     .'</div>'
-                                    .'<div class="col-4">'
+                                    .'<div class="col-6">'
                                         .'<div class="form-group">'
                                             .'<label for="iEmail">E-mail:</label>'
                                             .'<input type="email" value="'.$coluna["email"].'" class="form-control" id="iEmail" name="nEmail" maxlength="150" required>'
                                         .'</div>'
                                     .'</div>'
-                                    .'<div class="col-4">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iSenha">Senha:</label>'
-                                            .'<input type="password" value="'.$coluna["data_nascimento"].'" class="form-control" id="iSenha" name="nSenha" required>'
-                                        .'</div>'
-                                    .'</div>'
-                                    .'<div class="col-4">'
+                                    .'<div class="col-6">'
                                         .'<div class="form-group">'
                                             .'<label>Tipo de Funcionário:</label>'
                                             .'<select id="iTipoFuncionarioAjaxIncluir" name="nTipoFuncionario" class="form-control tipoFuncionarioAjax" required>'
@@ -106,8 +107,45 @@ function listaFuncionario(){
                                     .'<label for="iAtivoFuncionario'.$coluna["id_funcionario"].'" class="custom-control-label">Funcionário Ativo</label>'
                                 .'</div>'
                                 .'<div class="modal-footer">'
-                                    .'<button type="button" class="btn btn-warning" id="alterarSenhaButton'.$coluna["id_funcionario"].'" data-toggle="modal" data-target="#modalAlterarSenha'.$coluna["id_funcionario"].'">Alterar senha</button>'
                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
+                                    .'<button type="submit" class="btn btn-success">Salvar</button>'
+                                .'</div>'
+                            .'</form>'
+                        .'</div>'
+                    .'</div>'
+                .'</div>'
+            .'</div>'
+   
+
+            // Modal de Alteração de Senha
+            .'<div class="modal fade" id="modalSenhaFuncionario'.$coluna["id_funcionario"].'">'
+                .'<div class="modal-dialog modal-lg">'
+                    .'<div class="modal-content">'
+                        .'<div class="modal-header bg-warning">'
+                            .'<h4 class="modal-title">Alterar Senha</h4>'
+                            .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
+                                .'<span aria-hidden="true">&times;</span>'
+                            .'</button>'
+                        .'</div>'
+                        .'<div class="modal-body">'
+                            .'<form method="POST" action="php/salvarSenha.php?codigo='.$coluna["id_funcionario"].'" enctype="multipart/form-data">'
+                                .'<div class="row">'
+                                    .'<div class="col-6">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iEmail">E-mail:</label>'
+                                            .'<input readonly type="email" value="'.$coluna["email"].'" class="form-control" id="iEmail" name="nEmail" maxlength="150" required>'
+                                        .'</div>'
+                                    .'</div>'
+                                    .'<div class="col-6">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iSenha">Nova Senha:</label>'
+                                            .'<input type="password" class="form-control" id="iSenha"'
+                                            .'name="nSenha" maxlength="20" required>'
+                                        .'</div>'
+                                    .'</div>'
+                                .'</div>'
+                                .'<div class="modal-footer">'
+                                    .'<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>'
                                     .'<button type="submit" class="btn btn-success">Salvar</button>'
                                 .'</div>'
                             .'</form>'
@@ -116,36 +154,7 @@ function listaFuncionario(){
                 .'</div>'
             .'</div>'
 
-            // Modal de alteração de senha
-            .'<div class="modal fade" id="modalAlterarSenha'.$coluna["id_funcionario"].'">'
-                .'<div class="modal-dialog modal-lg">'
-                    .'<div class="modal-content">'
-                        .'<div class="modal-header bg-info">'
-                            .'<h4 class="modal-title">Alterar Senha</h4>'
-                            .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
-                                .'<span aria-hidden="true">&times;</span>'
-                            .'</button>'
-                        .'</div>'
-                        .'<div class="modal-body">'
-                            .'<form method="POST" action="php/salvarFuncionario.php?funcao=A&codigo='.$coluna["id_funcionario"].'" enctype="multipart/form-data">'
-                                .'<div class="row">'
-                                    .'<div class="col-4">'
-                                        .'<div class="form-group">'
-                                            .'<label for="iSenha">Nova Senha:</label>'
-                                            .'<input type="password" value="'.$coluna["senha"].'" class="form-control" id="iSenha" name="nSenha" required>'
-                                        .'</div>'
-                                    .'</div>'
-                                .'</div>'
-                                .'<div class="modal-footer">'
-                                    .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
-                                    .'<button type="submit" class="btn btn-success">Salvar</button>'
-                                .'</div>'
-                            .'</form>'
-                        .'</div>'
-                    .'</div>'
-                .'</div>'
-            .'</div>'
-           
+
             // Modal de exclusão
             .'<div class="modal fade" id="modalDeleteFuncionario'.$coluna["id_funcionario"].'">'
                 .'<div class="modal-dialog">'
@@ -203,15 +212,3 @@ function optionFuncionario(){
     return $option;
 }
 ?>
-
-<!-- Código JavaScript para abrir a modal de alteração de senha -->
-<script>
-$(document).ready(function() {
-    // Abertura da modal de alterar senha
-    $('[id^="alterarSenhaButton"]').click(function() {
-        var idFuncionario = $(this).attr('id').replace('alterarSenhaButton', ''); // Obtém o id do funcionário
-        $('#modalEditFuncionario' + idFuncionario).modal('hide'); // Fecha a modal de edição
-        $('#modalAlterarSenha' + idFuncionario).modal('show'); // Abre a modal de alterar senha
-    });
-});
-</script>
