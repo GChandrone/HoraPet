@@ -1,10 +1,6 @@
 <?PHP
 
-include("funcaoCategoria.php");
 include("funcaoMenu.php");
-include("funcaoProduto.php");
-include("funcaoTipoUsuario.php");
-include("funcaoUsuario.php");
 include("funcaoTipoPet.php");
 include("funcaoRaca.php");
 include("funcaoServico.php");
