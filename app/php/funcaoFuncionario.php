@@ -1,4 +1,4 @@
-<?php
+<?php 
 //Função para listar todos os funcionários
 function listaFuncionario(){
     include("conexao.php");
@@ -106,6 +106,7 @@ function listaFuncionario(){
                                     .'<label for="iAtivoFuncionario'.$coluna["id_funcionario"].'" class="custom-control-label">Funcionário Ativo</label>'
                                 .'</div>'
                                 .'<div class="modal-footer">'
+                                    .'<button type="button" class="btn btn-warning" id="alterarSenhaButton'.$coluna["id_funcionario"].'" data-toggle="modal" data-target="#modalAlterarSenha'.$coluna["id_funcionario"].'">Alterar senha</button>'
                                     .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
                                     .'<button type="submit" class="btn btn-success">Salvar</button>'
                                 .'</div>'
@@ -115,6 +116,36 @@ function listaFuncionario(){
                 .'</div>'
             .'</div>'
 
+            // Modal de alteração de senha
+            .'<div class="modal fade" id="modalAlterarSenha'.$coluna["id_funcionario"].'">'
+                .'<div class="modal-dialog modal-lg">'
+                    .'<div class="modal-content">'
+                        .'<div class="modal-header bg-info">'
+                            .'<h4 class="modal-title">Alterar Senha</h4>'
+                            .'<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">'
+                                .'<span aria-hidden="true">&times;</span>'
+                            .'</button>'
+                        .'</div>'
+                        .'<div class="modal-body">'
+                            .'<form method="POST" action="php/salvarFuncionario.php?funcao=A&codigo='.$coluna["id_funcionario"].'" enctype="multipart/form-data">'
+                                .'<div class="row">'
+                                    .'<div class="col-4">'
+                                        .'<div class="form-group">'
+                                            .'<label for="iSenha">Nova Senha:</label>'
+                                            .'<input type="password" value="'.$coluna["senha"].'" class="form-control" id="iSenha" name="nSenha" required>'
+                                        .'</div>'
+                                    .'</div>'
+                                .'</div>'
+                                .'<div class="modal-footer">'
+                                    .'<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>'
+                                    .'<button type="submit" class="btn btn-success">Salvar</button>'
+                                .'</div>'
+                            .'</form>'
+                        .'</div>'
+                    .'</div>'
+                .'</div>'
+            .'</div>'
+           
             // Modal de exclusão
             .'<div class="modal fade" id="modalDeleteFuncionario'.$coluna["id_funcionario"].'">'
                 .'<div class="modal-dialog">'
@@ -141,33 +172,21 @@ function listaFuncionario(){
                     .'</div>'
                 .'</div>'
             .'</div>';
+
         }    
     }
     return $lista;
 }
-
-// Função para montar o select/option dos funcionários
-function optionFuncionario(){
-    $option = "";
-
-    include("conexao.php");
-    $sql = "SELECT id_funcionario, nome, telefone FROM funcionario ORDER BY nome;";        
-    $result = mysqli_query($conn,$sql);
-    mysqli_close($conn);
-
-    //Validar se tem retorno do BD
-    if (mysqli_num_rows($result) > 0) {
-        $array = array();
-        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            array_push($array, $linha);
-        }
-        
-        foreach ($array as $coluna) {
-            // Gerar as opções do select
-            $option .= '<option value="'.$coluna['id_funcionario'].'">'.$coluna['nome'].' - '.$coluna['telefone'].'</option>';
-        }
-    }
-
-    return $option;
-}
 ?>
+
+<!-- Código JavaScript para abrir a modal de alteração de senha -->
+<script>
+$(document).ready(function() {
+    // Abertura da modal de alterar senha
+    $('[id^="alterarSenhaButton"]').click(function() {
+        var idFuncionario = $(this).attr('id').replace('alterarSenhaButton', ''); // Obtém o id do funcionário
+        $('#modalEditFuncionario' + idFuncionario).modal('hide'); // Fecha a modal de edição
+        $('#modalAlterarSenha' + idFuncionario).modal('show'); // Abre a modal de alterar senha
+    });
+});
+</script>
