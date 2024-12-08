@@ -22,10 +22,12 @@
     if (mysqli_num_rows($resultLogin) > 0) {
         // Login bem-sucedido
         foreach ($resultLogin as $coluna) {
-            $_SESSION['tipoFuncionario']    = $coluna['tipo_funcionario'];
-            $_SESSION['logado']             = 1;
-            $_SESSION['idFuncionario']      = $coluna['id_funcionario'];
-            $_SESSION['NomeFuncionario']    = $coluna['nome'];
+            $_SESSION['tipoFuncionario']        = $coluna['tipo_funcionario'];
+            $_SESSION['logado']                 = 1;
+            $_SESSION['EmailFuncionario']       = $coluna['email'];
+            $_SESSION['TelefoneFuncionario']    = $coluna['telefone'];
+            $_SESSION['idFuncionario']          = $coluna['id_funcionario'];
+            $_SESSION['NomeFuncionario']        = $coluna['nome'];
            
 
             // Redireciona para a página de calendário

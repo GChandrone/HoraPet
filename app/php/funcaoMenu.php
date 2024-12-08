@@ -1,281 +1,87 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
+include_once("funcoes.php");
+
+// Verificar se a sessão já está ativa
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-function montaMenu($n1,$n2){
-    
-    $menuAdmin = '';
-    $acaoAdmin = '';
-    $menuForms = '';
-    $acaoForms = '';
+function montaMenu() {
+    // Obtendo o tipo de funcionário da sessão
+    $tipoFuncionarioID = $_SESSION['tipoFuncionario'] ?? 1; // Assume 1 (Atendente) como padrão
+    $descricaoTipo = descrTipoFuncionario($tipoFuncionarioID);
 
-    $opcPainel        = '';
-    $opcPainelSimples = '';
-    $opcPainelFiltro  = '';
-    $opcUsuarios      = '';
-    $opcProdutos      = '';
-    $opcAgendamentos   = '';
-    $opcCalendario    = '';
-    $opcRacas         = '';
-    $opcServicos      = '';
-    $opcPerfil        = '';
-    $opcFuncionarios  = '';
-    $opcClientes      = '';
-    $opcPets          = '';
-    
-    //Primeiro nível do menu
-    switch ($n1) {
-        case 'administrador':
-            $menuAdmin = 'menu-open';
-            $acaoAdmin = 'active';
-            break;        
-            
-        case 'forms':
-            $menuForms = 'menu-open';
-            $acaoForms = 'active';
-            break;
-        
-        default:
-            # code...
-            break;
+    // Configuração de menus por tipo de funcionário
+    $menus = [
+        'admin' => [
+            'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
+            'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
+            'racas' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
+            'servicos' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
+            'funcionarios' => ['icon' => 'ion ion-person-stalker', 'label' => 'Funcionários', 'link' => './funcionarios.php'],
+            'clientes' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
+            'pets' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],
+        ],
+        'esteticista pet' => [
+            'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
+            'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
+        ],
+        'atendente' => [
+            'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
+            'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
+            'pets' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],
+            'clientes' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
+            'racas' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
+            'servicos' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
+        ],
+    ];
+
+    // Início do HTML
+    $html = '<nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
+
+    // Adiciona menus baseados no tipo de funcionário
+    if ($tipoFuncionarioID == 3) { // Admin
+        $html .= renderMenuItems($menus['admin']);
+    }
+    if ($tipoFuncionarioID == 2) { // Esteticista Pet ou superior
+        $html .= renderMenuItems($menus['esteticista pet']);
+    }
+    if ($tipoFuncionarioID == 1) { // Atendente ou superior
+        $html .= renderMenuItems($menus['atendente']);
     }
 
-    //Segundo nível do menu
-    switch ($n2) {
-        case 'painel':
-            $opcPainel = 'active';
-            break;
-            
-        case 'painel-simples':
-            $opcPainelSimples = 'active';
-            break;
-            
-        case 'painel-filtro':
-            $opcPainelFiltro = 'active';
-            break;
-
-        case 'usuarios':
-            $opcUsuarios = 'active';
-            break;        
-        
-        case 'produtos':
-            $opcProdutos = 'active';
-            break;
-            
-        case 'agendamento':
-            $opcAgendamentos = 'active';
-            break;
-
-        case 'calendario':
-            $opcCalendario = 'active';
-            break;
-        
-        case 'racas':
-            $opcRacas = 'active';
-            break; 
-
-        case 'servicos':
-            $opcServicos = 'active';
-            break;
-
-        case 'perfil':
-            $opcPerfil = 'active';
-            break;   
-        
-        case 'funcionarios':
-            $opcFuncionarios = 'active';
-            break;  
-        
-        case 'clientes':
-            $opcClientes = 'active';
-            break; 
-        
-        case 'pets':
-            $opcPets = 'active';
-            break;
-        
-        default:
-            # code...
-            break;
-    }
-    
-    $html = 
-    '<nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-            <li class="nav-item '.$menuAdmin.'">
-                <a href="#" class="nav-link '.$acaoAdmin.'">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                        Administrador
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./painel.php" class="nav-link '.$opcPainel.'">
-                        <i class="ion ion-pie-graph nav-icon"></i>
-                        <p>Dashboard</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./painel-simples.php" class="nav-link '.$opcPainelSimples.'">
-                        <i class="ion ion-pie-graph nav-icon"></i>
-                        <p>Dashboard Simples</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./painel-filtro.php" class="nav-link '.$opcPainelFiltro.'">
-                        <i class="ion ion-pie-graph nav-icon"></i>
-                        <p>Dashboard Filtro</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./usuarios.php" class="nav-link '.$opcUsuarios.'">
-                        <i class="far fa-user nav-icon"></i>
-                        <p>Usuários</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./produtos.php" class="nav-link '.$opcProdutos.'">
-                        <i class="ion ion-bag nav-icon"></i>
-                        <p>Produtos</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./agendamentos.php" class="nav-link '.$opcAgendamentos.'">
-                        <i class="far fa-calendar-plus nav-icon"></i>
-                        <p>Agendamentos</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./calendario.php" class="nav-link '.$opcCalendario.'">
-                        <i class="far fa-calendar-alt nav-icon"></i>
-                        <p>Calendário</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./racas.php" class="nav-link '.$opcRacas.'">
-                        <i class="fas fa-paw nav-icon"></i>
-                        <p>Raças</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./servicos.php" class="nav-link '.$opcServicos.'">
-                        <i class="ion ion-scissors nav-icon"></i>
-                        <p>Serviços</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./funcionarios.php" class="nav-link '.$opcFuncionarios.'">
-                        <i class="ion ion-person-stalker nav-icon"></i>
-                        <p>Funcionários</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./clientes.php" class="nav-link '.$opcClientes.'">
-                        <i class="ion ion-ios-people nav-icon"></i>
-                        <p>Clientes</p>
-                        </a>
-                    </li>              
-                </ul>
-
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="./pets.php" class="nav-link '.$opcPets.'">
-                        <i class="fas fa-dog nav-icon"></i>
-                        <p>Pets</p>
-                        </a>
-                    </li>              
-                </ul>
-
-            </li>
-            
-            <li class="nav-item '.$menuForms.'">
-                <a href="#" class="nav-link '.$acaoForms.'">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>
-                    Forms
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>General Elements</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Advanced Elements</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Editors</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Validation</p>
-                    </a>
-                </li>
-                </ul>
-            </li>
-
-            <li class="nav-item">
-                <a href="./perfil.php" class="nav-link '.$opcPerfil.'">
+    // Item de logoff, disponível para todos
+    $html .= '
+        <li class="nav-item">
+            <a href="./perfil.php" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>Meu Perfil</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="php/validaLogoff.php" class="nav-link">
+            </a>
+        </li>
+    
+        <li class="nav-item">
+            <a href="php/validaLogoff.php" class="nav-link">
                 <i class="fas fa-sign-out-alt nav-icon"></i>
                 <p>Sair</p>
-                </a>
-            </li>
-        </ul>
-    </nav>';
+            </a>
+        </li>';
 
+    $html .= '</ul></nav>';
+    return $html;
+}
+
+function renderMenuItems($menuItems) {
+    $html = '';
+    foreach ($menuItems as $item) {
+        $html .= '
+            <li class="nav-item">
+                <a href="' . $item['link'] . '" class="nav-link">
+                    <i class="nav-icon ' . $item['icon'] . '"></i>
+                    <p>' . $item['label'] . '</p>
+                </a>
+            </li>';
+    }
     return $html;
 }
 
