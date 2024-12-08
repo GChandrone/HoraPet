@@ -177,6 +177,31 @@ function listaFuncionario(){
     }
     return $lista;
 }
+
+// Função para montar o select/option dos funcionários
+function optionFuncionario(){
+    $option = "";
+
+    include("conexao.php");
+    $sql = "SELECT id_funcionario, nome, telefone FROM funcionario ORDER BY nome;";        
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);
+
+    //Validar se tem retorno do BD
+    if (mysqli_num_rows($result) > 0) {
+        $array = array();
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array, $linha);
+        }
+        
+        foreach ($array as $coluna) {
+            // Gerar as opções do select
+            $option .= '<option value="'.$coluna['id_funcionario'].'">'.$coluna['nome'].' - '.$coluna['telefone'].'</option>';
+        }
+    }
+
+    return $option;
+}
 ?>
 
 <!-- Código JavaScript para abrir a modal de alteração de senha -->
