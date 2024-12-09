@@ -225,8 +225,8 @@ function optionServico($idPorte){
     }else{
         $sql .=  " valor_grande  as valor ";
     }
-    $sql .= "FROM servico";
-    $sql .= "WHERE ativo = 1";
+    $sql .= "FROM servico ";
+    $sql .= "WHERE ativo = 1 ";
     $sql .= "ORDER BY nome;";    
 
     $result = mysqli_query($conn,$sql);
