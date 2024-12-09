@@ -1,3 +1,43 @@
+/*******************************************
+** Reseta os campos das Modais quando fecha*
+********************************************/
+
+$(document).ready(function () {
+  // Limpar campos ao fechar modais de inclusão
+  $('.modal-limpar').on('hidden.bs.modal', function () {
+    // Resetar inputs de texto, e-mail, senha, número, data e hora (exceto readonly por padrão)
+    $(this).find('input[type="text"]:not([readonly]), input[type="email"]:not([readonly]), input[type="password"]:not([readonly]), input[type="tel"]:not([readonly]), input[type="date"]:not([readonly]), input[type="number"]:not([readonly]), input[type="time"]:not([readonly])').val('');
+
+    // Resetar o campo 'file' visualmente
+    const fileInput = $(this).find('input[type="file"]');
+    if (fileInput.length) {
+      // Remove o nome do arquivo visualmente
+      fileInput.val('');
+      const label = fileInput.siblings('label');
+      if (label) {
+        label.text('Nenhum arquivo escolhido');
+      }
+    }
+
+    // Resetar selects para o primeiro valor
+    $(this).find('select').val('');
+
+    // Limpar textareas
+    $(this).find('textarea').val('');
+
+    // Remover classes de validação
+    $(this).find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+  });
+
+  // Limpar campos (inclusive readonly) ao fechar uma modal específica
+  $('.limpar-readonly').on('hidden.bs.modal', function () {
+    // Limpar apenas campos do tipo readonly
+    $(this).find('input[readonly]').val(''); 
+
+    // Remover classes de validação
+    $(this).find('.is-valid, .is-invalid').removeClass('is-valid is-invalid');
+  });
+});
 
 /*************************************
 ** Substituir Input de Envio na Logo *

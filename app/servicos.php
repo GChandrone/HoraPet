@@ -9,7 +9,7 @@ include('php/funcoes.php');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HoraPet</title>
+  <title>Hora Pet</title>
 
   <!-- CSS -->
   <?php include('partes/css.php'); ?>
@@ -101,7 +101,7 @@ include('php/funcoes.php');
         </div>
         <!-- /.container-fluid -->
 
-        <div class="modal fade" id="novoServicoModal">
+        <div class="modal fade modal-limpar" id="novoServicoModal">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header bg-success">

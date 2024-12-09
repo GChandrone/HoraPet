@@ -95,7 +95,7 @@
       </div>
       <!-- /.container-fluid -->
 
-      <div class="modal fade" id="novoUsuarioModal">
+      <div class="modal fade modal-limpar" id="novoUsuarioModal">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header bg-success">

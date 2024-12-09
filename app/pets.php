@@ -97,7 +97,7 @@
       </div>
       <!-- /.container-fluid -->
 
-      <div class="modal fade" id="novoPetModal">
+      <div class="modal fade modal-limpar limpar-readonly" id="novoPetModal">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header bg-success">

@@ -2,7 +2,6 @@
 
     include('funcoes.php');
 
-    
     $nome          = $_POST["nNome"    ];
     $dono          = $_POST["nDono"    ];
     $tipoPet       = $_POST["nTipoPet" ];

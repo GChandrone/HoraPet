@@ -11,7 +11,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>PHP</title>
+    <title>Hora Pet</title>
     <!-- CSS -->
     <?php include('partes/csslogin.php'); ?>
 </head>

@@ -8,7 +8,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HoraPet</title>
+  <title>Hora Pet</title>
 
   <!-- CSS -->
   <?php include('partes/css.php'); ?>
@@ -94,7 +94,7 @@
       </div>
       <!-- /.container-fluid -->
 
-      <div class="modal fade" id="novaRacaModal">
+      <div class="modal fade modal-limpar" id="novaRacaModal">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header bg-success">

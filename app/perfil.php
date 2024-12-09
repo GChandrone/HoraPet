@@ -9,7 +9,7 @@ include('php/funcoes.php');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projeto Modelo - Perfil</title>
+  <title>Hora Pet</title>
 
   <!-- CSS -->
   <?php include('partes/css.php'); ?>
@@ -124,7 +124,7 @@ include('php/funcoes.php');
     </div> <!-- /.content-wrapper -->
 
 
-    <div class="modal fade" id="modalAlterarSenha">
+    <div class="modal fade modal-limpar" id="modalAlterarSenha">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-warning">

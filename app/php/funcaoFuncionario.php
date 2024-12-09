@@ -118,7 +118,7 @@ function listaFuncionario(){
    
 
             // Modal de Alteração de Senha
-            .'<div class="modal fade" id="modalSenhaFuncionario'.$coluna["id_funcionario"].'">'
+            .'<div class="modal fade modal-limpar" id="modalSenhaFuncionario'.$coluna["id_funcionario"].'">'
                 .'<div class="modal-dialog modal-lg">'
                     .'<div class="modal-content">'
                         .'<div class="modal-header bg-warning">'
