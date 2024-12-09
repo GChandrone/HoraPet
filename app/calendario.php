@@ -5,7 +5,7 @@ include('php/funcoes.php');
 $_SESSION['origem'] = 'calendario.php';
 
 // Todos tem Acesso
-verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']); 
+verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
 
 ?>
 
@@ -46,32 +46,40 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
       </div>
       <!-- /.content-header -->
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="row">
 
-            <!-- O CALENDÁRIO -->
-            <div id="calendar">
+                    <div class="col-9">
+                      <h3 class="card-title">Calendário</h3>
+                    </div>
 
-              <!-- Legenda Acima do Calendário -->
-                <div class="calendar-legend">
-                  <div class="calendar-legend">
-                  <span class="legend-item planned"></span> Planejado |
-                  <span class="legend-item executing"></span> Executando |
-                  <span class="legend-item completed"></span> Executado |
-                  <span class="legend-item canceled"></span> Cancelado
+                  </div>
                 </div>
-  
-            </div>
 
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
+                <!-- O CALENDÁRIO -->
+                <div id="calendar">
+
+                  <!-- Legenda Acima do Calendário -->
+                  <div class="calendar-legend">
+                    <div class="calendar-legend">
+                      <span class="legend-item planned"></span> Planejado |
+                      <span class="legend-item executing"></span> Executando |
+                      <span class="legend-item completed"></span> Executado |
+                      <span class="legend-item canceled"></span> Cancelado
+                    </div>
+
+                  </div>
+
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- /.container-fluid -->
       </section>
       <!-- /.content -->
     </div>
@@ -197,13 +205,13 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
 
 
       <?php if (isset($_GET['data'])) { ?>
-         const data = "<?php echo $_GET['data'];?>";
-         const dateParts = data.split('-'); // Exemplo: "2024-01-01"
-         const year = parseInt(dateParts[0]);
-         const month = parseInt(dateParts[1]) - 1; // Ajuste (meses começam do índice 0)
-         const day = parseInt(dateParts[2]);
+        const data = "<?php echo $_GET['data']; ?>";
+        const dateParts = data.split('-'); // Exemplo: "2024-01-01"
+        const year = parseInt(dateParts[0]);
+        const month = parseInt(dateParts[1]) - 1; // Ajuste (meses começam do índice 0)
+        const day = parseInt(dateParts[2]);
 
-         gotoDate(year, month, day);
+        gotoDate(year, month, day);
       <?php } ?>
 
 
