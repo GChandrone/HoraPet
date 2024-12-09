@@ -147,7 +147,6 @@ function listaAgendamento($idFuncionario, $tipoUsuario){
     return $lista;
 }
 
-//Função para preencher os agendamentos
 function carregaAgenda($idFuncionario, $tipoUsuario){
     include('conexao.php');
     $sql = "SELECT "
@@ -156,13 +155,12 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
            ."  agendamento.data, "
            ."  agendamento.horario_inicial, "
            ."  agendamento.horario_final, "
-           ."  execucao.situacao "
+           ."  agendamento.situacao "
            ."FROM agendamento "
            ."INNER JOIN pet "
-           ."   ON pet.id_pet = agendamento.id_pet "
-           ."INNER JOIN execucao "
-           ."   ON execucao.id_agendamento = agendamento.id_agendamento ";
+           ."   ON pet.id_pet = agendamento.id_pet ";
     
+    // Filtra pelo funcionário se for Esteticista Pet
     if ($tipoUsuario == "Esteticista Pet") {
         $sql .= "WHERE agendamento.id_funcionario = ".$idFuncionario." ";
     }
@@ -188,7 +186,7 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
             $situacao = $campo['situacao'];
             $classe = "success"; // Classe padrão
 
-            // Definindo a cor da classe com base na situação
+            // Define a classe CSS com base na situação
             switch ($situacao) {
                 case 1:
                     $classe = "situacao-planejado";
@@ -212,7 +210,7 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
                 ."allDay: false,"
                 ."url: 'agendamento.php?id=".encodeId($id)."&add=true',"
                 ."className: '".$classe."'"
-            ."},"; 
+            ."},";
         }
 
         $agenda .= "],";    

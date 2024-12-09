@@ -11,20 +11,25 @@
 
 /* Estilos específicos para cada situação */
 .fc-event.situacao-planejado {
-    background-color: #f0ad4e !important;  /* Cor para "Planejado" */
+    background-color: #f5c97a !important; /* Cor um pouco mais forte para "Planejado" */
+    color: #6c4a00 !important;            /* Texto com contraste */
 }
 
 .fc-event.situacao-executando {
-    background-color: #007bff !important;  /* Cor para "Executando" */
+    background-color: #91c9ff !important; /* Cor um pouco mais forte para "Executando" */
+    color: #003766 !important;            /* Texto com contraste */
 }
 
 .fc-event.situacao-executado {
-    background-color: #28a745 !important;  /* Cor para "Executado" */
+    background-color: #a8dfac !important; /* Cor um pouco mais forte para "Executado" */
+    color: #0d4d1f !important;            /* Texto com contraste */
 }
 
 .fc-event.situacao-cancelado {
-    background-color: #dc3545 !important;  /* Cor para "Cancelado" */
+    background-color: #f5a6a8 !important; /* Cor um pouco mais forte para "Cancelado" */
+    color: #8a1a22 !important;            /* Texto com contraste */
 }
+
 
 /* Efeito de hover nos eventos */
 .fc-event:hover {

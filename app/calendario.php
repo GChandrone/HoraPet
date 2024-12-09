@@ -52,18 +52,23 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <!-- Legenda Acima do Calendário -->
-            <div class="calendar-legend">
             
-              <div class="calendar-legend">
-                <span class="legend-item planned"></span> Planejado |
-                <span class="legend-item executing"></span> Executando |
-                <span class="legend-item completed"></span> Executado |
-                <span class="legend-item canceled"></span> Cancelado
-              </div>
 
             <!-- O CALENDÁRIO -->
-            <div id="calendar"></div>
+            <div id="calendar">
+
+              <!-- Legenda Acima do Calendário -->
+              <div id="legenda">
+                <div class="calendar-legend">
+                  <div class="calendar-legend">
+                  <span class="legend-item planned"></span> Planejado |
+                  <span class="legend-item executing"></span> Executando |
+                  <span class="legend-item completed"></span> Executado |
+                  <span class="legend-item canceled"></span> Cancelado
+                </div>
+              </div> 
+  
+            </div>
 
           </div>
         </div>
