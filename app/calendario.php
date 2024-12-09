@@ -68,9 +68,9 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
                   <!-- Legenda Acima do Calendário -->
                   <div class="calendar-legend">
                     <div class="calendar-legend">
-                      <span class="legend-item planned"></span> Planejado |
-                      <span class="legend-item executing"></span> Executando |
-                      <span class="legend-item completed"></span> Executado |
+                      <span class="legend-item planned"></span> Agendado |
+                      <span class="legend-item executing"></span> Em Atendimento |
+                      <span class="legend-item completed"></span> Atendido |
                       <span class="legend-item canceled"></span> Cancelado
                     </div>
 
