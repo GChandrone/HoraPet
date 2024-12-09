@@ -9,7 +9,6 @@ if (session_status() === PHP_SESSION_NONE) {
 function montaMenu() {
     // Obtendo o tipo de funcionário da sessão
     $tipoFuncionarioID = $_SESSION['tipoFuncionario'] ?? 1; // Assume 1 (Atendente) como padrão
-    $descricaoTipo = descrTipoFuncionario($tipoFuncionarioID);
 
     // Configuração de menus por tipo de funcionário
     $menus = [

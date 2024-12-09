@@ -1,6 +1,9 @@
 <?php 
   session_start();
   include('php/funcoes.php');
+
+  // O Administrador e o Atendente tem acesso
+  verificarAcesso(['Administrador', 'Atendente']);
 ?>
 
 <!DOCTYPE html>

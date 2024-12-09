@@ -1,6 +1,10 @@
 <?php
 session_start();
 include('php/funcoes.php');
+
+  // Todos tem acesso
+  verificarAcesso(['Administrador', 'Atendente', 'Est']);
+
 ?>
 
 <!DOCTYPE html>

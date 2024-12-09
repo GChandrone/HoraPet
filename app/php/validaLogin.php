@@ -27,13 +27,15 @@ if (mysqli_num_rows($resultLogin) > 0) {
     if ($coluna['ativo'] == 1) {
         // Funcionário ativo, loga o usuário
         $_SESSION['tipoFuncionario']        = $coluna['tipo_funcionario'];
+        $_SESSION['descTipoFuncionario']    = descrTipoFuncionario($coluna['tipo_funcionario']);
         $_SESSION['logado']                 = 1;
         $_SESSION['EmailFuncionario']       = $coluna['email'];
         $_SESSION['TelefoneFuncionario']    = $coluna['telefone'];
         $_SESSION['idFuncionario']          = $coluna['id_funcionario'];
         $_SESSION['NomeFuncionario']        = $coluna['nome'];
         $_SESSION['Ativo']                  = $coluna['ativo'];
-       
+        
+
         // Redireciona para a página de calendário
         header('location: ../calendario.php');
         exit; // Evita a execução de código após o redirecionamento

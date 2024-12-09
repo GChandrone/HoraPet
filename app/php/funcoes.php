@@ -99,4 +99,31 @@ function formatarHora($hora, $formato = 'H:i') {
     return $hora;
 }
 
+function verificarAcesso($tiposPermitidos = []) {
+
+    // Verificar se o usuário está logado
+    if (!isset($_SESSION['descTipoFuncionario'])) {
+        prepararMensagem("Você precisa estar logado para acessar esta página.", "nao_logado", "index.php");
+    }
+
+    // Verificar se o tipo de usuário está na lista de permitidos
+    if (!empty($tiposPermitidos) && !in_array($_SESSION['descTipoFuncionario'], $tiposPermitidos)) {
+        prepararMensagem("Você não tem permissão para acessar esta página.", "acesso_negado", "calendario.php");
+    }
+}
+
+function prepararMensagem($mensagem, $tipoErro, $defaultRedirect) {
+    // Salvar mensagem e tipo de erro na sessão
+    $_SESSION['erro_mensagem'] = $mensagem;
+    $_SESSION['erro_tipo'] = $tipoErro;
+
+    // Determinar a URL de redirecionamento
+    $referer = $_SERVER['HTTP_REFERER'] ?? $defaultRedirect; // Pega a página anterior ou a URL padrão
+    $_SESSION['redirect_url'] = $referer;
+
+    // Redirecionar para a página de mensagem
+    header('Location: mensagem.php');
+    exit();
+}
+
 ?>

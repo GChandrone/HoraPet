@@ -4,6 +4,9 @@
 
   $_SESSION['origem'] = 'agendamentos.php';
 
+  // Todos tem Acesso
+  verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
+
 ?>
 
 <!DOCTYPE html>

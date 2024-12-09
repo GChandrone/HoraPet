@@ -2,6 +2,9 @@
 session_start();
 include('php/funcoes.php');
 
+// Todos tem Acesso
+verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
+
 $urlVoltar = $_SESSION['origem'];
 
 if ($urlVoltar == 'agendamentos.php') {

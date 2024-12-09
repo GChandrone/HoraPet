@@ -1,6 +1,9 @@
 <?php 
   session_start();
   include('php/funcoes.php');
+  
+  // Somente o Administrador tem acesso
+  verificarAcesso(['Administrador']); 
 ?>
 
 <!DOCTYPE html>

@@ -1,5 +1,10 @@
 <?php
     session_start();
+
+    // Destruir a sessão e redirecionar
+    $_SESSION['logado'] = 0;
+    session_destroy();
+
     // Verifica se existe uma mensagem de erro na sessão
     $login_erro = '';
     if (isset($_SESSION['login_erro'])) {

@@ -1,8 +1,11 @@
 <?php
-session_start();
+// session_start();
 include('php/funcoes.php');
 
 $_SESSION['origem'] = 'calendario.php';
+
+// Todos tem Acesso
+verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']); 
 
 ?>
 
