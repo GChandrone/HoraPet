@@ -164,7 +164,7 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
           calendar.fullCalendar('unselect');
         },
 
-        <?php echo carregaAgenda(); ?>
+        <?php echo carregaAgenda($_SESSION['idFuncionario'], $_SESSION['descTipoFuncionario']); ?>
 
         droppable: true, // permite que os itens sejam colocados no calendário
         drop: function (date, allDay) { // essa função é chamada quando há falha

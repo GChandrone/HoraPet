@@ -1,7 +1,7 @@
 <?php
 
 //Função para listar todos os usuários
-function listaAgendamento(){
+function listaAgendamento($idFuncionario, $tipoUsuario){
 
     include("conexao.php");
     $sql = " SELECT "
@@ -23,8 +23,13 @@ function listaAgendamento(){
     ."INNER JOIN funcionario "
         ."ON funcionario.id_funcionario = agendamento.id_funcionario "
     ."LEFT JOIN execucao "
-        ."ON execucao.id_agendamento = agendamento.id_agendamento "
-    ."GROUP BY "
+        ."ON execucao.id_agendamento = agendamento.id_agendamento ";
+
+    if ($tipoUsuario = "Esteticista Pet") {
+        $sql .= "WHERE agendamento.id_funcionario = ".$idFuncionario." ";
+    }    
+
+    $sql.="GROUP BY "
         ."agendamento.id_agendamento, "
         ."pet.foto, "
         ."pet.nome, "
@@ -143,7 +148,7 @@ function listaAgendamento(){
 }
 
 //Função para preencher os agendamentos
-function carregaAgenda(){
+function carregaAgenda($idFuncionario, $tipoUsuario){
 
     include('conexao.php');
     $sql = "SELECT "
@@ -154,8 +159,13 @@ function carregaAgenda(){
            ."  agendamento.horario_final "
            ."FROM agendamento "
            ."INNER JOIN pet "
-           ."   ON pet.id_pet = agendamento.id_pet "
-           ."ORDER BY "
+           ."   ON pet.id_pet = agendamento.id_pet ";
+           
+    if ($tipoUsuario = "Esteticista Pet") {
+        $sql .= "WHERE agendamento.id_funcionario = ".$idFuncionario." ";
+    }
+
+    $sql .= "ORDER BY "
                 ."data DESC, " 
                 ."horario_inicial ASC;"; 
 

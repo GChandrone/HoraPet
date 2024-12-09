@@ -119,7 +119,7 @@ function prepararMensagem($mensagem, $tipoErro, $defaultRedirect) {
     $_SESSION['erro_tipo'] = $tipoErro;
 
     // Determinar a URL de redirecionamento
-    $referer = $_SERVER['HTTP_REFERER'] ?? $defaultRedirect; // Pega a página anterior ou a URL padrão
+    $referer = $defaultRedirect; // Pega a página anterior ou a URL padrão
     $_SESSION['redirect_url'] = $referer;
 
     // Redirecionar para a página de mensagem

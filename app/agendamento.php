@@ -5,6 +5,18 @@ include('php/funcoes.php');
 // Todos tem Acesso
 verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
 
+// Verificar o tipo de usuário
+$tipoUsuario = $_SESSION['descTipoFuncionario'];
+
+// Verificar a presença do parâmetro 'add'
+$hasAddParam = isset($_GET['add']);
+
+// Lógica para permitir ou bloquear o acesso
+if ($tipoUsuario == 'Esteticista Pet' && !$hasAddParam) {
+    // Redireciona ou exibe mensagem de erro se não tiver permissão para incluir
+    prepararMensagem("Você não tem permissão para acessar esta página.", "acesso_negado", "agendamentos.php");
+}
+
 $urlVoltar = $_SESSION['origem'];
 
 if ($urlVoltar == 'agendamentos.php') {

@@ -10,14 +10,7 @@ if (!isset($_SESSION['erro_mensagem'], $_SESSION['erro_tipo'])) {
 // Recuperar a mensagem e o tipo de erro
 $mensagem = $_SESSION['erro_mensagem'];
 $tipoErro = $_SESSION['erro_tipo'];
-
-if ($tipoErro === "acesso_negado" || $tipoErro === "erro_banco") {
-    // Salvar a URL na sessão se for necessário
-    $_SESSION['redirect_url'] = 'calendario.php';
-    $redirectUrl = $_SESSION['redirect_url'];
-} else {
-    $redirectUrl = 'index.php';
-}
+$redirectUrl = $_SESSION['redirect_url'];
 
 // Limpar as variáveis da sessão
 unset($_SESSION['erro_mensagem'], $_SESSION['erro_tipo'], $_SESSION['redirect_url']);

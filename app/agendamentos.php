@@ -57,11 +57,13 @@
                     <h3 class="card-title">Agendamentos</h3>
                   </div>
                   
-                  <div class="col-3" align="right">
+                  <?php if ($_SESSION['descTipoFuncionario'] != 'Esteticista Pet') { ?>
+                    <div class="col-3" align="right">
                     <a href="agendamento.php" class="btn btn-success">
                       Novo Agendamento
                     </a>
                   </div>
+                  <?php }?>
 
                 </div>
               </div>
@@ -86,7 +88,7 @@
                   </thead>
                   <tbody>
 
-                  <?php echo listaAgendamento(); ?>
+                  <?php echo listaAgendamento($_SESSION['idFuncionario'], $_SESSION['descTipoFuncionario']); ?>
                   
                   </tbody>
                   
