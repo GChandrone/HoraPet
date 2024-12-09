@@ -10,6 +10,10 @@ function montaMenu() {
     // Obtém a página atual a partir da URL
     $paginaAtual = basename($_SERVER['PHP_SELF']); // Retorna, por exemplo, 'agendamentos.php'
 
+    if ($paginaAtual == 'agendamento.php') {
+        $paginaAtual = 'agendamentos.php';
+    }
+
     // Obtendo o tipo de funcionário da sessão
     $tipoFuncionarioID = $_SESSION['tipoFuncionario'] ?? 1; // Assume 1 (Atendente) como padrão
 
