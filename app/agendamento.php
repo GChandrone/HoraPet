@@ -420,7 +420,33 @@ if ($urlVoltar == 'calendario.php') {
   <?php include('partes/js.php'); ?>
   <!-- Fim JS -->
 
+  
+  <?php
+    // Verificar a mensagem de erro
+    if (isset($_SESSION['erro_mensagem'])):
+    ?>
+    <script>
+    Swal.fire({
+      icon: 'error',
+      title: 'Atenção',
+      text: '<?php echo $_SESSION['erro_mensagem']; ?>'
+    });
+    </script>
+    <?php
+    // Limpar a mensagem de erro após exibição
+    unset($_SESSION['erro_mensagem']);
+    endif;
+  ?>
+  
+  
+  
+  
+  
+  
+  
+  
   <script>
+    
     <?php if (isset($_SESSION['erro_mensagem'])): ?>
       // Exibe a mensagem de erro utilizando o Toast
 
@@ -429,10 +455,14 @@ if ($urlVoltar == 'calendario.php') {
         title: 'Atenção',
         text: '<?php echo $_SESSION['erro_mensagem']; ?>'
       });
-
+      
       // Após exibir a mensagem, limpa a variável de sessão para não mostrar novamente
       <?php unset($_SESSION['erro_mensagem']); ?>
     <?php endif; ?>
+
+      
+
+
 
     $(function() {
       $('#tabela').DataTable({
