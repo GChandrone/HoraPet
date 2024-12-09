@@ -2,7 +2,7 @@
 //Função para listar todas as Raças
  function listaRaca(){
      include("conexao.php");
-     $sql = "SELECT * FROM raca ORDER BY id_raca;";
+     $sql = "SELECT * FROM raca ORDER BY id_raca DESC;";
           
      $result = mysqli_query($conn,$sql);
      mysqli_close($conn);

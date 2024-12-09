@@ -1,5 +1,5 @@
 <?php
-//Função para listar todos os usuários
+//Função para listar todos os pets
 function listaPet(){
 
     include("conexao.php");
@@ -22,7 +22,7 @@ function listaPet(){
           ."   ON raca.id_raca = pet.id_raca "
           ."INNER JOIN cliente "
           ."   ON cliente.id_cliente = pet.id_cliente "
-          ."ORDER BY id_pet; ";
+          ."ORDER BY id_pet DESC; ";
             
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);

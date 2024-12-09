@@ -2,7 +2,7 @@
 //Função para listar todos os funcionários
 function listaFuncionario(){
     include("conexao.php");
-    $sql = "SELECT * FROM funcionario ORDER BY id_funcionario;";
+    $sql = "SELECT * FROM funcionario ORDER BY id_funcionario DESC;";
 
     $result = mysqli_query($conn, $sql);
     mysqli_close($conn);
@@ -29,6 +29,7 @@ function listaFuncionario(){
                 .'<td>'.$coluna["id_funcionario"].'</td>'
                 .'<td>'.$coluna["nome"].'</td>'
                 .'<td>'.$coluna["email"].'</td>'
+                .'<td>'.descrTipoFuncionario($coluna["tipo_funcionario"]).'</td>'
                 .'<td>'.formatarData($coluna["data_nascimento"]).'</td>'
                 .'<td>'.$coluna["telefone"].'</td>'
                 .'<td align="center">'.$icone.'</td>'
@@ -192,7 +193,7 @@ function optionFuncionario(){
     $option = "";
 
     include("conexao.php");
-    $sql = "SELECT id_funcionario, nome, telefone FROM funcionario WHERE ativo = 1 ORDER BY nome;";        
+    $sql = "SELECT id_funcionario, nome, telefone FROM funcionario WHERE ativo = 1 AND tipo_funcionario = 2 ORDER BY nome;";        
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
 
@@ -211,4 +212,40 @@ function optionFuncionario(){
 
     return $option;
 }
+
+// Função para buscar a descrição do tipo de usuário
+function descrTipoFuncionario($id){
+    if ($id == 1) {
+        return "Atendente";
+    } elseif ($id == 2) {
+        return "Esteticista Pet";
+    } else {
+        return "Administrador";
+    }
+}
+
+// Função para montar o select/option
+function optionTipoFuncionario($p){
+    if ($p == "I") {
+        return '<option value=1>Atendente</option>'
+             .'<option value=2>Esteticista Pet</option>'
+             .'<option value=3>Administrador</option>';
+    } else {
+        $option = ''; // Inicializa a variável $option para evitar erro de variável não definida
+
+        if ($p == 1) {
+            $option .= '<option value=2>Esteticista Pet</option>';
+            $option .= '<option value=3>Administrador</option>';
+        } elseif ($p == 2) {
+            $option .= '<option value=1>Atendente</option>';
+            $option .= '<option value=3>Administrador</option>';
+        } elseif ($p == 3) {
+            $option .= '<option value=1>Atendente</option>';
+            $option .= '<option value=2>Esteticista Pet</option>';
+        }
+
+        return $option;
+    }
+}
+
 ?>
