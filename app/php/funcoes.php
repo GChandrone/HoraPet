@@ -5,6 +5,7 @@ include("funcaoTipoPet.php");
 include("funcaoRaca.php");
 include("funcaoServico.php");
 include("funcaoFuncionario.php");
+include("funcaoTipoFuncionario.php");
 include("funcaoCliente.php");
 include("funcaoDonoPet.php");
 include("funcaoPet.php");
