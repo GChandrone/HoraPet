@@ -21,7 +21,7 @@ function listaExecucao($idAgendamento, $idPorte){
           ."FROM execucao "
           ."INNER JOIN servico "
           ."   ON servico.id_servico = execucao.id_servico "
-          ."WHERE execucao.id_agendamento = $idAgendamento "
+          ."WHERE execucao.id_agendamento = ".decodeId($idAgendamento)." "
           ."ORDER BY id_execucao; ";
          
     $result = mysqli_query($conn,$sql);
@@ -69,7 +69,7 @@ function listaExecucao($idAgendamento, $idPorte){
                          .'</div>'
                          .'<div class="modal-body">'
                     
-                            .'<form method="POST" action="php/salvarExecucao.php?funcao=A&codigo='.$coluna["id_execucao"].'&idPorte='.$idPorte.'&idAgendamento='.$idAgendamento.'" enctype="multipart/form-data">'              
+                            .'<form method="POST" action="php/salvarExecucao.php?funcao=A&codigo='.$coluna["id_execucao"].'&idPorte='.$idPorte.'&idAgendamento='.decodeId($idAgendamento).'" enctype="multipart/form-data">'              
                                 .'<div class="row">'
                                     .'<div class="col-8">'
                                         .'<div class="form-group">'
@@ -123,7 +123,7 @@ function listaExecucao($idAgendamento, $idPorte){
                             .'</button>'
                         .'</div>'
                         .'<div class="modal-body">'
-                            .'<form method="POST" action="php/salvarExecucao.php?funcao=D&codigo='.$coluna["id_execucao"].'&idAgendamento='.$idAgendamento.'&idPorte='.$idPorte.'" enctype="multipart/form-data">'              
+                            .'<form method="POST" action="php/salvarExecucao.php?funcao=D&codigo='.$coluna["id_execucao"].'&idAgendamento='.decodeId($idAgendamento).'&idPorte='.$idPorte.'" enctype="multipart/form-data">'              
                                 .'<div class="row">'
                                     .'<div class="col-12">'
                                         .'<h5>Tem certeza de que deseja retirar o serviço?</h5>'

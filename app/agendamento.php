@@ -19,7 +19,7 @@ if ($urlVoltar == 'agendamentos.php') {
 if (isset($_GET["id"])) {
 
   $idAgendamento = $_GET["id"];
-  $idPorte = $_GET["idPorte"];
+  // $idPorte = $_GET["idPorte"];
 
   include("php/conexao.php");
 
@@ -29,9 +29,10 @@ if (isset($_GET["id"])) {
     . "  cliente.telefone 	          as telefone_cliente, "
     . "  pet.id_pet, "
     . "  pet.nome         	          as nome_pet, "
+    . "  pet.porte                    as porte_pet, "
     . "  funcionario.id_funcionario, "
     . "  funcionario.nome 	          as nome_funcionario, "
-    . "  funcionario.telefone        as telefone_funcionario, "
+    . "  funcionario.telefone         as telefone_funcionario, "
     . "  agendamento.data, "
     . "  agendamento.horario_inicial, "
     . "  agendamento.situacao "
@@ -42,10 +43,26 @@ if (isset($_GET["id"])) {
     . "  ON pet.id_pet = agendamento.id_pet "
     . "INNER JOIN funcionario "
     . "  ON funcionario.id_funcionario = agendamento.id_funcionario "
-    . "WHERE id_agendamento = $idAgendamento;";
+    . "WHERE id_agendamento = ".decodeId($idAgendamento)."; ";
 
 
-  $result = mysqli_query($conn, $sql);
+  try {
+      $result = mysqli_query($conn, $sql);
+  
+      if (!$result) {
+          throw new Exception("Erro ao executar a consulta.");
+      }
+  
+      // Processar o resultado normalmente...
+  } catch (Exception $e) {
+  
+      $_SESSION['erro_mensagem'] = 'Não foi possível acessar os dados. Tente novamente mais tarde.';
+      $_SESSION['erro_tipo'] = 'erro_banco';
+      // Redirecione para a página de erro
+      header("Location: mensagem.php");
+      exit;
+  }
+
   mysqli_close($conn);
 
   $lista = '';
@@ -59,6 +76,7 @@ if (isset($_GET["id"])) {
       $telefone_cliente = $coluna["telefone_cliente"];
       $idPet = $coluna["id_pet"];
       $pet = $coluna["nome_pet"];
+      $idPorte = $coluna["porte_pet"];
       $idFuncionario = $coluna["id_funcionario"];
       $funcionario = $coluna["nome_funcionario"];
       $telefone_funcionario = $coluna["telefone_funcionario"];
@@ -239,7 +257,7 @@ if ($urlVoltar == 'calendario.php') {
                     <?php if (isset($idAgendamento)) { ?>
 
                       <div class="modal-footer">
-                        <a href= <?php echo "agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true"?> class="btn btn-danger">Cancelar</a>
+                        <a href= <?php echo "agendamento.php?id=".$idAgendamento."&add=true"?> class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-success">Salvar</button>
                       </div>
 
@@ -291,7 +309,6 @@ if ($urlVoltar == 'calendario.php') {
                       </thead>
                       <tbody>
 
-                        <!-- Talvez fazer por aqui essa alteração -->
                         <?php echo listaExecucao($idAgendamento, $idPorte); ?>
 
                       </tbody>
@@ -317,7 +334,7 @@ if ($urlVoltar == 'calendario.php') {
                     <div class="modal-body">
 
                       <form id="formServico" method="POST"
-                        action="<?php echo 'php/salvarExecucao.php?funcao=I&idPorte=' . $idPorte . '&idAgendamento=' . $idAgendamento; ?>"
+                        action="<?php echo 'php/salvarExecucao.php?funcao=I&idPorte=' . $idPorte . '&idAgendamento=' . decodeId($idAgendamento); ?>"
                         enctype="multipart/form-data">
 
                         <div class="row">

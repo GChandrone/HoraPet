@@ -99,6 +99,6 @@
 
     atualizaDuracaoAgendamento($idAgendamento);
 
-    header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true");
+    header("location: ../agendamento.php?id=".encodeId($idAgendamento)."&add=true");
 
 ?>

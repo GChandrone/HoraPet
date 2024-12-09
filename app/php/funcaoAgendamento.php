@@ -76,7 +76,7 @@ function listaAgendamento(){
                 .'<td>'
                     .'<div class="row" align="center">'
                         .'<div class="col-6">'
-                            .'<a href="agendamento.php?id='.$coluna["id_agendamento"].'&idPorte='.$coluna["porte"].'&add=true">'
+                            .'<a href="agendamento.php?id='.encodeId($coluna["id_agendamento"]).'&add=true">'
                                 .'<h6><i class="fas fa-edit text-info" data-toggle="tooltip" title="Alterar agendamento"></i></h6>'
                             .'</a>'
                         .'</div>'
@@ -148,7 +148,6 @@ function carregaAgenda(){
     include('conexao.php');
     $sql = "SELECT "
            ."  pet.nome as nome_pet, "
-           ."  pet.porte, "
            ."  agendamento.id_agendamento, "
            ."  agendamento.data, "
            ."  agendamento.horario_inicial, "
@@ -172,7 +171,6 @@ function carregaAgenda(){
         foreach ($result as $campo) {
             //Agendamentos
             $id      = $campo['id_agendamento'];
-            $idPorte = $campo['porte'];
             $nome    = $campo['nome_pet'];
             $inicio  = $campo['data']." ".$campo['horario_inicial'];
             $fim     = $campo['data']." ".$campo['horario_final'];
@@ -184,7 +182,7 @@ function carregaAgenda(){
                 ."start: '".$inicio."',"
                 ."end: '".$fim."',"
                 ."allDay: false,"
-                ."url: 'agendamento.php?id=".$id."&idPorte=".$idPorte."&add=true',"
+                ."url: 'agendamento.php?id=".encodeId($id)."&add=true',"
                 ."className: '".$classe."'"
             ."},";
         }        

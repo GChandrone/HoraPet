@@ -10,7 +10,6 @@
     $funcao              = $_GET ["funcao"              ];
     $idAgendamento       = $_GET ["codigo"              ];
 
-
     // var_dump($cliente.'-'.$pet);
     // die();
 
@@ -28,7 +27,7 @@
 
         $idAgendamento = idAgendamentoServico($cliente, $pet, $data);
         $idPorte = portePet($pet);
-        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte);
+        header("location: ../agendamento.php?id=".encodeId($idAgendamento));
 
     } elseif($funcao == "A"){
 
@@ -37,14 +36,14 @@
             ." data             = '$data', " 
             ." horario_inicial  = '$horainicio', " 
             ." situacao         = $situacaoAgendamento "
-        ." WHERE id_agendamento = $idAgendamento;";
+        ." WHERE id_agendamento = ".decodeId($idAgendamento).";";
 
         $result = mysqli_query($conn, $sql);
         mysqli_close($conn);
 
         $idPorte = portePet($pet);
 
-        header("location: ../agendamento.php?id=".$idAgendamento."&idPorte=".$idPorte."&add=true");
+        header("location: ../agendamento.php?id=".$idAgendamento."&add=true");
 
     } elseif($funcao == "D"){
 
