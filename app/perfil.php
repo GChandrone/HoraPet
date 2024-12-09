@@ -11,6 +11,7 @@ include('php/funcoes.php');
 <html lang="pt-br">
 
 <head>
+  <link rel="icon" type="image/png" href="../landing/images/patinhaVerde.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hora Pet</title>

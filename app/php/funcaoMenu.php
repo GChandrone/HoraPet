@@ -7,31 +7,34 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 function montaMenu() {
+    // Obtém a página atual a partir da URL
+    $paginaAtual = basename($_SERVER['PHP_SELF']); // Retorna, por exemplo, 'agendamentos.php'
+
     // Obtendo o tipo de funcionário da sessão
     $tipoFuncionarioID = $_SESSION['tipoFuncionario'] ?? 1; // Assume 1 (Atendente) como padrão
 
     // Configuração de menus por tipo de funcionário
     $menus = [
         'admin' => [
-            'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
-            'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
-            'racas' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
-            'servicos' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
-            'funcionarios' => ['icon' => 'ion ion-person-stalker', 'label' => 'Funcionários', 'link' => './funcionarios.php'],
-            'clientes' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
-            'pets' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],
+            'agendamentos.php' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
+            'calendario.php' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
+            'racas.php' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
+            'servicos.php' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
+            'funcionarios.php' => ['icon' => 'ion ion-person-stalker', 'label' => 'Funcionários', 'link' => './funcionarios.php'],
+            'clientes.php' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
+            'pets.php' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],
         ],
         'esteticista pet' => [
-            'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
-            'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
+            'agendamentos.php' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
+            'calendario.php' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
         ],
         'atendente' => [
-            'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
-            'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
-            'pets' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],
-            'clientes' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
-            'racas' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
-            'servicos' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
+            'agendamentos.php' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
+            'calendario.php' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
+            'racas.php' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
+            'servicos.php' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
+            'clientes.php' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
+            'pets.php' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],            
         ],
     ];
 
@@ -41,19 +44,19 @@ function montaMenu() {
 
     // Adiciona menus baseados no tipo de funcionário
     if ($tipoFuncionarioID == 3) { // Admin
-        $html .= renderMenuItems($menus['admin']);
+        $html .= renderMenuItems($menus['admin'], $paginaAtual);
     }
     if ($tipoFuncionarioID == 2) { // Esteticista Pet ou superior
-        $html .= renderMenuItems($menus['esteticista pet']);
+        $html .= renderMenuItems($menus['esteticista pet'], $paginaAtual);
     }
     if ($tipoFuncionarioID == 1) { // Atendente ou superior
-        $html .= renderMenuItems($menus['atendente']);
+        $html .= renderMenuItems($menus['atendente'], $paginaAtual);
     }
 
     // Item de logoff, disponível para todos
     $html .= '
         <li class="nav-item">
-            <a href="./perfil.php" class="nav-link">
+            <a href="./perfil.php" class="nav-link ' . ($paginaAtual === 'perfil.php' ? 'active' : '') . '">
                 <i class="nav-icon fas fa-user"></i>
                 <p>Meu Perfil</p>
             </a>
@@ -70,12 +73,13 @@ function montaMenu() {
     return $html;
 }
 
-function renderMenuItems($menuItems) {
+function renderMenuItems($menuItems, $paginaAtual) {
     $html = '';
-    foreach ($menuItems as $item) {
+    foreach ($menuItems as $fileName => $item) {
+        $activeClass = ($paginaAtual === $fileName) ? 'active' : '';
         $html .= '
             <li class="nav-item">
-                <a href="' . $item['link'] . '" class="nav-link">
+                <a href="' . $item['link'] . '" class="nav-link ' . $activeClass . '">
                     <i class="nav-icon ' . $item['icon'] . '"></i>
                     <p>' . $item['label'] . '</p>
                 </a>
@@ -83,5 +87,7 @@ function renderMenuItems($menuItems) {
     }
     return $html;
 }
+
+
 
 ?>
