@@ -25,7 +25,7 @@ function listaAgendamento($idFuncionario, $tipoUsuario){
     ."LEFT JOIN execucao "
         ."ON execucao.id_agendamento = agendamento.id_agendamento ";
 
-    if ($tipoUsuario = "Esteticista Pet") {
+    if ($tipoUsuario == "Esteticista Pet") {
         $sql .= "WHERE agendamento.id_funcionario = ".$idFuncionario." ";
     }    
 
@@ -161,7 +161,7 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
            ."INNER JOIN pet "
            ."   ON pet.id_pet = agendamento.id_pet ";
            
-    if ($tipoUsuario = "Esteticista Pet") {
+    if ($tipoUsuario == "Esteticista Pet") {
         $sql .= "WHERE agendamento.id_funcionario = ".$idFuncionario." ";
     }
 
