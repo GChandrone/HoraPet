@@ -144,6 +144,7 @@ include('php/funcoes.php');
                       name="nSenha" maxlength="20" required>  
                   </div>
                 </div>
+              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                 <button type="submit" class="btn btn-success">Salvar</button>

@@ -20,11 +20,13 @@
         //Conexão PDO
         $pdo = Conectar();
 
+        
         //Consulta SQL
         $sql = "SELECT id_pet, "
 					." nome "
 			." FROM pet "
-			." WHERE id_cliente = '".$idCliente."'"
+			." WHERE id_cliente = '".$idCliente."' "
+            ."   AND ativo = 1 "
 			." ORDER BY nome;";
 
         //Executar por PDO

@@ -34,7 +34,7 @@ function optionDonoPet(){
     $option = "";
 
     include("conexao.php");
-    $sql = "SELECT id_cliente, nome, telefone FROM cliente ORDER BY nome;";        
+    $sql = "SELECT id_cliente, nome, telefone FROM cliente WHERE ativo = 1 ORDER BY nome;";        
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
 

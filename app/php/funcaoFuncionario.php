@@ -192,7 +192,7 @@ function optionFuncionario(){
     $option = "";
 
     include("conexao.php");
-    $sql = "SELECT id_funcionario, nome, telefone FROM funcionario ORDER BY nome;";        
+    $sql = "SELECT id_funcionario, nome, telefone FROM funcionario WHERE ativo = 1 ORDER BY nome;";        
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);
 

@@ -301,7 +301,7 @@ if ($urlVoltar == 'calendario.php') {
 
               <?php } ?>
 
-              <div class="modal fade" id="novaExecucaoModal">
+              <div class="modal fade modal-limpar" id="novaExecucaoModal">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header bg-success">
