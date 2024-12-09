@@ -72,7 +72,44 @@
     overflow: hidden;
 }
 
-
+/* Estilo para a legenda no header do calendário */
+.fc-header-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .calendar-legend {
+    font-size: 14px;
+    font-weight: normal;
+    display: inline-block;
+    margin-left: 15px;
+  }
+  
+  .calendar-legend .legend-item {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .calendar-legend .planned {
+    background-color: #f0ad4e;
+  }
+  
+  .calendar-legend .executing {
+    background-color: #007bff;
+  }
+  
+  .calendar-legend .completed {
+    background-color: #28a745;
+  }
+  
+  .calendar-legend .canceled {
+    background-color: #dc3545;
+  }
+  
   
   
   

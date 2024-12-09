@@ -149,18 +149,20 @@ function listaAgendamento($idFuncionario, $tipoUsuario){
 
 //Função para preencher os agendamentos
 function carregaAgenda($idFuncionario, $tipoUsuario){
-
     include('conexao.php');
     $sql = "SELECT "
            ."  pet.nome as nome_pet, "
            ."  agendamento.id_agendamento, "
            ."  agendamento.data, "
            ."  agendamento.horario_inicial, "
-           ."  agendamento.horario_final "
+           ."  agendamento.horario_final, "
+           ."  execucao.situacao "
            ."FROM agendamento "
            ."INNER JOIN pet "
-           ."   ON pet.id_pet = agendamento.id_pet ";
-           
+           ."   ON pet.id_pet = agendamento.id_pet "
+           ."INNER JOIN execucao "
+           ."   ON execucao.id_agendamento = agendamento.id_agendamento ";
+    
     if ($tipoUsuario == "Esteticista Pet") {
         $sql .= "WHERE agendamento.id_funcionario = ".$idFuncionario." ";
     }
@@ -169,22 +171,38 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
                 ."data DESC, " 
                 ."horario_inicial ASC;"; 
 
-    $result = mysqli_query($conn,$sql);
-    mysqli_close($conn);    
+    $result = mysqli_query($conn, $sql);
+    mysqli_close($conn);
 
     $agenda = "";
 
     if (mysqli_num_rows($result) > 0) {
-
         $agenda = "events: [";
+        
+        while ($campo = mysqli_fetch_assoc($result)) {
+            // Agendamentos
+            $id = $campo['id_agendamento'];
+            $nome = $campo['nome_pet'];
+            $inicio = $campo['data']." ".$campo['horario_inicial'];
+            $fim = $campo['data']." ".$campo['horario_final'];
+            $situacao = $campo['situacao'];
+            $classe = "success"; // Classe padrão
 
-        foreach ($result as $campo) {
-            //Agendamentos
-            $id      = $campo['id_agendamento'];
-            $nome    = $campo['nome_pet'];
-            $inicio  = $campo['data']." ".$campo['horario_inicial'];
-            $fim     = $campo['data']." ".$campo['horario_final'];
-            $classe  = "success";
+            // Definindo a cor da classe com base na situação
+            switch ($situacao) {
+                case 1:
+                    $classe = "situacao-planejado";
+                    break;
+                case 2:
+                    $classe = "situacao-executando";
+                    break;
+                case 3:
+                    $classe = "situacao-executado";
+                    break;
+                case 4:
+                    $classe = "situacao-cancelado";
+                    break;
+            }
 
             $agenda .= 
             "{"
@@ -194,11 +212,12 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
                 ."allDay: false,"
                 ."url: 'agendamento.php?id=".encodeId($id)."&add=true',"
                 ."className: '".$classe."'"
-            ."},";
-        }        
-        $agenda .= "],";    
+            ."},"; 
+        }
 
+        $agenda .= "],";    
     }
+
     return $agenda;
 }
 
