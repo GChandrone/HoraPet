@@ -1,5 +1,5 @@
 <?php
-//Função para listar todas as Raças
+//Função para listar todas as Execuções
 function listaExecucao($idAgendamento, $idPorte){
     include("conexao.php");
 

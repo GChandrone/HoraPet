@@ -1,9 +1,9 @@
 <?php
-//Função para listar todos os usuários
+//Função para listar todos os serviços
 function listaServico(){
 
     include("conexao.php");
-    $sql = "SELECT * FROM servico ORDER BY id_servico;";
+    $sql = "SELECT * FROM servico ORDER BY id_servico DESC;";
             
     $result = mysqli_query($conn,$sql);
     mysqli_close($conn);

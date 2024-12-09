@@ -71,6 +71,7 @@
                       <th>ID</th>
                       <th>Nome</th>
                       <th>Email</th>
+                      <th>Tipo de Usuário</th>
                       <th>Data de Nascimento</th>
                       <th>Telefone</th> 
                       <th>Ativo</th>                
@@ -217,6 +218,7 @@
       "info": true,
       "autoWidth": false,
       "responsive": true,
+      "order": [[0, "desc"]]
     });
   });
 </script>

@@ -2,7 +2,7 @@
 //Função para listar todos os Clientes
  function listaCliente(){
      include("conexao.php");
-     $sql = "SELECT * FROM cliente ORDER BY id_cliente;";
+     $sql = "SELECT * FROM cliente ORDER BY id_cliente DESC;";
      
      
      $result = mysqli_query($conn,$sql);
