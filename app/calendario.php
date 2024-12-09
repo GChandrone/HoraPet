@@ -58,7 +58,6 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
             <div id="calendar">
 
               <!-- Legenda Acima do Calendário -->
-              <div id="legenda">
                 <div class="calendar-legend">
                   <div class="calendar-legend">
                   <span class="legend-item planned"></span> Planejado |
@@ -66,7 +65,6 @@ verificarAcesso(['Administrador', 'Atendente', 'Esteticista Pet']);
                   <span class="legend-item completed"></span> Executado |
                   <span class="legend-item canceled"></span> Cancelado
                 </div>
-              </div> 
   
             </div>
 
