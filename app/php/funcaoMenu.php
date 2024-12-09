@@ -47,14 +47,14 @@ function montaMenu() {
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
 
     // Adiciona menus baseados no tipo de funcionário
-    if ($tipoFuncionarioID == 3) { // Admin
+    if ($tipoFuncionarioID == 1) { // Administrador
         $html .= renderMenuItems($menus['admin'], $paginaAtual);
     }
-    if ($tipoFuncionarioID == 2) { // Esteticista Pet ou superior
-        $html .= renderMenuItems($menus['esteticista pet'], $paginaAtual);
-    }
-    if ($tipoFuncionarioID == 1) { // Atendente ou superior
+    if ($tipoFuncionarioID == 2) { // Atendente
         $html .= renderMenuItems($menus['atendente'], $paginaAtual);
+    }
+    if ($tipoFuncionarioID == 3) { // Esteticista Pet
+        $html .= renderMenuItems($menus['esteticista pet'], $paginaAtual);
     }
 
     // Item de logoff, disponível para todos
