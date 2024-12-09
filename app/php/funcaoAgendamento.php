@@ -148,6 +148,7 @@ function listaAgendamento($idFuncionario, $tipoUsuario){
 }
 
 function carregaAgenda($idFuncionario, $tipoUsuario){
+
     include('conexao.php');
     $sql = "SELECT "
            ."  pet.nome as nome_pet, "
@@ -169,12 +170,13 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
                 ."data DESC, " 
                 ."horario_inicial ASC;"; 
 
-    $result = mysqli_query($conn, $sql);
-    mysqli_close($conn);
+    $result = mysqli_query($conn,$sql);
+    mysqli_close($conn);    
 
     $agenda = "";
 
     if (mysqli_num_rows($result) > 0) {
+
         $agenda = "events: [";
         
         while ($campo = mysqli_fetch_assoc($result)) {
@@ -214,8 +216,8 @@ function carregaAgenda($idFuncionario, $tipoUsuario){
         }
 
         $agenda .= "],";    
-    }
 
+    }
     return $agenda;
 }
 

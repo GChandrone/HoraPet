@@ -1,12 +1,13 @@
 /* Estilos para os eventos no calendário */
 .fc-event {
-    color: #fff !important;
-    border-radius: 6px !important;
-    padding: 5px 10px !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #28a745 !important;  /* Fundo verde */
+    color: #fff !important;  /* Texto branco */
+    border-radius: 6px !important;  /* Bordas arredondadas */
+    padding: 5px 10px !important;  /* Espaçamento interno */
+    font-size: 14px !important;  /* Tamanho da fonte */
+    font-weight: 500 !important;  /* Peso da fonte */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;  /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Efeito de transição */
 }
 
 /* Estilos específicos para cada situação */
@@ -33,16 +34,26 @@
 
 /* Efeito de hover nos eventos */
 .fc-event:hover {
-    opacity: 0.8 !important;
+    opacity: 0.8 !important;  /* Deixa o evento um pouco transparente ao passar o mouse */
 }
 
+/* Ajustes para os títulos e horários dentro do evento */
 .fc-event-title {
-    font-weight: bold;
-    font-size: 15px;
-    color: #333 !important;
+    font-weight: bold;  /* Título em negrito */
+    font-size: 15px;  /* Tamanho do título */
+    color: #333 !important;  /* Cor do título */
 }
 
 .fc-event-time {
-    font-size: 12px;
-    color: #555 !important;
+    font-size: 12px;  /* Tamanho menor para o horário */
+    color: #555 !important;  /* Cor do horário */
+}
+
+/* Eventos resizáveis (se aplicável) */
+.fc-event .ui-resizable-handle {
+    display: block !important;  /* Exibe a alça de redimensionamento */
+    background-color: #28a745 !important;  /* Cor da alça de redimensionamento */
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;  /* Forma arredondada */
 }
