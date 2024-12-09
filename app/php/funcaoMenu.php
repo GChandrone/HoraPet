@@ -29,10 +29,10 @@ function montaMenu() {
         'atendente' => [
             'agendamentos' => ['icon' => 'far fa-calendar-plus', 'label' => 'Agendamentos', 'link' => './agendamentos.php'],
             'calendario' => ['icon' => 'far fa-calendar-alt', 'label' => 'Calendário', 'link' => './calendario.php'],
-            'pets' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],
-            'clientes' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
             'racas' => ['icon' => 'fas fa-paw', 'label' => 'Raças', 'link' => './racas.php'],
             'servicos' => ['icon' => 'ion ion-scissors', 'label' => 'Serviços', 'link' => './servicos.php'],
+            'clientes' => ['icon' => 'ion ion-ios-people', 'label' => 'Clientes', 'link' => './clientes.php'],
+            'pets' => ['icon' => 'fas fa-dog', 'label' => 'Pets', 'link' => './pets.php'],            
         ],
     ];
 

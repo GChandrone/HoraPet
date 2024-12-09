@@ -10,6 +10,8 @@
 <!DOCTYPE HTML>
 <html lang="pt-br">
 <head>
+    
+    <link rel="icon" type="image/png" href="../landing/images/patinhaVerde.png">
     <meta charset="UTF-8">
     <title>Hora Pet</title>
     <!-- CSS -->

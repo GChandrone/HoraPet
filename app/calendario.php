@@ -13,7 +13,7 @@ $_SESSION['origem'] = 'calendario.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hora Pet</title>
-
+  <link rel="icon" type="image/png" href="../landing/images/patinhaVerde.png">
   <!-- CSS -->
   <?php include('partes/css.php'); ?>
   <!-- Fim CSS -->
