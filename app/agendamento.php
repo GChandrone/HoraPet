@@ -241,7 +241,7 @@ if ($urlVoltar == 'calendario.php') {
                           <div class="for8m-group">
                             <label for="iData">Data:</label>
                             <input type="date" class="form-control" id="iData" name="nData" value="<?php echo $data; ?>"
-                              required min="2024-01-01" max="9999-12-31">
+                              required min="2024-01-01" max="2025-12-31">
                           </div>
                         </div>
 
